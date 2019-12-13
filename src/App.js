@@ -18,6 +18,7 @@ function App() {
         >
           Learn React
         </a>
+        <p>Chuka has made changes</p>
       </header>
     </div>
   );
