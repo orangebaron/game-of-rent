@@ -1,0 +1,68 @@
+.PlayerCard {
+    text-align: center;
+}
+
+.PlayerCard-background{
+    position: absolute;
+    top: 2%;
+    left: 4%;
+    height: 20vmin;
+    z-index: 2;
+}
+
+.PlayerCard-header {
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: calc(5px + 2vmin);
+    color: white;
+}
+
+.PlayerCard-Name{
+    position: absolute;
+    justify-content: left;
+    font-family: Roboto;
+    top: 3%;
+    font-size: calc(3px + 1vmin);
+    display: flex;
+    left: 7%;
+    z-index: 3;
+}
+
+.PlayerCard-playerBackground{
+    position: absolute;
+    justify-content: left;
+    font-family: Roboto;
+    top: 14%;
+    font-size: calc(3px + 1vmin);
+    display: flex;
+    left: 5%;
+    z-index: 3;
+}
+
+.PlayerCard-nameBubble{
+    position: absolute;
+    top: 8%;
+    left: 7.5%;
+    height: 6vmin;
+    z-index: 2;
+}
+
+.PlayerCard-infoButton{
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    padding: 0.75% 0.75%;
+    top: 17.5%;
+    left: 10.5%;
+    cursor: pointer;
+}
+
+.PlayerCard-infoIcon{
+    position: absolute;
+    top: 18%;
+    left: 10.75%;
+    height: 3%;
+    z-index: 3;
+}

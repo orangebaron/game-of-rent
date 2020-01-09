@@ -1,0 +1,60 @@
+.WelcomePage {
+    text-align: center;
+}
+
+.WelcomePage-map {
+    position: relative;
+    top: 0;
+    height: 100vmin;
+    z-index: 1;
+}
+
+.WelcomePage-grey {
+    position: absolute;
+    top: 0;
+    align-items: center;
+    height: 100vmin;
+    z-index: 2;
+}
+
+.WelcomePage-title {
+    position: absolute;
+    font-family: Roboto;
+    top: 5%;
+    font-weight: bold;
+    display: flex;
+    z-index: 3;
+}
+
+.WelcomePage-introText{
+    position: absolute;
+    font-family: Roboto;
+    top: 35%;
+    font-size: calc(5px + 2vmin);
+    display: flex;
+    left: 35%;
+    right: 35%;
+    z-index: 3;
+}
+
+.WelcomePage-button{
+    position: absolute;
+    font-family: Roboto;
+    bottom: 15%;
+    border-radius: 12px;
+    background-color: white;
+    padding: 1% 3%;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.WelcomePage-header {
+    /*background-color: #282c34;*/
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 4vmin);
+    color: white;
+}
