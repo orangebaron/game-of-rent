@@ -15,7 +15,6 @@ function App() {
         <Card setOccupation={'retail'} />
       </header>
     </div>
-    <p>trying git rebase</p>
   );
 }
 
