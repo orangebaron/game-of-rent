@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
@@ -45,17 +43,19 @@ const useStyles = makeStyles({
 });
 
 export default function CustomCard() {
-
   const classes = useStyles();
 
-  const [occupation, setOccupation] = useState('Retail Salesperson');
-  const [income, setIncome] = useState(2270);
+
+  // Currency Formatting:
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 0
   })
 
+  // States for CustomCard:
+  const [occupation, setOccupation] = useState('Retail Salesperson');
+  const [income, setIncome] = useState(2270);
   const [coordX, setCoordX] = useState('J');
   const [coordY, setCoordY] = useState(12);
   
@@ -67,19 +67,16 @@ export default function CustomCard() {
         <CssBaseline />
         <Container className={classes.container} >
           <Typography component="div" className={classes.occupationDiv}> 
-            <Typography variant="h5" component="h2">
-              Occupation
-            </Typography>
+            <Typography variant="h5" component="h2"> Occupation </Typography>
           </Typography>
         </Container>
       </React.Fragment>
     </CardActions>
       
     <CardContent>
-      <Typography variant="h4" component="h4" gutterBottom>{occupation}</Typography>
+      <Typography variant="h4" component="h4" gutterBottom> {occupation} </Typography>
       <Typography variant="h6" component="h5">
-        Monthly Income:
-        <br />
+        Monthly Income: <br />
         {formatter.format(income)}
       </Typography>
     </CardContent>
@@ -89,5 +86,4 @@ export default function CustomCard() {
       </Typography>
     </CardActions>
   </Card>
-  );
-}
+);}
