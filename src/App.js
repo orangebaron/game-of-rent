@@ -1,6 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import TextInputComponent from './TextInputComponent.js';
+import ButtonComponent from './ButtonComponent.js'
+
 
 function App() {
   return (
@@ -18,6 +21,14 @@ function App() {
         >
           Learn React
         </a>
+
+        <TextInputComponent>
+        </TextInputComponent>
+
+        <ButtonComponent>
+
+        </ButtonComponent>
+
       </header>
     </div>
   );
