@@ -1,6 +1,6 @@
 import React from 'react';
-import croppedBoard from './croppedBoard.png';
-import grayOverlay from './grayOverlay.png';
+import croppedBoard from './img/croppedBoard.png';
+import grayOverlay from './img/grayOverlay.png';
 import './WelcomePage.css';
 
 function WelcomePage() {

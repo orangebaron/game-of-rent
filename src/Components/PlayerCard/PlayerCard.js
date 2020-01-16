@@ -1,7 +1,7 @@
 import React from 'react';
-import playerBackground from './playerBackground.png';
-import nameBubble from './nameBubble.png';
-import infoBubble from './infoBubble.png';
+import playerBackground from './img/playerBackground.png';
+import nameBubble from './img/nameBubble.png';
+import infoBubble from './img/infoBubble.png';
 import './PlayerCard.css';
 
 function PlayerCard() {
