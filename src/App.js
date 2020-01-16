@@ -2,6 +2,9 @@ import React from 'react';
 import WelcomePage from './WelcomePage'
 import PlayerCard from "./PlayerCard";
 import './App.css';
+import TextInputComponent from './TextInputComponent.js';
+import ButtonComponent from './ButtonComponent.js'
+
 
 import Card from './Card/CustomCard'
 
