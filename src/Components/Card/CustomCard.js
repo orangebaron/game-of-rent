@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../../App.css';
-import '../../App.js'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -23,10 +22,10 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
   coord: {
-    backgroundColor: '#ffa500',
-    height: '8vh',
-    display: 'flex',
-    alignItems: 'center',
+    backgroundColor: '#ffa500', 
+    height: '8vh', 
+    display: 'flex', 
+    alignItems: 'center', 
     justifyContent: 'center',
     color: '#ffffff'
   },
@@ -35,10 +34,10 @@ const useStyles = makeStyles({
   },
   occupationDiv: {
     color: '#ffffff',
-    backgroundColor: '#ffa500',
-    height: '10vh',
-    display: 'flex',
-    alignItems: 'center',
+    backgroundColor: '#ffa500', 
+    height: '10vh', 
+    display: 'flex', 
+    alignItems: 'center', 
     justifyContent: 'center',
   }
 });
@@ -59,7 +58,7 @@ export default function CustomCard() {
   const [income, setIncome] = useState(2270);
   const [coordX, setCoordX] = useState('J');
   const [coordY, setCoordY] = useState(12);
-
+  
   return (
     <Card className={classes.card}>
 
@@ -67,13 +66,13 @@ export default function CustomCard() {
       <React.Fragment>
         <CssBaseline />
         <Container className={classes.container} >
-          <Typography component="div" className={classes.occupationDiv}>
+          <Typography component="div" className={classes.occupationDiv}> 
             <Typography variant="h5" component="h2"> Occupation </Typography>
           </Typography>
         </Container>
       </React.Fragment>
     </CardActions>
-
+      
     <CardContent>
       <Typography variant="h4" component="h4" gutterBottom> {occupation} </Typography>
       <Typography variant="h6" component="h5">
