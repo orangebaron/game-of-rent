@@ -6,8 +6,9 @@ import './App.css';
 import TextInputComponent from './TextInputComponent.js';
 import ButtonComponent from './ButtonComponent.js'
 
-
 import Card from './Components/Card/CustomCard'
+import Map from './Components/Board/Map'
+import GameBoard from './Components/Board/GameBoard'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <WelcomePage/>
         <PlayerCard/>
         <Card setOccupation={'retail'} />
+        <GameBoard/>
       </header>
     </div>
   );
