@@ -17,6 +17,7 @@ function App() {
         <WelcomePage/>
         <PlayerCard/>
         <Card setOccupation={'retail'} />
+  
         <GameBoard/>
       </header>
     </div>
