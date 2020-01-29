@@ -2,6 +2,7 @@ import React from 'react';
 import WelcomePage from './Components/WelcomePage/WelcomePage'
 import PlayerCard from "./Components/PlayerCard/PlayerCard";
 import InstructionBox from './Components/InstructionBox/InstructionBox.js';
+import MathBox from './Components/MathBox/MathBox.js';
 
 import './App.css';
 import TextInputComponent from './TextInputComponent.js';
@@ -17,6 +18,7 @@ function App() {
         <WelcomePage/>
         <PlayerCard/>
         <InstructionBox/>
+        <MathBox/>
         <Card setOccupation={'retail'} />
       </header>
     </div>
