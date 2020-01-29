@@ -26,6 +26,7 @@ git branch -a
 ## To install ESLint initially: 
 ```sh
 npm i -g eslint
+npm i --save-dev eslint-config-airbnb
 ```
 
 ## To run linter (when in game-of-rent directory): 
