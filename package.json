@@ -32,8 +32,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
-=======
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -45,6 +43,5 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^1.7.0"
->>>>>>> reconnecting to repo
   }
 }
