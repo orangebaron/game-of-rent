@@ -22,24 +22,42 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
   coord: {
+<<<<<<< HEAD
     backgroundColor: '#ffa500', 
     height: '8vh', 
     display: 'flex', 
     alignItems: 'center', 
     justifyContent: 'center',
     color: '#ffffff'
+=======
+    backgroundColor: '#ffa500',
+    height: '8vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#ffffff',
+>>>>>>> reconnecting to repo
   },
   container: {
     padding: 0,
   },
   occupationDiv: {
     color: '#ffffff',
+<<<<<<< HEAD
     backgroundColor: '#ffa500', 
     height: '10vh', 
     display: 'flex', 
     alignItems: 'center', 
     justifyContent: 'center',
   }
+=======
+    backgroundColor: '#ffa500',
+    height: '10vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+>>>>>>> reconnecting to repo
 });
 
 export default function CustomCard() {
@@ -50,14 +68,20 @@ export default function CustomCard() {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
+<<<<<<< HEAD
     minimumFractionDigits: 0
   })
+=======
+    minimumFractionDigits: 0,
+  });
+>>>>>>> reconnecting to repo
 
   // States for CustomCard:
   const [occupation, setOccupation] = useState('Retail Salesperson');
   const [income, setIncome] = useState(2270);
   const [coordX, setCoordX] = useState('J');
   const [coordY, setCoordY] = useState(12);
+<<<<<<< HEAD
   
   return (
     <Card className={classes.card}>
@@ -87,3 +111,41 @@ export default function CustomCard() {
     </CardActions>
   </Card>
 );}
+=======
+
+  return (
+    <Card className={classes.card}>
+
+      <CardActions className={classes.occupationDiv}>
+        <>
+          <CssBaseline />
+          <Container className={classes.container}>
+            <Typography component="div" className={classes.occupationDiv}>
+              <Typography variant="h5" component="h2"> Occupation </Typography>
+            </Typography>
+          </Container>
+        </>
+      </CardActions>
+
+      <CardContent>
+        <Typography variant="h4" component="h4" gutterBottom>
+          {' '}
+          {occupation}
+          {' '}
+        </Typography>
+        <Typography variant="h6" component="h5">
+        Monthly Income:
+          {' '}
+          <br />
+          {formatter.format(income)}
+        </Typography>
+      </CardContent>
+      <CardActions className={classes.coord}>
+        <Typography variant="h5" component="h2">
+          {coordX + coordY}
+        </Typography>
+      </CardActions>
+    </Card>
+  );
+}
+>>>>>>> reconnecting to repo
