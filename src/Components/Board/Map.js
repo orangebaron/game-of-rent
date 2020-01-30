@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 <<<<<<< HEAD
 import "./Map.css"
-import Nash from './img/Nashville-map.jpeg';
+import Nash from './img/Nashville-map-cropped.jpg';
 
 function Map() {
     return (
