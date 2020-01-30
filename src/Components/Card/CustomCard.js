@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../../App.css';
-import '../../App.js'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -28,7 +27,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: '#ffffff'
+    color: '#ffffff',
   },
   container: {
     padding: 0,
@@ -40,7 +39,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });
 
 export default function CustomCard() {
@@ -51,40 +50,47 @@ export default function CustomCard() {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    minimumFractionDigits: 0
-  })
+    minimumFractionDigits: 0,
+  });
 
   // States for CustomCard:
-  const [occupation, setOccupation] = useState('Retail Salesperson');
-  const [income, setIncome] = useState(2270);
-  const [coordX, setCoordX] = useState('J');
-  const [coordY, setCoordY] = useState(12);
+  const [occupation] = useState('Retail Salesperson');
+  const [income] = useState(2270);
+  const [coordX] = useState('J');
+  const [coordY] = useState(12);
 
   return (
     <Card className={classes.card}>
 
-    <CardActions className={classes.occupationDiv}>
-      <React.Fragment>
-        <CssBaseline />
-        <Container className={classes.container} >
-          <Typography component="div" className={classes.occupationDiv}>
-            <Typography variant="h5" component="h2"> Occupation </Typography>
-          </Typography>
-        </Container>
-      </React.Fragment>
-    </CardActions>
+      <CardActions className={classes.occupationDiv}>
+        <>
+          <CssBaseline />
+          <Container className={classes.container}>
+            <Typography component="div" className={classes.occupationDiv}>
+              <Typography variant="h5" component="h2"> Occupation </Typography>
+            </Typography>
+          </Container>
+        </>
+      </CardActions>
 
-    <CardContent>
-      <Typography variant="h4" component="h4" gutterBottom> {occupation} </Typography>
-      <Typography variant="h6" component="h5">
-        Monthly Income: <br />
-        {formatter.format(income)}
-      </Typography>
-    </CardContent>
-    <CardActions className={classes.coord}>
-      <Typography variant="h5" component="h2">
-        {coordX + coordY}
-      </Typography>
-    </CardActions>
-  </Card>
-);}
+      <CardContent>
+        <Typography variant="h4" component="h4" gutterBottom>
+          {' '}
+          {occupation}
+          {' '}
+        </Typography>
+        <Typography variant="h6" component="h5">
+        Monthly Income:
+          {' '}
+          <br />
+          {formatter.format(income)}
+        </Typography>
+      </CardContent>
+      <CardActions className={classes.coord}>
+        <Typography variant="h5" component="h2">
+          {coordX + coordY}
+        </Typography>
+      </CardActions>
+    </Card>
+  );
+}
