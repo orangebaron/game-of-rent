@@ -5,7 +5,7 @@ import grayOverlay from './img/grayOverlay.png';
 import './WelcomePage.css';
 import Background from './img/croppedBoard.png';
 
-let sectionStyle = {
+const sectionStyle = {
   width: '100vw',
   height: 'auto',
   backgroundImage: `url(${Background})`,
