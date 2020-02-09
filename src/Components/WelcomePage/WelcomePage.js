@@ -1,9 +1,14 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import grayOverlay from './img/grayOverlay.png';
 import './WelcomePage.css';
 import Background from './img/croppedBoard.png';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const sectionStyle = {
   width: '100vw',
@@ -27,7 +32,12 @@ function WelcomePage() {
                       somewhere they can afford. In the Game of Rent, each player will have to make the most of what
                       they’ve given and find an apartment you can afford to rent as close to your job as possible.
           </p>
-          <button className="WelcomePage-button">Let's get started</button>
+          <Link to="/board">
+            <button className="WelcomePage-button">
+              Let's get started
+            </button>
+          </Link>
+          
         </header>
       </div>
     </section>
