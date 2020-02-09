@@ -7,7 +7,6 @@ import {
 
 import WelcomePage from './Components/WelcomePage/WelcomePage';
 import GameBoard from './Components/Board/GameBoard';
-
 import './App.css';
 
 function App() {
