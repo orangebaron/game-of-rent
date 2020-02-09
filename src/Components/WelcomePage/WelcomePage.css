@@ -38,7 +38,7 @@
 }
 
 .WelcomePage-button{
-    position: absolute;
+    position: relative;
     font-family: Roboto;
     bottom: 15%;
     border-radius: 12px;

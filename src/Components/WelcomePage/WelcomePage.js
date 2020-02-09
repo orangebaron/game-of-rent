@@ -16,28 +16,32 @@ const sectionStyle = {
 
 function WelcomePage() {
   return (
-    <section style={sectionStyle}>
+    <div style={sectionStyle}>
       <div className="WelcomePage">
         <header className="WelcomePage-header">
-          <p className="WelcomePage-title">
-            Welcome to the Game of Rent!
-          </p>
-          <p className="WelcomePage-introText">
-            More and more American families and individuals are finding
-            it increasingly difficult to live
-            somewhere they can afford. In the Game of Rent, each player
-            will have to make the most of what
-            they’ve given and find an apartment you can afford to rent
-            as close to your job as possible.
-          </p>
-          <Link to="/board">
-            <button type="button" className="WelcomePage-button">
-              Let&apos;s get started
-            </button>
-          </Link>
+          <div>
+            <p className="WelcomePage-title">
+              Welcome to the Game of Rent!
+            </p>
+            <p className="WelcomePage-introText">
+              More and more American families and individuals are finding
+              it increasingly difficult to live
+              somewhere they can afford. In the Game of Rent, each player
+              will have to make the most of what
+              they’ve given and find an apartment you can afford to rent
+              as close to your job as possible.
+            </p>
+          </div>
+          <div>
+            <Link to="/board">
+              <button type="button" className="WelcomePage-button">
+                Let&apos;s get started
+              </button>
+            </Link>
+          </div>
         </header>
       </div>
-    </section>
+    </div>
   );
 }
 
