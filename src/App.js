@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 
 import WelcomePage from './Components/WelcomePage/WelcomePage';
 import GameBoard from './Components/Board/GameBoard';
