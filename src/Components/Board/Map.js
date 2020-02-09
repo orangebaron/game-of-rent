@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Map.css';
-import Nash from './img/Nashville-map.jpeg';
+import Nash from './img/Nashville-map.jpg';
 
 function Map() {
   return (
     <div className="Map">
-      <img src={Nash} className="Nashville-map" />
+      <img src={Nash} className="Nashville-map" alt="Nashville-map" />
     </div>
   );
 }

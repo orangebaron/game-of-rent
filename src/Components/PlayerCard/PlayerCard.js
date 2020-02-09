@@ -1,9 +1,9 @@
 import React from 'react';
+import InfoIcon from '@material-ui/icons/Info';
 import playerBackground from './img/playerBackground.png';
 import nameBubble from './img/nameBubble.png';
 import infoBubble from './img/infoBubble.png';
 import InfoButton from './InfoButton';
-import InfoIcon from '@material-ui/icons/Info';
 
 import './PlayerCard.css';
 
