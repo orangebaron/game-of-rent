@@ -9,9 +9,9 @@ function PlayerPopup() {
       <img src={popup} className="PlayerPopup-background" alt="logo" />
       <img src={nameBubble} className="PlayerPopup-bubble" alt="logo" />
       <p className="PlayerPopup-text">
-Player Name: John Doe
+        Player Name: John Doe
         <br />
-Total Monthly Income: $2500
+        Total Monthly Income: $2500
       </p>
       <button className="PlayerPopup-xButton">X</button>
     </div>
