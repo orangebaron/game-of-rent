@@ -11,9 +11,9 @@ function GameBoard() {
       <Map />
       <Dice />
       <PlayerCard />
+      {/* <PlayerCard />
       <PlayerCard />
-      <PlayerCard />
-      <PlayerCard />
+      <PlayerCard /> */}
     </div>
   );
 }
