@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import './WelcomePage.css';
 import Background from './img/croppedBoard.png';
 
-
 const sectionStyle = {
   width: '100vw',
   height: 'auto',
