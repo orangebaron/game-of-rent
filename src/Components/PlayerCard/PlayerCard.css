@@ -1,68 +1,45 @@
 .PlayerCard {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    background-color: #E5E5E5;
 }
 
-.PlayerCard-background{
-    position: absolute;
-    top: 2%;
-    left: 4%;
-    height: 20vmin;
-    z-index: 2;
-}
+
 
 .PlayerCard-header {
-    top: 0;
-    left: 0;
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    align-items: center;
     font-size: calc(5px + 2vmin);
-    color: white;
+    color: black;
 }
 
 .PlayerCard-Name{
-    position: absolute;
-    justify-content: left;
     font-family: Roboto;
-    top: 3%;
-    font-size: calc(3px + 1vmin);
-    display: flex;
-    left: 7%;
+    font-size: calc(5px + 1vmin);
     z-index: 3;
 }
 
-.PlayerCard-playerBackground{
-    position: absolute;
-    justify-content: left;
+.PlayerCard-Summary{
     font-family: Roboto;
-    top: 14%;
     font-size: calc(3px + 1vmin);
-    display: flex;
-    left: 5%;
     z-index: 3;
 }
 
-.PlayerCard-nameBubble{
-    position: absolute;
-    top: 8%;
-    left: 7.5%;
-    height: 6vmin;
+.PlayerCard-Avatar{
+    width: 60px;
+    height: 65px;
     z-index: 2;
 }
 
-/* .PlayerCard-InfoButton{
-    position: absolute;
-    z-index: 2;
-    border-radius: 50%;
-    padding: 0.75% 0.75%;
-    top: 17.5%;
-    left: 10.5%;
-    cursor: pointer;
-} */
-
-.PlayerCard-InfoButton{
-    position: absolute;
-    top: 17%;
-    left: 14.5%;
-    height: 3%;
-    z-index: 3;
+.PlayerCard-infoIcon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: 80px;
 }
+

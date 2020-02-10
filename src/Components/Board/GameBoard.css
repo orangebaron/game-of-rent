@@ -6,3 +6,12 @@
     background-color: #4CACE9;
     color: #ffffff;
 }
+
+.playerCardSection {
+    width: 220px;
+    height: 940px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+
+}

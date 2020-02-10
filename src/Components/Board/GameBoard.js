@@ -8,12 +8,15 @@ import Dice from '../Dice/Dice';
 function GameBoard() {
   return (
     <div className="Board">
+        <div className='playerCardSection'>
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+        </div>
       <Map />
-      <Dice />
-      <PlayerCard />
-      {/* <PlayerCard />
-      <PlayerCard />
-      <PlayerCard /> */}
+      {/*<Dice />*/} //want to add dice to map
+
     </div>
   );
 }
