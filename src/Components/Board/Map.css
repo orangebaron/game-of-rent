@@ -1,33 +1,27 @@
+.Map {
+    position: relative;
+    width: 1000px;
+    height: 950px;
+    margin: 10px 20px 0 20px;
+}
+
 .Nashville-map {
-    /*width: 947px;
-    height: 918px;*/
-    top: 5%;
-    height: 90vmin;
-    justify-content: center;
+    width: 940px;
+    height: 910px;
+    position: relative;
+    top: 20px;
+
 }
 
-.Map-extraLetter{
+.gridLetters{
+    width: 910px;
     position: absolute;
-    top: 4.25%;
-    left: 69.5%;
-    font-family: Roboto;
-    font-size: 1.75vmin;
-    color: deepskyblue;
-    font-weight: bolder;
-    z-index: 3;
+    left: 15px;
 }
 
-/*.Nashville-letters{
+.gridNumbers {
     position: absolute;
-    top: 2%;
-    left: 30%;
-    justify-content: center;
-    width: 90vmin;
+    left: -25px;
+    top: 20px;
+    height: 880px;
 }
-
-.Nashville-numbers {
-    position: absolute;
-    top: 6%;
-    left: 27.5%;
-    height: 87.5vmin;
-}*/
