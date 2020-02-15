@@ -70,28 +70,30 @@ const buttonStyle = {
 //   cursor: pointer;
 // }
 
+
+
 function WelcomePage() {
   return (
     <div style={sectionStyle}>
-      <header style={headerStyle}>
-        <div style={textGrid}>
-          <p>
-            Welcome to the Game of Rent!
-          </p>
-          <p className="WelcomePage-introText">
-            More and more American families and individuals are finding
-            it increasingly difficult to live
-            somewhere they can afford. In the Game of Rent, each player
-            will have to make the most of what
-            they’ve given and find an apartment you can afford to rent
-            as close to your job as possible.
-          </p>
-          <Button variant="outlined" style={buttonStyle} href="/board">
-            Start
-          </Button>
-        </div>
-      </header>
-    </div>
+        <header style={headerStyle}>
+          <div style={textGrid}>
+            <p>
+              Welcome to the Game of Rent!
+            </p>
+            <p className="WelcomePage-introText">
+              More and more American families and individuals are finding
+              it increasingly difficult to live
+              somewhere they can afford. In the Game of Rent, each player
+              will have to make the most of what
+              they’ve given and find an apartment you can afford to rent
+              as close to your job as possible.
+            </p>
+            <Button variant="outlined" style={buttonStyle} href="/board">
+              Start
+            </Button>
+          </div>
+        </header>
+      </div>
   );
 }
 
