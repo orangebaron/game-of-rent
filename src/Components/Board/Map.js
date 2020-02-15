@@ -10,6 +10,7 @@ function Map() {
       <img src={Numbers} alt="numbers for map grid" className="gridNumbers" />
       <img src={Letters} alt="letters for map grid" className="gridLetters" />
       <img src={Nash} className="Nashville-map" />
+      {/* need to add dice to map */}
     </div>
   );
 }
