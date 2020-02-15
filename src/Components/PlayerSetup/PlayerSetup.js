@@ -25,7 +25,6 @@ class PlayerSetup extends React.Component {
   render() {
     return (
       <div
-        className="PlayerSetup"
         style={{ backgroundColor: 'gray' }}
       >
         <p>{setup[this.state.setupLocation]}</p>
