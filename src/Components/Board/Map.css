@@ -1,5 +1,33 @@
 .Nashville-map {
-    width: 947px;
-    height: 918px;
+    /*width: 947px;
+    height: 918px;*/
+    top: 5%;
+    height: 90vmin;
     justify-content: center;
 }
+
+.Map-extraLetter{
+    position: absolute;
+    top: 4.25%;
+    left: 69.5%;
+    font-family: Roboto;
+    font-size: 1.75vmin;
+    color: deepskyblue;
+    font-weight: bolder;
+    z-index: 3;
+}
+
+/*.Nashville-letters{
+    position: absolute;
+    top: 2%;
+    left: 30%;
+    justify-content: center;
+    width: 90vmin;
+}
+
+.Nashville-numbers {
+    position: absolute;
+    top: 6%;
+    left: 27.5%;
+    height: 87.5vmin;
+}*/

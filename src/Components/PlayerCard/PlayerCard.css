@@ -49,7 +49,7 @@
     z-index: 2;
 }
 
-.PlayerCard-infoButton{
+/* .PlayerCard-InfoButton{
     position: absolute;
     z-index: 2;
     border-radius: 50%;
@@ -57,12 +57,12 @@
     top: 17.5%;
     left: 10.5%;
     cursor: pointer;
-}
+} */
 
-.PlayerCard-infoIcon{
+.PlayerCard-InfoButton{
     position: absolute;
-    top: 18%;
-    left: 10.75%;
+    top: 17%;
+    left: 14.5%;
     height: 3%;
     z-index: 3;
 }

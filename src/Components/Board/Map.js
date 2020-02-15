@@ -1,30 +1,16 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
 import "./Map.css"
-import Nash from './img/Nashville-map.jpeg';
+import Nash from './img/Nashville-map.jpg'
 
 function Map() {
     return (
         <div className="Map">
             <img src={Nash} className="Nashville-map" />
+            <p className="Map-extraLetter">
+                S
+            </p>
         </div>
     );
 }
 
 export default Map;
-
-
-=======
-import './Map.css';
-import Nash from './img/Nashville-map.jpeg';
-
-function Map() {
-  return (
-    <div className="Map">
-      <img src={Nash} className="Nashville-map" />
-    </div>
-  );
-}
-
-export default Map;
->>>>>>> reconnecting to repo
