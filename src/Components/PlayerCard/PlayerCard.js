@@ -1,7 +1,7 @@
 import React from 'react';
-import nameBubble from './img/nameBubble.png';
 import infoBubble from './img/infoBubble.png';
 import './PlayerCard.css';
+import PlayerIcon from '../PlayerIcon/PlayerIcon';
 
 function PlayerCard() {
   return (
@@ -11,14 +11,16 @@ function PlayerCard() {
         <p className="PlayerCard-Name">
                     John Doe
         </p>
-        <img src={nameBubble} className="PlayerCard-Avatar" alt="logo" />
+        <PlayerIcon num="0" className="PlayerCard-Avatar" alt="player avatar" />
         <p className="PlayerCard-Summary">
                     Family Monthly Income:
           {' '}
           <br />
 $2,500
         </p>
-          <img src={infoBubble} className="PlayerCard-infoIcon" alt="logo" />
+        <div className="PlayerCard-infoIcon">
+          <img src={infoBubble} alt="logo" />
+        </div>
       </header>
     </div>
   );

@@ -1,11 +1,10 @@
 import React from 'react';
 
-class PlayerIcon extends React.Component {
-  render() {
-    return (
-      <img src={require(`./imgs/${this.props.num}.png`)} />
-    );
-  }
+function PlayerIcon(props) {
+  return (
+    <img style={{width: "70px"}} src={require(`./imgs/${props.num}.png`)} />
+  );
 }
+
 
 export default PlayerIcon;
