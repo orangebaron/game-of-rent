@@ -1,12 +1,11 @@
 import React from 'react';
-import { Image } from 'react-native'
 
-import './PlayerIcon.css';
-
-function PlayerIcon(n) {
-  return (
-    <Image source={require('./imgs/'+n)} />
-  );
+class PlayerIcon extends React.Component {
+  render() {
+    return (
+      <img src={require(`./imgs/${this.props.num}.png`)} />
+    );
+  }
 }
 
 export default PlayerIcon;
