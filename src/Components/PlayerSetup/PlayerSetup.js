@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../ButtonComponent';
 import Background from '../WelcomePage/img/croppedBoard.png';
 import PlayerIcon from '../PlayerIcon/PlayerIcon';
 
@@ -23,7 +24,7 @@ const styles = {
   textGrid: {
     backgroundColor: '#000000aa',
     borderRadius: '1em',
-    width: '75vw',
+    width: '60vw',
     height: '70vh',
     padding: '2%',
     display: 'flex',
@@ -42,7 +43,8 @@ const styles = {
     width: '30vw',
     height: '5vh',
     borderRadius: 10,
-
+    textAlign: 'center',
+    fontSize: '20px',
   },
   avatarSection: {
 
@@ -51,8 +53,9 @@ const styles = {
     justifyContent: 'space-evenly',
     marginTop: '2vh',
   },
-  playerAvatar: {
-    cursor: 'pointer',
+  button: {
+    width: '10vw',
+    text: '10px',
   },
 };
 
@@ -97,7 +100,7 @@ class PlayerSetup extends React.Component {
 
             </div>
 
-
+            <Button style={styles.button}/>
           </div>
 
 
