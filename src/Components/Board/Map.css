@@ -1,16 +1,12 @@
-.Map {
+/* .Map {
     position: relative;
-    width: 1000px;
-    height: 950px;
-    margin: 10px 20px 0 20px;
+    width: 100vw;
+    height: auto;
 }
 
 .Nashville-map {
-    width: 940px;
-    height: 910px;
-    position: relative;
-    top: 20px;
-
+    width: 90%;
+    height: 90%;
 }
 
 .gridLetters{
@@ -24,4 +20,4 @@
     left: -25px;
     top: 20px;
     height: 880px;
-}
+} */

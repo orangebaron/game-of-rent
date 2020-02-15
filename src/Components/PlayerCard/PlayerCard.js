@@ -1,25 +1,26 @@
 import React from 'react';
-import PlayerIcon from '../PlayerIcon/PlayerIcon';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
 
+import PlayerIcon from '../PlayerIcon/PlayerIcon';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: theme.spacing(1.5),
+    padding: theme.spacing(1),
   },
   paper: {
     border: '3px solid lightRed',
-    minHeight: 200,
+    height: '20vh',
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    alignContent: 'space-around',
+    alignContent: 'space-evenly',
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,

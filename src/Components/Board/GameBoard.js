@@ -1,5 +1,6 @@
 import React from 'react';
-import './GameBoard.css';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Map from './Map';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
@@ -7,15 +8,34 @@ import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
+    backgroundColor: '#4CACE9',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100vw',
+    height: '100vh',
   },
-  paper: {
-    height: 140,
-    width: 100,
+  playerCardSection: {
+    width: '15vw',
+    height: '100vh',
+  },
+  map: {
+    width: '70vw',
+    height: '100vh',
+    backgroundColor: 'yellow',
+  },
+  gameCardSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '15vw',
+    height: '100vh',
   },
 }));
 
@@ -23,19 +43,21 @@ function GameBoard() {
   const classes = useStyles();
 
   return (
-    <div className="Board">
-      <div className="playerCardSection">
+    <div className={classes.root}>
+      <div className={classes.playerCardSection}>
         <PlayerCard />
         <PlayerCard />
         <PlayerCard />
         <PlayerCard />
       </div>
-      <Map />
-      <div className="gameCardSection">
-        <img src={OccupationCardBack} className="card" alt="OccupationCardBack" />
-        <img src={HouseholdCardBack} className="card" alt="HouseholdCardBack" />
-        <img src={LifeCardBack} className="card" alt="LifeCardBack" />
-        <img src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" />
+      <div className={classes.map}>
+        <Map />
+      </div>
+      <div className={classes.gameCardSection}>
+        <img style={{ height: '160px' }} src={OccupationCardBack} className="card" alt="OccupationCardBack" />
+        <img style={{ height: '160px' }} src={HouseholdCardBack} className="card" alt="HouseholdCardBack" />
+        <img style={{ height: '160px' }} src={LifeCardBack} className="card" alt="LifeCardBack" />
+        <img style={{ height: '160px' }} src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" />
       </div>
     </div>
   );
