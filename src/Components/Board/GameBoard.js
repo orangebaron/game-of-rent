@@ -7,7 +7,21 @@ import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    height: 140,
+    width: 100,
+  },
+}));
+
 function GameBoard() {
+  const classes = useStyles();
+
   return (
     <div className="Board">
       <div className="playerCardSection">
@@ -18,13 +32,11 @@ function GameBoard() {
       </div>
       <Map />
       <div className="gameCardSection">
-        <img src={OccupationCardBack} className="card" />
-        <img src={HouseholdCardBack} className="card" />
-        <img src={LifeCardBack} className="card" />
-        <img src={NeighborhoodCardBack} className="card" />
-
+        <img src={OccupationCardBack} className="card" alt="OccupationCardBack" />
+        <img src={HouseholdCardBack} className="card" alt="HouseholdCardBack" />
+        <img src={LifeCardBack} className="card" alt="LifeCardBack" />
+        <img src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" />
       </div>
-
     </div>
   );
 }
