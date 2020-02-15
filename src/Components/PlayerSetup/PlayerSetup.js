@@ -27,7 +27,7 @@ class PlayerSetup extends React.Component {
       <div
         style={{ backgroundColor: 'gray' }}
       >
-        <p>{setup[this.state.setupLocation]}</p>
+        <p>{setup[this.state.setupLocation].replace("[CITY]", this.props.city || "Nashville")}</p>
       </div>
     );
   }
