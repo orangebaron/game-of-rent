@@ -17,7 +17,6 @@ class MathBox extends React.Component {
     const allowanceMinusRentOver100 = Math.floor((this.state.allowance - this.state.rent) / 100);
     return (
       <div
-        className="MathBox"
         style={{ backgroundColor: 'gray' }}
       >
         <p>

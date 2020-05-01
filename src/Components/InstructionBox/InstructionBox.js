@@ -21,7 +21,6 @@ class InstructionBox extends React.Component {
   render() {
     return (
       <div
-        className="InstructionBox"
         style={{ backgroundColor: 'gray' }}
       >
         <h1>Instructions</h1>
