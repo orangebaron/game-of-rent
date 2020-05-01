@@ -1,5 +1,6 @@
 import React from 'react';
 import './GameBoard.css';
+import { makeStyles } from '@material-ui/core/styles';
 import Map from './Map';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
@@ -7,9 +8,9 @@ import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -37,7 +38,9 @@ function GameBoard() {
         <img src={LifeCardBack} className="card" alt="LifeCardBack" />
         <img src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" />
       </div>
+
     </div>
+
   );
 }
 

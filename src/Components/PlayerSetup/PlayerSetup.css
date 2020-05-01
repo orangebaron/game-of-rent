@@ -1,0 +1,10 @@
+.test {
+    cursor: pointer;
+}
+
+
+.avatars {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

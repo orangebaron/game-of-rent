@@ -1,9 +1,13 @@
 import React from 'react';
-import Button from '../../ButtonComponent';
+import Button from '@material-ui/core/Button';
 import Background from '../WelcomePage/img/croppedBoard.png';
 import PlayerIcon from '../PlayerIcon/PlayerIcon';
+import './PlayerSetup.css';
+import { RadioGroup } from '@material-ui/core';
+import Radio from '@material-ui/core/Radio';
 
 const setup = ['Player 1', 'Player 2', '...'];
+
 
 const styles = {
   mapBackground: {
@@ -52,10 +56,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-evenly',
     marginTop: '2vh',
+
   },
-  button: {
-    width: '10vw',
-    text: '10px',
+  playerAvatar: {
+    cursor: 'pointer',
   },
 };
 
@@ -88,19 +92,23 @@ class PlayerSetup extends React.Component {
 
             <div style={styles.fields}>
               <h2>Choose an avatar for your player</h2>
-              <div style={styles.avatarSection}>
-                <PlayerIcon num="0" style={styles.playerAvatar} />
-                <PlayerIcon num="1" style={styles.playerAvatar} />
-                <PlayerIcon num="2" style={styles.playerAvatar} />
-                <PlayerIcon num="3" style={styles.playerAvatar} />
-                <PlayerIcon num="4" style={styles.playerAvatar} />
-                <PlayerIcon num="5" style={styles.playerAvatar} />
-              </div>
+
+              <RadioGroup classes={{ label: 'avatars' }}>
+                <PlayerIcon num="0" control={<Radio />} />
+                <PlayerIcon num="1" control={<Radio />} />
+                <PlayerIcon num="2" control={<Radio />} />
+                <PlayerIcon num="3" control={<Radio />} />
+                <PlayerIcon num="4" control={<Radio />} />
+                <PlayerIcon num="5" control={<Radio />} />
+              </RadioGroup>
 
 
             </div>
 
-            <Button style={styles.button}/>
+            <Button variant="contained" href="/board">
+              Finish
+            </Button>
+
           </div>
 
 

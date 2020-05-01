@@ -86,7 +86,7 @@ function WelcomePage() {
             they’ve given and find an apartment you can afford to rent
             as close to your job as possible.
           </p>
-          <Button variant="outlined" style={buttonStyle} href="/board">
+          <Button variant="outlined" style={buttonStyle} href="/character">
             Start
           </Button>
         </div>
