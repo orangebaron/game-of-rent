@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Background from '../WelcomePage/img/croppedBoard.png';
-import PlayerIcon from '../PlayerIcon/PlayerIcon';
+import PlayerRadio from '../PlayerRadio/PlayerRadio';
 import './PlayerSetup.css';
 import { RadioGroup } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
@@ -58,8 +58,8 @@ const styles = {
     marginTop: '2vh',
 
   },
-  playerAvatar: {
-    cursor: 'pointer',
+  radioForm: {
+    flexDirection: 'row'
   },
 };
 
@@ -106,17 +106,14 @@ class PlayerSetup extends React.Component {
                 <h2>Choose an avatar for your player</h2>
 
                 {/* eslint-disable-next-line max-len */}
-                {/* Hey Sam, temporarily added this radio tag here to try to allow selection of one avatar. It currently isn't working but I think its closer, list should be horizontal though */}
-
-                <RadioGroup classes={{ label: 'avatars' }}>
-                  <PlayerIcon num="0" control={<Radio />} />
-                  <PlayerIcon num="1" control={<Radio />} />
-                  <PlayerIcon num="2" control={<Radio />} />
-                  <PlayerIcon num="3" control={<Radio />} />
-                  <PlayerIcon num="4" control={<Radio />} />
-                  <PlayerIcon num="5" control={<Radio />} />
-                </RadioGroup>
-
+                <form style={styles.radioForm}>
+                  <PlayerRadio num="0" name="icon" />
+                  <PlayerRadio num="1" name="icon" />
+                  <PlayerRadio num="2" name="icon" />
+                  <PlayerRadio num="3" name="icon" />
+                  <PlayerRadio num="4" name="icon" />
+                  <PlayerRadio num="5" name="icon" />
+              </form>
               </div>
 
               <Button variant="contained" href="/board">
