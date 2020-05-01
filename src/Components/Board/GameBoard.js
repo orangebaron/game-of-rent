@@ -41,11 +41,24 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+function showCardFullscreen() {
+  document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
+}
+
+function closeFullscreenCard() {
+  document.getElementById("overlay").style.display = "none"; // TODO getting by id is probably bad
+}
+
 function GameBoard() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
+      <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
+        <p onClick={closeFullscreenCard} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer"}}>X</p>
+        <img style={{ height: '160px',left:"40%",top:"30%",position:"fixed" }} src={OccupationCardBack} className="card" alt="OccupationCardBack" />
+        // TODO make this img be good
+      </div>
       <div className={classes.playerCardSection}>
         <PlayerCard />
         <PlayerCard />
@@ -56,10 +69,10 @@ function GameBoard() {
         <Map />
       </div>
       <div className={classes.gameCardSection}>
-        <img style={{ height: '160px' }} src={OccupationCardBack} className="card" alt="OccupationCardBack" />
-        <img style={{ height: '160px' }} src={HouseholdCardBack} className="card" alt="HouseholdCardBack" />
-        <img style={{ height: '160px' }} src={LifeCardBack} className="card" alt="LifeCardBack" />
-        <img style={{ height: '160px' }} src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" />
+        <img style={{ height: '160px' }} src={OccupationCardBack} className="card" alt="OccupationCardBack" onClick={showCardFullscreen} />
+        <img style={{ height: '160px' }} src={HouseholdCardBack} className="card" alt="HouseholdCardBack" onClick={showCardFullscreen} />
+        <img style={{ height: '160px' }} src={LifeCardBack} className="card" alt="LifeCardBack" onClick={showCardFullscreen} />
+        <img style={{ height: '160px' }} src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={showCardFullscreen} />
       </div>
 
     </div>
