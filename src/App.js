@@ -8,6 +8,7 @@ import {
 import WelcomePage from './Components/WelcomePage/WelcomePage';
 import GameBoard from './Components/Board/GameBoard';
 import './App.css';
+import PlayerSetup from './Components/PlayerSetup/PlayerSetup'
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
       <Switch>
         <Route path="/board">
           <GameBoard />
+        </Route>
+        <Route path="/character">
+          <PlayerSetup />
         </Route>
         <Route exact path="/">
           <WelcomePage />
