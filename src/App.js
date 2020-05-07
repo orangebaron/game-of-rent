@@ -4,11 +4,10 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-
 import WelcomePage from './Components/WelcomePage/WelcomePage';
 import GameBoard from './Components/Board/GameBoard';
+import PlayerSetup from './Components/PlayerSetup/PlayerSetup';
 import './App.css';
-import PlayerSetup from './Components/PlayerSetup/PlayerSetup'
 
 function App() {
   return (

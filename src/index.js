@@ -1,13 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux'
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import store from "./store/index";
-import { addPlayer } from "./actions/index";
+import * as serviceWorker from './serviceWorker';
+import './index.css';
 
-// eslint-disable-next-line react/jsx-filename-extension
-ReactDOM.render(<App />, document.getElementById('root'));
+
+
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
@@ -15,5 +22,3 @@ ReactDOM.render(<App />, document.getElementById('root'));
 serviceWorker.unregister();
 
 
-window.store = store;
-window.addPlayer = addPlayer;
