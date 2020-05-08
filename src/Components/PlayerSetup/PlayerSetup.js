@@ -6,8 +6,16 @@ import './PlayerSetup.css';
 import { RadioGroup } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 
-const setup = ['Player 1', 'Player 2', '...'];
+import { connect } from 'react-redux';
+import { addPlayer } from '../../actions/index';
 
+function select(dispatch) {
+  return {
+    addPlayer: player => dispatch(addPlayer(player))
+  };
+}
+
+const setup = ['Player 1', 'Player 2', '...'];
 
 const styles = {
   mapBackground: {
@@ -41,6 +49,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
+    height: '50vh'
   },
   textBox: {
     border: 0,
@@ -55,6 +65,16 @@ const styles = {
     width: '50vw',
     display: 'flex',
     justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    marginTop: '2vh',
+    alignItems: 'center'
+
+  },
+  avatarIcons: {
+
+    width: '50vw',
+    display: 'flex',
+    justifyContent: 'space-evenly',
     marginTop: '2vh',
 
   },
@@ -64,21 +84,28 @@ const styles = {
 };
 
 
-const InstructionText = [
-  "Welcome to the game of rent! You will now take on the role of a person in [CITY] searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character. Click on the yellow card to discover your occupation!",
-  "Now that you have your occupation, it's time to determine your household! Click on the die to roll for the number of family members.",
-  'That means you have X other family members in your household. Draw a household card and an occupation card if that family members is of working age.',
-  'Everyone has unforseen circumstances arise in their lives. Draw a life card for each adult in your household including yourself!',
-  'Your household is finally set! Now click on the calculator icon to find out your monthly housing allowance. This is how much you can afford to spending on housing each month.',
-];
-
-
-class PlayerSetup extends React.Component {
+class ConnectedPlayerSetup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       setupLocation: 0,
+      playerName: '',
+
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { playerName } = this.state;
+    this.props.addPlayer({ playerName });
+    this.setState({ playerName: '' });
   }
 
   nextStep() {
@@ -88,14 +115,13 @@ class PlayerSetup extends React.Component {
   }
 
   render() {
+    const { playerName } = this.state;
     return (
-
       <div style={{ backgroundColor: 'gray' }}>
-        <p>{InstructionText[this.state.setupLocation].replace('[CITY]', this.props.city || 'Nashville')}</p>
         <div style={styles.mapBackground}>
           <div style={styles.playerSetup}>
-            <h1>{setup[this.state.setupLocation]}</h1>
             <div style={styles.textGrid}>
+
 
               <div style={styles.fields}>
                 <h2>Enter a name for your player</h2>
@@ -121,14 +147,18 @@ class PlayerSetup extends React.Component {
               </Button>
 
             </div>
-
-
           </div>
         </div>
-      </div>
+
 
     );
   }
 }
+
+const PlayerSetup = connect(
+    null,
+    select
+)(ConnectedPlayerSetup);
+
 
 export default PlayerSetup;
