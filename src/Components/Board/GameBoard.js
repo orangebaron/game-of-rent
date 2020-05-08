@@ -59,7 +59,13 @@ function closeFullscreenCard() {
   document.getElementById("overlay").style.display = "none"; // TODO getting by id is probably bad
 }
 
-function GameBoard() {
+function select(dispatch) {
+  return {
+    addPlayer: player => dispatch(addPlayer(player))
+  };
+}
+
+function ConnectedGameBoard() {
 
   const classes = useStyles();
 

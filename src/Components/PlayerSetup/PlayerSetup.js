@@ -117,43 +117,63 @@ class ConnectedPlayerSetup extends React.Component {
   render() {
     const { playerName } = this.state;
     return (
-      <div style={{ backgroundColor: 'gray' }}>
-        <div style={styles.mapBackground}>
-          <div style={styles.playerSetup}>
-            <div style={styles.textGrid}>
+        <div style={{ backgroundColor: 'gray' }}>
+          <div style={styles.mapBackground}>
+            <div style={styles.playerSetup}>
+
+              <div style={styles.textGrid}>
+                <h1>{setup[this.state.setupLocation]}</h1>
+                <form onSubmit={this.handleSubmit}>
+                  <div style={styles.fields}>
+
+                    <label htmlFor="playerName">Enter a name for your player</label>
+                    <input
+                        type="text"
+                        id="playerName"
+                        value={playerName}
+                        onChange={this.handleChange}
+                        style={styles.textBox}
+                    />
 
 
-              <div style={styles.fields}>
-                <h2>Enter a name for your player</h2>
-                <input type="text" style={styles.textBox} />
+                    <div style={styles.avatarSection}>
+                      <h2>Choose an avatar for your player</h2>
+                      <div style={styles.avatarIcons}>
+                        <form style={styles.radioForm}>
+                          <PlayerRadio num="0" name="icon" />
+                          <PlayerRadio num="1" name="icon" />
+                          <PlayerRadio num="2" name="icon" />
+                          <PlayerRadio num="3" name="icon" />
+                          <PlayerRadio num="4" name="icon" />
+                          <PlayerRadio num="5" name="icon" />
+                        </form>
+                      </div>
+                    </div>
+
+                    <div className={'buttonSection'}>
+                      <Button type='submit' variant="contained">
+                        Next
+                      </Button>
+
+                      {/*<Button type='submit' variant="contained" href="/board" style={{'visibility': 'hidden'}}>*/}
+                      {/*  Finish*/}
+                      {/*</Button>*/}
+                    </div>
+
+
+                  </div>
+                </form>
               </div>
-
-              <div style={styles.fields}>
-                <h2>Choose an avatar for your player</h2>
-
-                {/* eslint-disable-next-line max-len */}
-                <form style={styles.radioForm}>
-                  <PlayerRadio num="0" name="icon" />
-                  <PlayerRadio num="1" name="icon" />
-                  <PlayerRadio num="2" name="icon" />
-                  <PlayerRadio num="3" name="icon" />
-                  <PlayerRadio num="4" name="icon" />
-                  <PlayerRadio num="5" name="icon" />
-              </form>
-              </div>
-
-              <Button variant="contained" href="/board">
-                Finish
-              </Button>
-
             </div>
           </div>
         </div>
 
-      </div>
+
     );
   }
 }
+
+
 
 const PlayerSetup = connect(
     null,
