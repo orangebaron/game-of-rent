@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Background from '../WelcomePage/img/croppedBoard.png';
-import PlayerIcon from '../PlayerIcon/PlayerIcon';
+import PlayerRadio from '../PlayerRadio/PlayerRadio';
 import './PlayerSetup.css';
 import { RadioGroup } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
@@ -78,8 +78,8 @@ const styles = {
     marginTop: '2vh',
 
   },
-  playerAvatar: {
-    cursor: 'pointer',
+  radioForm: {
+    flexDirection: 'row'
   },
 };
 
@@ -122,47 +122,30 @@ class ConnectedPlayerSetup extends React.Component {
           <div style={styles.playerSetup}>
             <div style={styles.textGrid}>
 
-              <h1>{setup[this.state.setupLocation]}</h1>
 
-              <form onSubmit={this.handleSubmit}>
-                <div style={styles.fields}>
+              <div style={styles.fields}>
+                <h2>Enter a name for your player</h2>
+                <input type="text" style={styles.textBox} />
+              </div>
 
-                  <label htmlFor="playerName">Player Name</label>
-                  <input
-                      type="text"
-                      id="playerName"
-                      value={playerName}
-                      onChange={this.handleChange}
-                      style={styles.textBox}
-                  />
+              <div style={styles.fields}>
+                <h2>Choose an avatar for your player</h2>
 
-
-                  <div style={styles.avatarSection}>
-                    <h2>Choose an avatar for your player</h2>
-                    <div style={styles.avatarIcons}>
-                      <PlayerIcon num="0"  />
-                      <PlayerIcon num="1"  />
-                      <PlayerIcon num="2"  />
-                      <PlayerIcon num="3"  />
-                      <PlayerIcon num="4"  />
-                      <PlayerIcon num="5"  />
-                    </div>
-                  </div>
-
-                  <div className={'buttonSection'}>
-                    <Button type='submit' variant="contained">
-                      Next
-                    </Button>
-
-                    {/*<Button type='submit' variant="contained" href="/board">*/}
-                    {/*  Finish*/}
-                    {/*</Button>*/}
-                  </div>
-
-
-                </div>
+                {/* eslint-disable-next-line max-len */}
+                <form style={styles.radioForm}>
+                  <PlayerRadio num="0" name="icon" />
+                  <PlayerRadio num="1" name="icon" />
+                  <PlayerRadio num="2" name="icon" />
+                  <PlayerRadio num="3" name="icon" />
+                  <PlayerRadio num="4" name="icon" />
+                  <PlayerRadio num="5" name="icon" />
               </form>
-            </div>
+              </div>
+
+              <Button variant="contained" href="/board">
+                Finish
+              </Button>
+
             </div>
           </div>
         </div>

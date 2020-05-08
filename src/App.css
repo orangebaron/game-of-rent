@@ -20,3 +20,7 @@
 .App-link {
   color: #09d3ac;
 }
+
+[type=radio]:checked + img { /* TODO theres probably a much better place to put this */
+  outline: 2px solid white;
+}
