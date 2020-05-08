@@ -9,6 +9,12 @@ import Radio from '@material-ui/core/Radio';
 import { connect } from 'react-redux';
 import { addPlayer } from '../../actions/index';
 
+function select(dispatch) {
+  return {
+    addPlayer: player => dispatch(addPlayer(player))
+  };
+}
+
 const setup = ['Player 1', 'Player 2', '...'];
 
 const styles = {
@@ -43,6 +49,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
+    height: '50vh'
   },
   textBox: {
     border: 0,
@@ -57,6 +65,16 @@ const styles = {
     width: '50vw',
     display: 'flex',
     justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    marginTop: '2vh',
+    alignItems: 'center'
+
+  },
+  avatarIcons: {
+
+    width: '50vw',
+    display: 'flex',
+    justifyContent: 'space-evenly',
     marginTop: '2vh',
 
   },
@@ -66,12 +84,14 @@ const styles = {
 };
 
 
-class PlayerSetup extends React.Component {
+class ConnectedPlayerSetup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       setupLocation: 0,
       playerName: '',
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -83,9 +103,9 @@ class PlayerSetup extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { title } = this.state;
-    this.props.addPlayer({ title });
-    this.setState({ title: '' });
+    const { playerName } = this.state;
+    this.props.addPlayer({ playerName });
+    this.setState({ playerName: '' });
   }
 
   nextStep() {
@@ -95,48 +115,67 @@ class PlayerSetup extends React.Component {
   }
 
   render() {
+    const { playerName } = this.state;
     return (
       <div style={{ backgroundColor: 'gray' }}>
         <div style={styles.mapBackground}>
           <div style={styles.playerSetup}>
-            <h1>{setup[this.state.setupLocation]}</h1>
             <div style={styles.textGrid}>
 
-              <div style={styles.fields}>
-                <h2>Enter a name for your player</h2>
-                <input type="text" style={styles.textBox} />
-              </div>
+              <h1>{setup[this.state.setupLocation]}</h1>
 
-              <div style={styles.fields}>
-                <h2>Choose an avatar for your player</h2>
+              <form onSubmit={this.handleSubmit}>
+                <div style={styles.fields}>
 
-                {/* eslint-disable-next-line max-len */}
-                {/* Hey Sam, temporarily added this radio tag here to try to allow selection of one avatar. It currently isn't working but I think its closer, list should be horizontal though */}
+                  <label htmlFor="playerName">Player Name</label>
+                  <input
+                      type="text"
+                      id="playerName"
+                      value={playerName}
+                      onChange={this.handleChange}
+                      style={styles.textBox}
+                  />
 
-                <RadioGroup classes={{ label: 'avatars' }}>
-                  <PlayerIcon num="0" control={<Radio />} />
-                  <PlayerIcon num="1" control={<Radio />} />
-                  <PlayerIcon num="2" control={<Radio />} />
-                  <PlayerIcon num="3" control={<Radio />} />
-                  <PlayerIcon num="4" control={<Radio />} />
-                  <PlayerIcon num="5" control={<Radio />} />
-                </RadioGroup>
 
-              </div>
+                  <div style={styles.avatarSection}>
+                    <h2>Choose an avatar for your player</h2>
+                    <div style={styles.avatarIcons}>
+                      <PlayerIcon num="0"  />
+                      <PlayerIcon num="1"  />
+                      <PlayerIcon num="2"  />
+                      <PlayerIcon num="3"  />
+                      <PlayerIcon num="4"  />
+                      <PlayerIcon num="5"  />
+                    </div>
+                  </div>
 
-              <Button variant="contained" href="/board">
-                Finish
-              </Button>
+                  <div className={'buttonSection'}>
+                    <Button type='submit' variant="contained">
+                      Next
+                    </Button>
 
+                    {/*<Button type='submit' variant="contained" href="/board">*/}
+                    {/*  Finish*/}
+                    {/*</Button>*/}
+                  </div>
+
+
+                </div>
+              </form>
             </div>
-
-
+            </div>
           </div>
         </div>
-      </div>
+
 
     );
   }
 }
+
+const PlayerSetup = connect(
+    null,
+    select
+)(ConnectedPlayerSetup);
+
 
 export default PlayerSetup;

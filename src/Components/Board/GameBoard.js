@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './GameBoard.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Map from './Map';
@@ -8,6 +8,8 @@ import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
 import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
+import { connect } from 'react-redux';
+import {addPlayer} from '../../actions'
 
 const InstructionText = [
   "Welcome to the game of rent! You will now take on the role of a person in [CITY] searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character. Click on the yellow card to discover your occupation!",
@@ -48,12 +50,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function GameBoard() {
+const select = state => {
+  return {players: state.players};
+}
+
+const ConnectedGameBoard = ({players}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <List />
+      {/*<List /> todo delete*/}
+      {players[0]}
       <div className={classes.playerCardSection}>
         <PlayerCard />
         <PlayerCard />
@@ -74,5 +81,7 @@ function GameBoard() {
 
   );
 }
+
+const GameBoard = connect(select)(ConnectedGameBoard);
 
 export default GameBoard;

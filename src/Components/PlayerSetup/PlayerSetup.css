@@ -5,6 +5,15 @@
 
 .avatars {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
+}
+
+/*todo go back and fix this*/
+label {
+    font-size: 1.5rem;
+}
+
+.buttonSection {
+    /*margin: 20px;*/
 }
