@@ -150,7 +150,7 @@ class ConnectedPlayerSetup extends React.Component {
           </div>
         </div>
 
-
+      </div>
     );
   }
 }
