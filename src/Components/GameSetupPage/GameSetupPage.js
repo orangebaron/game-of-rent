@@ -1,154 +1,172 @@
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
 import { Link } from 'react-router-dom';
-
 import './GameSetupPage.css';
-import Background from './img/croppedBoard.png';
-// import {MenuItem} from 'react-bootstrap';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import { updateCityAndCount } from '../../actions/index';
+import { useDispatch } from 'react-redux' //todo JADEN, this is awesome, use it!!
 
 
 
-const sectionStyle = {
-  width: '100vw',
-  height: 'auto',
-  backgroundImage: `url(${Background})`,
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-};
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+    button: {
+        color: '#ffffff',
+        fontWeight: 700,
+        border: '2px solid #ffffff',
+        margin: 20
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+    outlined: {
+        width: 200,
+        textAlign: 'center',
+        borderColor: 'white'
+    },
+    icon: {
+        fill: 'white',
+    },
+    root: {
+        color: 'white',
+        borderColor: 'white'
+    }
+}));
+
+
 
 
 
 function GameSetupPage(){
+    const classes = useStyles();
+    const dispatch = useDispatch()
+    const [numPlayers, setNumPlayers] = React.useState('');
+    const [cityLocation, setCityLocation] = React.useState('');
+
+    const changePlayerNum = (event) => {
+        setNumPlayers(event.target.value);
+    };
+
+    const changeCityLocation = (event) => {
+        setCityLocation(event.target.value);
+    };
+
+    const handleSubmit = () => {
+        console.log('hit');
+        dispatch(updateCityAndCount({ playerCount: numPlayers, city: cityLocation}));
+    }
+
+
     return (
-        <div style={sectionStyle}>
-            <header className = "overlay">
-            <div classname = "GameSetupPage">
-                <header className = "GameSetupPage-Title">
-                
-                    <p className = "Title">
-                            Game Setup
-                    </p>
-                </header>
+        <div className='backgroundImage'>
+            <div className = "GameSetupPage">
 
-            <div className = "Questions">
+                <p className={'pageTitle'}>Game Setup</p>
 
-            <div className = "Question-1">
-                <p className = "Question-1-text">
-                    How many people are playing?
-                </p>
-                <div className="Scrolldowns-num">
-                
-                
+                <div className = "Questions">
 
-                    <select id="numbers">
-                        <option value = "1"> 1</option>
-                        <option value = "2"> 2</option>
-                        <option value = "3"> 3</option>
-                        <option value = "4"> 4</option>
-                        <option value = "5"> 5</option>
-                        <option value = "6"> 6</option>
+                    <div className = "Question-1">
+                        <p className = "Question-1-text">How many people are playing?</p>
 
-                    </select>
-                    {/* <MenuList>
-                        <MenuItem key = "1">
-                            1
-                        </MenuItem>
-                        <MenuItem key = "2">
-                            2
-                        </MenuItem>
-                        <MenuItem key = "3">
-                            3
-                        </MenuItem>
-                        <MenuItem key = "4">
-                            4
-                        </MenuItem>
-                        <MenuItem key = "5">
-                            5
-                        </MenuItem>
-                        <MenuItem key = "6">
-                            6
-                        </MenuItem>
-                    </MenuList> */}
+                        <FormControl  variant={'outlined'} className={classes.formControl}>
+                            <InputLabel id="num-player-select"># Players</InputLabel>
+                            <Select
+                                id="num-player-select"
+                                value={numPlayers}
+                                onChange={changePlayerNum}
+                                label='# Players'
+                                classes={{
+                                    root: classes.root,
+                                    outlined: classes.outlined,
+                                }}
+                                inputProps={{
+                                    classes: {
+                                        icon: classes.icon,
+                                        notchedOutline: classes.notchedOutline
+                                    },
+                                }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                                <MenuItem value={5}>5</MenuItem>
+                                <MenuItem value={6}>6</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+
+                    <div className = "Question-2">
+                        <p className = "Question-2-text">What city do you want to play in?</p>
+
+                        {/*todo jaden check these stylings*/}
+                        <div className = "Scrolldowns-cit">
+                            <div className="Scrolldowns-cities">
+
+                                <FormControl variant={'outlined'} className={classes.formControl}>
+                                    <InputLabel labelid="city-select">City</InputLabel>
+                                    <Select
+                                        id="city-select"
+                                        value={cityLocation}
+                                        onChange={changeCityLocation}
+                                        label='city'
+                                        classes={{
+                                            root: classes.root,
+                                            outlined: classes.outlined,
+                                        }}
+                                        inputProps={{
+                                            classes: {
+                                                icon: classes.icon,
+                                                notchedOutline: classes.notchedOutline
+                                            },
+                                        }}
+                                    >
+                                        <MenuItem value="">
+                                            <em>None</em>
+                                        </MenuItem>
+                                        <MenuItem value = "Nashville"> Nashville</MenuItem>
+                                        <MenuItem value = "Chicago"> Chicago</MenuItem>
+                                        <MenuItem value = "Seattle"> Seattle</MenuItem>
+                                        <MenuItem value = "New York"> New York</MenuItem>
+                                        <MenuItem value = "Atlanta"> Atlanta</MenuItem>
+                                        <MenuItem value = "Los Angeles"> Los Angeles</MenuItem>
+                                        <MenuItem value = "San Franciso"> San Francisco</MenuItem>
+                                        <MenuItem value = "Philadelphia"> Philadelphia</MenuItem>
+                                        <MenuItem value = "Brooklyn"> Brooklyn</MenuItem>
+                                        <MenuItem value = "Denver"> Denver</MenuItem>
+                                    </Select>
+                                </FormControl>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-          
-            <div className = "Question-2">
-                <p className = "Question-2-text">
-                    What city do you want to play in?
-                </p>
-                <div className = "Scrolldowns-cit">
-                <p className="Scrolldowns-cities">
-                <select id="numbers">
-                        <option value = "1"> Nashville</option>
-                        <option value = "2"> Chicago</option>
-                        <option value = "3"> Seattle</option>
-                        <option value = "4"> New York</option>
-                        <option value = "5"> Atlanta</option>
-                        <option value = "6"> Los Angeles</option>
-                        <option value = "7"> San Francisco</option>
-                        <option value = "8"> Philadelphia</option>
-                        <option value = "9"> Brooklyn</option>
-                        <option value = "10"> Denver</option>
-                </select>
 
-                {/* <MenuList>
-                        <MenuItem key = "1">
-                            Nashville
-                        </MenuItem>
-                        <MenuItem key = "2">
-                        Chicago
-                        </MenuItem>
-                        <MenuItem key = "3">
-                        Seattle
-                        </MenuItem>
-                        <MenuItem key = "4">
-                        New York
-                        </MenuItem>
-                        <MenuItem key = "5">
-                        Atlanta
-                        </MenuItem>
-                        <MenuItem key = "6">
-                        Los Angeles
-                        </MenuItem>
-                        <MenuItem key = "7">
-                        San Francisco
-                        </MenuItem>
-                        <MenuItem key = "8">
-                        Philadelphia
-                        </MenuItem>
-                        <MenuItem key = "9">
-                        Brooklyn
-                        </MenuItem>
-                        <MenuItem key = "10">
-                        Denver
-                        </MenuItem>
-                    </MenuList> */}
-                
-                </p>
+                <div className={'buttonSection'}>
+                    <Button onClick={handleSubmit} variant="outlined" classes={{outlined: classes.button}} >
+                        Next
+                    </Button>
                 </div>
-            </div>
 
             </div>
-                
-            <div className="nextButton">
-                    <Link to="/character">
-                        <button type="button" className="GameSetupPage-button"
-                        size = "large">
-                            Next
-                        </button>
-                    </Link>
-            </div>
-
-                
-            </div>
-            </header>
         </div>
     )
-
-
 }
 
 

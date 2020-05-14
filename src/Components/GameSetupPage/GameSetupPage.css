@@ -1,19 +1,29 @@
 
 
 .GameSetupPage{
-    background-color: rgba(0,0,0,0.5);
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    /* opacity: 60%;
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    justify-content: space-evenly;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 4vmin);
-    color: white; */
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.667);
+    font-family: Roboto, sans-serif;
 }
+
+.pageTitle{
+    margin: 0;
+    /*text-align: center;*/
+    top: 5%;
+    font-weight: bold;
+    font-size: 64px;
+    vertical-align: center;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+
 .overlay {
     background-color: #282c34;
     opacity: 60%;
@@ -24,11 +34,11 @@
     justify-content: center;
     font-size: calc(10px + 4vmin);
     color: white;
-} 
+}
 
+/*todo delete this when no longer needed for reference*/
 .GameSetupPage-Title{
     text-align: center;
-    font-family: Roboto;
     top: 5%;
     font-weight: bold;
     font-size: 64px;
@@ -43,77 +53,7 @@
     font-weight: bold;
     color: #FFFFFF;
     font-size: 36px;
-    font-family: Roboto;
+
 }
 
-.nextButton{
-    text-align: center;
-    size: lg;
-}
 
-/* The container must be positioned relative: */
-.Scrolldowns-cit{
-    position: relative;
-    font-family: Arial;
-  }
- 
-  .Scrolldowns-cit-selected {
-    background-color: DodgerBlue;
-  }
-/* 
-.GameSetupPage-map {
-    position: relative;j
-    height: 100vmin;
-    z-index: 1;
-}
-
-.GameSetupPage-grey {
-    position: absolute;
-    top: 0;
-    align-items: center;
-    height: 100vmin;
-    z-index: 2;
-}
-
-.GameSetupPage-Title {
-    position: absolute;
-    font-family: Roboto;
-    top: 5%;
-    font-weight: bold;
-    display: flex;
-    z-index: 3;
-}
-
-.GameSetupPage-Question-1-text{
-    position: relative;
-    font-family: Roboto;
-    top: 35%;
-    font-size: calc(5px + 2vmin);
-    display: flex;
-    left: 35%;
-    right: 35%;
-    z-index: 3;
-}
-
-.GameSetupPage-button{
-    position: relative;
-    font-family: Roboto;
-    bottom: 15%;
-    border-radius: 12px;
-    background-color: white;
-    padding: 1% 3%;
-    z-index: 3;
-    cursor: pointer;
-}
-
-.GameSetupPage-header {
-    background-color: #282c34;
-    opacity: 60%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 4vmin);
-    color: white;
-} */

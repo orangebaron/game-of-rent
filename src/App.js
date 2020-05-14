@@ -15,7 +15,7 @@ const App = ({store}) => (
           <Route path="/board">
             <GameBoard />
           </Route>
-          <Route path="/character">
+          <Route path="/players">
             <PlayerSetup />
           </Route>
           <Route exact path="/">
