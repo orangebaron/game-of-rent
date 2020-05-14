@@ -159,7 +159,7 @@ function GameSetupPage(){
                 </div>
 
                 <div className={'buttonSection'}>
-                    <Button onClick={handleSubmit} variant="outlined" classes={{outlined: classes.button}} >
+                    <Button onClick={handleSubmit} variant="outlined" href='/players' classes={{outlined: classes.button}} >
                         Next
                     </Button>
                 </div>
