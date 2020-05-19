@@ -11,6 +11,7 @@ import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 import { connect } from 'react-redux';
 import {addPlayer} from '../../actions'
+import store from '../../store/index' //todo idk if i need this, delete later
 
 const InstructionText = [
   "Welcome to the game of rent! You will now take on the role of a person in [CITY] searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character. Click on the yellow card to discover your occupation!",

@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { updateCityAndCount } from '../../actions/index';
+import store from '../../store/index';
 import { useDispatch } from 'react-redux' //todo JADEN, this is awesome, use it!!
 
 
@@ -159,9 +160,11 @@ function GameSetupPage(){
                 </div>
 
                 <div className={'buttonSection'}>
-                    <Button onClick={handleSubmit} variant="outlined" href='/players' classes={{outlined: classes.button}} >
-                        Next
-                    </Button>
+                    <Link to='/players'>
+                        <Button onClick={handleSubmit} variant="outlined" classes={{outlined: classes.button}} >
+                            Next
+                        </Button>
+                    </Link>
                 </div>
 
             </div>

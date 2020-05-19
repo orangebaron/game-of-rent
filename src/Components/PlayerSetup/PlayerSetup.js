@@ -8,15 +8,12 @@ import TextField from '@material-ui/core/TextField';
 
 import { connect } from 'react-redux';
 import { addPlayer } from '../../actions/index';
+import {Link} from 'react-router-dom';
+import store from '../../store/index';
 
 
-function select(dispatch) {
-    return {
-        addPlayer: player => dispatch(addPlayer(player))
-    };
-}
 
-const setup = ['Player 1', 'Player 2', '...'];
+
 
 //todo need ot figure out how to appropriately style the Mui textbox
 const styles = {
@@ -91,7 +88,7 @@ const styles = {
         color: 'white'
     }
 };
-
+const state = store.getState;
 
 
 
@@ -100,8 +97,8 @@ class ConnectedPlayerSetup extends React.Component {
         super(props);
         this.state = {
             title: '',
-            setupLocation: 0,
             playerName: '',
+            setupCount: 1,
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -117,6 +114,7 @@ class ConnectedPlayerSetup extends React.Component {
         const { playerName } = this.state;
         this.props.addPlayer({ playerName });
         this.setState({ playerName: '' });
+        this.setState({setupCount: this.state.setupCount + 1})
     }
 
     nextStep() {
@@ -130,6 +128,20 @@ class ConnectedPlayerSetup extends React.Component {
     render() {
         const { classes } = this.props;
         const { playerName } = this.state;
+
+        let button;
+        if (this.state.setupCount >= this.props.playerCount){
+            button = <Link to='/board'>
+                <Button type='submit' variant="contained">
+                    Finish
+                </Button>
+            </Link>
+        } else {
+            button = <Button type='submit' variant="contained">
+                Next
+            </Button>
+        }
+
         return (
             <div className='backgroundImage'>
 
@@ -137,19 +149,22 @@ class ConnectedPlayerSetup extends React.Component {
                     <div style={styles.playerSetup}>
 
                         <div style={styles.textGrid}>
-                            <h1>{setup[this.state.setupLocation]}</h1>
+                            {/*<h1>{setup[this.state.setupLocation]}</h1>*/}
+                            <h1>Player {this.state.setupCount}</h1>
                             <form onSubmit={this.handleSubmit}>
                                 <div style={styles.fields}>
 
                                     <label htmlFor="playerName">Enter a name for your player</label>
-                                    <input
-                                        type="text"
-                                        id="playerName"
 
-                                        onChange={this.handleChange}
-                                        style={styles.textBox}
-                                        required='true'
-                                    />
+                                    {/*todo delete this later*/}
+                                    {/*<input*/}
+                                    {/*    type="text"*/}
+                                    {/*    id="playerName"*/}
+
+                                    {/*    onChange={this.handleChange}*/}
+                                    {/*    style={styles.textBox}*/}
+                                    {/*    required='true'*/}
+                                    {/*/>*/}
 
                                     <TextField
                                         required
@@ -193,13 +208,7 @@ class ConnectedPlayerSetup extends React.Component {
                                     </div>
 
                                     <div className={'buttonSection'}>
-                                        <Button type='submit' variant="contained">
-                                            Next
-                                        </Button>
-
-                                        <Button type='submit' variant="contained" href="/board" /*style={{'visibility': 'hidden'}}*/>
-                                          Finish
-                                        </Button>
+                                        {button}
                                     </div>
 
 
@@ -219,11 +228,21 @@ class ConnectedPlayerSetup extends React.Component {
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addPlayer: player => dispatch(addPlayer(player))
+    };
+}
 
+const mapStateToProps= state => {
+    return {
+        playerCount: state.playerCount
+    }
+}
 
 const PlayerSetup = connect(
-    null,
-    select
+    mapStateToProps,
+    mapDispatchToProps
 )(ConnectedPlayerSetup);
 
 

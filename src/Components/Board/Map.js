@@ -33,7 +33,7 @@ class Map extends React.Component {
               minZoom={13}
               maxZoom={13}
               attributionControl={true}
-              zoomControl={true}
+              zoomControl={false}
               doubleClickZoom={true}
               scrollWheelZoom={true}
               dragging={false}
