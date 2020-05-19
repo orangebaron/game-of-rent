@@ -1,5 +1,5 @@
 
-import React, {useRef}, {useEffect} from 'react';
+import React, {useRef} from 'react';
 import './GameBoard.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Map from './Map';

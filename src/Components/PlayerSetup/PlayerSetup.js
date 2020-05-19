@@ -197,9 +197,9 @@ class ConnectedPlayerSetup extends React.Component {
                                             Next
                                         </Button>
 
-                                        {/*<Button type='submit' variant="contained" href="/board" style={{'visibility': 'hidden'}}>*/}
-                                        {/*  Finish*/}
-                                        {/*</Button>*/}
+                                        <Button type='submit' variant="contained" href="/board" /*style={{'visibility': 'hidden'}}*/>
+                                          Finish
+                                        </Button>
                                     </div>
 
 
