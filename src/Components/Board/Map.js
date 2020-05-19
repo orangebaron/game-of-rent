@@ -36,7 +36,7 @@ class Map extends React.Component {
               zoomControl={true}
               doubleClickZoom={true}
               scrollWheelZoom={true}
-              dragging={true}
+              dragging={false}
               animate={true}
               easeLinearity={0.35}
           >

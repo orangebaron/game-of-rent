@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
   map: {
     width: '70vw',
     height: '100vh',
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow', todo delete this on production
   },
   gameCardSection: {
     display: 'flex',
