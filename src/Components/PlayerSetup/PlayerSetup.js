@@ -1,134 +1,230 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Background from '../WelcomePage/img/croppedBoard.png';
 import PlayerRadio from '../PlayerRadio/PlayerRadio';
 import './PlayerSetup.css';
 import { RadioGroup } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
+import TextField from '@material-ui/core/TextField';
+
+import { connect } from 'react-redux';
+import { addPlayer } from '../../actions/index';
+
+
+function select(dispatch) {
+    return {
+        addPlayer: player => dispatch(addPlayer(player))
+    };
+}
 
 const setup = ['Player 1', 'Player 2', '...'];
 
-
+//todo need ot figure out how to appropriately style the Mui textbox
 const styles = {
-  mapBackground: {
-    width: '100vw',
-    height: 'auto',
-    backgroundImage: `url(${Background})`,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  },
-  playerSetup: {
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  textGrid: {
-    backgroundColor: '#000000aa',
-    borderRadius: '1em',
-    width: '60vw',
-    height: '70vh',
-    padding: '2%',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    flexDirection: 'column',
-    alignItems: 'center',
-    color: 'white',
-  },
-  fields: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  textBox: {
-    border: 0,
-    width: '30vw',
-    height: '5vh',
-    borderRadius: 10,
-    textAlign: 'center',
-    fontSize: '20px',
-  },
-  avatarSection: {
+    playerSetup: {
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    textGrid: {
+        borderRadius: '1em',
+        width: '60vw',
+        height: '70vh',
+        padding: '2%',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        flexDirection: 'column',
+        alignItems: 'center',
+        color: 'white',
+    },
+    fields: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        height: '50vh'
+    },
+    textBox: {
+        border: 0,
+        width: '20vw',
+        height: '5vh',
+        borderRadius: 10,
+        textAlign: 'center',
+        fontSize: '20px',
 
-    width: '50vw',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    marginTop: '2vh',
+    },
+    avatarSection: {
 
-  },
-  radioForm: {
-    flexDirection: 'row'
-  },
+        width: '50vw',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        flexDirection: 'column',
+        marginTop: '2vh',
+        alignItems: 'center'
+
+    },
+    avatarIcons: {
+
+        width: '50vw',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        marginTop: '2vh',
+
+    },
+    radioForm: {
+        flexDirection: 'row'
+    },
+    cssLabel: {
+        color : 'white'
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: 'white !important',
+        }
+    },
+    notchedOutline: {
+        borderWidth: '1px',
+        borderColor: 'white !important'
+    },
+    root: {
+        color: 'white'
+    }
 };
 
 
-const InstructionText = [
-  "Welcome to the game of rent! You will now take on the role of a person in [CITY] searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character. Click on the yellow card to discover your occupation!",
-  "Now that you have your occupation, it's time to determine your household! Click on the die to roll for the number of family members.",
-  'That means you have X other family members in your household. Draw a household card and an occupation card if that family members is of working age.',
-  'Everyone has unforseen circumstances arise in their lives. Draw a life card for each adult in your household including yourself!',
-  'Your household is finally set! Now click on the calculator icon to find out your monthly housing allowance. This is how much you can afford to spending on housing each month.',
-];
 
 
-class PlayerSetup extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      setupLocation: 0,
+class ConnectedPlayerSetup extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            setupLocation: 0,
+            playerName: '',
+
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({ [event.target.id]: event.target.value });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const { playerName } = this.state;
+        this.props.addPlayer({ playerName });
+        this.setState({ playerName: '' });
+    }
+
+    nextStep() {
+        this.setState({
+            setupLocation: this.state.setupLocation + 1,
+        });
     };
-  }
 
-  nextStep() {
-    this.setState({
-      setupLocation: this.state.setupLocation + 1,
-    });
-  }
 
-  render() {
-    return (
 
-      <div style={{ backgroundColor: 'gray' }}>
-        <p>{InstructionText[this.state.setupLocation].replace('[CITY]', this.props.city || 'Nashville')}</p>
-        <div style={styles.mapBackground}>
-          <div style={styles.playerSetup}>
-            <h1>{setup[this.state.setupLocation]}</h1>
-            <div style={styles.textGrid}>
+    render() {
+        const { classes } = this.props;
+        const { playerName } = this.state;
+        return (
+            <div className='backgroundImage'>
 
-              <div style={styles.fields}>
-                <h2>Enter a name for your player</h2>
-                <input type="text" style={styles.textBox} />
-              </div>
+                <div className='playerSetupPage'>
+                    <div style={styles.playerSetup}>
 
-              <div style={styles.fields}>
-                <h2>Choose an avatar for your player</h2>
+                        <div style={styles.textGrid}>
+                            <h1>{setup[this.state.setupLocation]}</h1>
+                            <form onSubmit={this.handleSubmit}>
+                                <div style={styles.fields}>
 
-                {/* eslint-disable-next-line max-len */}
-                <form style={styles.radioForm}>
-                  <PlayerRadio num="0" name="icon" />
-                  <PlayerRadio num="1" name="icon" />
-                  <PlayerRadio num="2" name="icon" />
-                  <PlayerRadio num="3" name="icon" />
-                  <PlayerRadio num="4" name="icon" />
-                  <PlayerRadio num="5" name="icon" />
-              </form>
-              </div>
+                                    <label htmlFor="playerName">Enter a name for your player</label>
+                                    <input
+                                        type="text"
+                                        id="playerName"
 
-              <Button variant="contained" href="/board">
-                Finish
-              </Button>
+                                        onChange={this.handleChange}
+                                        style={styles.textBox}
+                                        required='true'
+                                    />
+
+                                    <TextField
+                                        required
+                                        id="playerName"
+                                        label="Player Name"
+                                        variant="outlined"
+                                        onChange={this.handleChange}
+                                        value={playerName}
+                                        style={styles.textBox}
+                                        classes={{
+                                            root: styles.root
+                                        }}
+                                        InputLabelProps={{
+                                            classes: {
+                                                root: styles.cssLabel,
+                                            },
+                                        }}
+                                        InputProps={{
+                                            classes: {
+                                                root: styles.cssOutlinedInput,
+                                                notchedOutline: styles.notchedOutline,
+                                            },
+                                            inputMode: "numeric"
+                                        }}
+                                    />
+
+
+
+                                    <div style={styles.avatarSection}>
+                                        <h2>Choose an avatar for your player</h2>
+                                        <div style={styles.avatarIcons}>
+                                            <form style={styles.radioForm}>
+                                                <PlayerRadio num="0" name="icon" />
+                                                <PlayerRadio num="1" name="icon" />
+                                                <PlayerRadio num="2" name="icon" />
+                                                <PlayerRadio num="3" name="icon" />
+                                                <PlayerRadio num="4" name="icon" />
+                                                <PlayerRadio num="5" name="icon" />
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div className={'buttonSection'}>
+                                        <Button type='submit' variant="contained">
+                                            Next
+                                        </Button>
+
+                                        {/*<Button type='submit' variant="contained" href="/board" style={{'visibility': 'hidden'}}>*/}
+                                        {/*  Finish*/}
+                                        {/*</Button>*/}
+                                    </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
 
-          </div>
-        </div>
-      </div>
 
-    );
-  }
+
+
+        );
+    }
 }
+
+
+
+const PlayerSetup = connect(
+    null,
+    select
+)(ConnectedPlayerSetup);
+
 
 export default PlayerSetup;

@@ -1,0 +1,59 @@
+
+
+.GameSetupPage{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.667);
+    font-family: Roboto, sans-serif;
+}
+
+.pageTitle{
+    margin: 0;
+    /*text-align: center;*/
+    top: 5%;
+    font-weight: bold;
+    font-size: 64px;
+    vertical-align: center;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+
+.overlay {
+    background-color: #282c34;
+    opacity: 60%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 4vmin);
+    color: white;
+}
+
+/*todo delete this when no longer needed for reference*/
+.GameSetupPage-Title{
+    text-align: center;
+    top: 5%;
+    font-weight: bold;
+    font-size: 64px;
+    z-index: 2;
+    vertical-align: center;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+.Questions{
+    text-align: center;
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: 36px;
+
+}
+
+

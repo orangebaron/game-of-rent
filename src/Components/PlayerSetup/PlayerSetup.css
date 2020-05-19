@@ -5,6 +5,27 @@
 
 .avatars {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
+}
+
+/*todo go back and fix this*/
+label {
+    font-size: 1.5rem;
+}
+
+.buttonSection {
+    /*margin: 20px;*/
+}
+
+.playerSetupPage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.667);
+    font-family: Roboto, sans-serif;
 }
