@@ -80,7 +80,7 @@ function ConnectedGameBoard({playerList}) {
 
       <div className={classes.playerCardSection}>
           {playerList.map(player => (
-              <PlayerCard playerName={player.playerName} onClick={() => showPlayerCardFullscreen(sketchyRef.ref)}/>
+              <PlayerCard playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(sketchyRef.ref)}/>
           ))}
 
         {/*<PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />*/}

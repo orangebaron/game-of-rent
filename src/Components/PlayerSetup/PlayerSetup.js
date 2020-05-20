@@ -5,7 +5,7 @@ import './PlayerSetup.css';
 import { RadioGroup } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
-
+import PlayerIcon from '../PlayerIcon/PlayerIcon';
 import { connect } from 'react-redux';
 import { addPlayer } from '../../actions/index';
 import {Link} from 'react-router-dom';
@@ -63,14 +63,11 @@ const styles = {
     },
     avatarIcons: {
 
-        width: '50vw',
+        width: '40vw',
         display: 'flex',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         marginTop: '2vh',
 
-    },
-    radioForm: {
-        flexDirection: 'row'
     },
     cssLabel: {
         color : 'white'
@@ -98,6 +95,7 @@ class ConnectedPlayerSetup extends React.Component {
         this.state = {
             title: '',
             playerName: '',
+            avatarIndex: '',
             setupCount: 1,
 
         };
@@ -106,28 +104,25 @@ class ConnectedPlayerSetup extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value });
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const { playerName } = this.state;
-        this.props.addPlayer({ playerName });
-        this.setState({ playerName: '' });
+        // const { playerName } = this.state; todo i might not need these anymore
+        // const { avatarIndex } = this.state;
+        this.props.addPlayer({ playerName: this.state.playerName, avatar: this.state.avatarIndex });
+        this.setState({ playerName: '', avatarIndex: ''});
         this.setState({setupCount: this.state.setupCount + 1})
     }
 
-    nextStep() {
-        this.setState({
-            setupLocation: this.state.setupLocation + 1,
-        });
-    };
 
 
 
     render() {
         const { classes } = this.props;
         const { playerName } = this.state;
+        const { avatarIndex } = this.state;
 
         let button;
         if (this.state.setupCount > this.props.playerCount){
@@ -149,7 +144,6 @@ class ConnectedPlayerSetup extends React.Component {
                     <div style={styles.playerSetup}>
 
                         <div style={styles.textGrid}>
-                            {/*<h1>{setup[this.state.setupLocation]}</h1>*/}
                             <h1>Player {this.state.setupCount}</h1>
                             <form onSubmit={this.handleSubmit}>
                                 <div style={styles.fields}>
@@ -169,6 +163,7 @@ class ConnectedPlayerSetup extends React.Component {
                                     <TextField
                                         required
                                         id="playerName"
+                                        name='playerName'
                                         label="Player Name"
                                         variant="outlined"
                                         onChange={this.handleChange}
@@ -192,18 +187,29 @@ class ConnectedPlayerSetup extends React.Component {
                                     />
 
 
-
                                     <div style={styles.avatarSection}>
                                         <h2>Choose an avatar for your player</h2>
                                         <div style={styles.avatarIcons}>
-                                            <form style={styles.radioForm}>
-                                                <PlayerRadio num="0" name="icon" />
-                                                <PlayerRadio num="1" name="icon" />
-                                                <PlayerRadio num="2" name="icon" />
-                                                <PlayerRadio num="3" name="icon" />
-                                                <PlayerRadio num="4" name="icon" />
-                                                <PlayerRadio num="5" name="icon" />
-                                            </form>
+
+                                                <input className='avatar-radio-buttons' id='option0' onChange={this.handleChange} type='radio' value={0} name='avatarIndex' required/>
+                                                <label className='avatar-image' htmlFor='option0'><PlayerIcon num={0}/></label>
+
+                                                <input className='avatar-radio-buttons' id='option1' onChange={this.handleChange} type='radio' value={1} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option1'><PlayerIcon num={1}/></label>
+
+                                                <input className='avatar-radio-buttons' id='option2' onChange={this.handleChange} type='radio' value={2} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option2'><PlayerIcon num={2}/></label>
+
+                                                <input className='avatar-radio-buttons' id='option3' onChange={this.handleChange} type='radio' value={3} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option3'><PlayerIcon num={3}/></label>
+
+                                                <input className='avatar-radio-buttons' id='option4' onChange={this.handleChange} type='radio' value={4} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option4'><PlayerIcon num={4}/></label>
+
+                                                <input className='avatar-radio-buttons' id='option5' onChange={this.handleChange} type='radio' value={5} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option5'><PlayerIcon num={5}/></label>
+
+
                                         </div>
                                     </div>
 
