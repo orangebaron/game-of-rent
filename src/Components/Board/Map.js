@@ -47,7 +47,7 @@ class Map extends React.Component {
             />
             <Marker position={[36.1627, -86.7816] }>
               <Popup>
-                Popup for any custom information.
+                These will be used for house/job locations
               </Popup>
             </Marker>
           </LeafletMap>

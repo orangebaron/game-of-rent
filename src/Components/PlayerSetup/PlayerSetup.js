@@ -130,7 +130,7 @@ class ConnectedPlayerSetup extends React.Component {
         const { playerName } = this.state;
 
         let button;
-        if (this.state.setupCount >= this.props.playerCount){
+        if (this.state.setupCount > this.props.playerCount){
             button = <Link to='/board'>
                 <Button type='submit' variant="contained">
                     Finish

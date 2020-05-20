@@ -1,4 +1,3 @@
-
 import React, {useRef} from 'react';
 import './GameBoard.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,8 +9,7 @@ import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 import { connect } from 'react-redux';
-import {addPlayer} from '../../actions'
-import store from '../../store/index' //todo idk if i need this, delete later
+
 
 const InstructionText = [
   "Welcome to the game of rent! You will now take on the role of a person in [CITY] searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character. Click on the yellow card to discover your occupation!",
@@ -22,7 +20,6 @@ const InstructionText = [
 ];
 
 const useStyles = makeStyles(() => ({
-
   root: {
     flexGrow: 1,
     backgroundColor: '#4CACE9',
@@ -35,6 +32,7 @@ const useStyles = makeStyles(() => ({
   playerCardSection: {
     width: '15vw',
     height: '100vh',
+    overflow: 'scroll',
   },
   map: {
     width: '70vw',
@@ -67,13 +65,7 @@ function closeFullscreenCard(ref) {
   ref.goFromCenter(() => document.getElementById("overlay").style.display = "none");
 }
 
-function select(dispatch) {
-  return {
-    addPlayer: player => dispatch(addPlayer(player))
-  };
-}
-
-function ConnectedGameBoard() {
+function ConnectedGameBoard({playerList}) {
 
   const classes = useStyles();
   const sketchyRef = {}; // passed as an argument to FlippingCard; FlippingCard sets sketchyRef.ref = this; then used in button click handlers
@@ -87,10 +79,14 @@ function ConnectedGameBoard() {
       </div>
 
       <div className={classes.playerCardSection}>
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
+          {playerList.map(player => (
+              <PlayerCard playerName={player.playerName} onClick={() => showPlayerCardFullscreen(sketchyRef.ref)}/>
+          ))}
+
+        {/*<PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />*/}
+        {/*<PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />*/}
+        {/*<PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />*/}
+        {/*<PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />*/}
       </div>
       <div className={classes.map}>
         <Map />
@@ -107,6 +103,16 @@ function ConnectedGameBoard() {
   );
 }
 
-const GameBoard = connect(select)(ConnectedGameBoard);
+const mapStateToProps= state => {
+  return {
+    playerList: state.players
+  }
+}
+
+const GameBoard = connect(
+    mapStateToProps,
+)(ConnectedGameBoard);
+
+
 
 export default GameBoard;

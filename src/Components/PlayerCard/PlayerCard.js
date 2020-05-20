@@ -37,7 +37,7 @@ function PlayerCard(props) {
   return (
     <Grid item className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography>John Doe</Typography>
+        <Typography>{props.playerName}</Typography>
         <PlayerIcon num="0" className="PlayerCard-Avatar" alt="player avatar" />
         <Button className={classes.infoButton} variant="outlined" onClick={props.onClick}>
           INFO

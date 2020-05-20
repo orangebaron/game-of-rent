@@ -3,6 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import './WelcomePage.css'
+import {Link} from 'react-router-dom'
 
 const sectionStyle = {
   // display: 'flex',
@@ -97,14 +98,15 @@ function WelcomePage() {
                 they’ve given and find an apartment you can afford to rent
                 as close to your job as possible.
               </p>
-              <Button variant="outlined" style={buttonStyle} href="/setup">
-                Start
-              </Button>
+              <Link to='/setup'>
+                <Button variant="outlined" style={buttonStyle} >
+                  Start
+                </Button>
+              </Link>
             </div>
           </header>
         </div>
       </div>
-
 
   );
 }
