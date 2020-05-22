@@ -2,31 +2,70 @@
 import { Link } from 'react-router-dom';
 import './GameSetupPage.css';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+    ThemeProvider,
+    withStyles,
+    makeStyles,
+createMuiTheme } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { updateCityAndCount } from '../../actions/index';
-import { useDispatch } from 'react-redux' //todo JADEN, this is awesome, use it!!
+import { useDispatch } from 'react-redux'; //todo JADEN, this is awesome, use it!!
 
 
 
 
 
 
+
+
+const theme = createMuiTheme({
+    overrides: {
+      
+        // this is used to make the outline of the selects white
+        MuiOutlinedInput: {
+            root:{
+                "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
+                borderColor:'#ffffff',
+                },
+            },
+            focused: {
+                borderColor: '#ffffff',
+            },
+            notchedOutline: {
+                borderColor: '#ffffff',
+            },
+        },
+       
+        
+      },
+
+    palette: {
+    
+        primary: {
+            main: '#ffffff',
+        }
+    ,   
+
+    },
+  });
 
 const useStyles = makeStyles((theme) => ({
+   
     button: {
         color: '#ffffff',
         fontWeight: 700,
         border: '2px solid #ffffff',
-        margin: 20
+        margin: 20,
+
     },
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
+
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -34,24 +73,27 @@ const useStyles = makeStyles((theme) => ({
     outlined: {
         width: 200,
         textAlign: 'center',
-        borderColor: 'white'
+
     },
     icon: {
         fill: 'white',
     },
     root: {
-        color: 'white',
-        borderColor: 'white'
+        color: '#FFFFFF',
+
+        
     }
 }));
 
 
 
 
-
 function GameSetupPage(){
     const classes = useStyles();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
+
+
     const [numPlayers, setNumPlayers] = React.useState('');
     const [cityLocation, setCityLocation] = React.useState('');
 
@@ -70,6 +112,8 @@ function GameSetupPage(){
 
 
     return (
+        <ThemeProvider theme={theme}
+        >
         <div className='backgroundImage'>
             <div className = "GameSetupPage">
 
@@ -79,13 +123,23 @@ function GameSetupPage(){
 
                     <div className = "Question-1">
                         <p className = "Question-1-text">How many people are playing?</p>
+                        <div style={{borderColor: '1 px solid white'}}>
+                        <FormControl  
+                        variant={'outlined'}
+                         className={classes.formControl}
+                         
+                        >
+                            
+                            
 
-                        <FormControl  variant={'outlined'} className={classes.formControl}>
-                            <InputLabel id="num-player-select"># Players</InputLabel>
+                            <InputLabel id="num-player-select"
+                            className="inputLabel"># Players</InputLabel>
+                          
                             <Select
                                 id="num-player-select"
                                 value={numPlayers}
                                 onChange={changePlayerNum}
+                                className={classes.select}
                                 label='# Players'
                                 classes={{
                                     root: classes.root,
@@ -108,7 +162,9 @@ function GameSetupPage(){
                                 <MenuItem value={5}>5</MenuItem>
                                 <MenuItem value={6}>6</MenuItem>
                             </Select>
+
                         </FormControl>
+                        </div>
                     </div>
 
                     <div className = "Question-2">
@@ -118,8 +174,10 @@ function GameSetupPage(){
                         <div className = "Scrolldowns-cit">
                             <div className="Scrolldowns-cities">
 
-                                <FormControl variant={'outlined'} className={classes.formControl}>
-                                    <InputLabel labelid="city-select">City</InputLabel>
+                                <FormControl variant={'outlined'} className={classes.formControl}
+                                id="form-1">
+                                    <InputLabel labelid="city-select"
+                                    className="inputLabel">City</InputLabel>
                                     <Select
                                         id="city-select"
                                         value={cityLocation}
@@ -166,6 +224,9 @@ function GameSetupPage(){
 
             </div>
         </div>
+        </ThemeProvider>
+
+
     )
 }
 

@@ -2,13 +2,13 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import PlayerRadio from '../PlayerRadio/PlayerRadio';
 import './PlayerSetup.css';
-import { RadioGroup } from '@material-ui/core';
-import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
 
 import { connect } from 'react-redux';
 import { addPlayer } from '../../actions/index';
-
+import {
+    withStyles,
+ } from '@material-ui/core/styles';
 
 function select(dispatch) {
     return {
@@ -18,7 +18,7 @@ function select(dispatch) {
 
 const setup = ['Player 1', 'Player 2', '...'];
 
-//todo need ot figure out how to appropriately style the Mui textbox
+//todo need to figure out how to appropriately style the Mui textbox
 const styles = {
     playerSetup: {
         height: '100vh',
@@ -93,6 +93,27 @@ const styles = {
 };
 
 
+//Creates TextField for player name with the appropriate css
+const CssTextField = withStyles({
+    root: {
+
+      '& label.MuiFormLabel-root': {
+        color: 'white',
+      },
+    
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'white',
+        },
+        '&:hover fieldset': {
+          borderColor: 'white',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: 'white',
+        },
+      },
+    },
+  })(TextField);
 
 
 class ConnectedPlayerSetup extends React.Component {
@@ -127,6 +148,7 @@ class ConnectedPlayerSetup extends React.Component {
 
 
 
+
     render() {
         const { classes } = this.props;
         const { playerName } = this.state;
@@ -142,20 +164,12 @@ class ConnectedPlayerSetup extends React.Component {
                                 <div style={styles.fields}>
 
                                     <label htmlFor="playerName">Enter a name for your player</label>
-                                    <input
-                                        type="text"
-                                        id="playerName"
-
-                                        onChange={this.handleChange}
-                                        style={styles.textBox}
-                                        required='true'
-                                    />
-
-                                    <TextField
+                                    <CssTextField
                                         required
                                         id="playerName"
                                         label="Player Name"
                                         variant="outlined"
+                                        className = "inputLabel"
                                         onChange={this.handleChange}
                                         value={playerName}
                                         style={styles.textBox}
@@ -168,6 +182,10 @@ class ConnectedPlayerSetup extends React.Component {
                                             },
                                         }}
                                         InputProps={{
+                                            //makes input white
+                                            style:{
+                                                color: 'white'
+                                            },
                                             classes: {
                                                 root: styles.cssOutlinedInput,
                                                 notchedOutline: styles.notchedOutline,

@@ -75,7 +75,7 @@ function ConnectedGameBoard() {
       <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
         <p onClick={closeFullscreenCard} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer"}}>X</p>
         <img style={{ height: '160px',left:"40%",top:"30%",position:"fixed" }} src={OccupationCardBack} className="card" alt="OccupationCardBack" />
-        // TODO make this img be good
+        {/* // TODO make this img be good */}
       </div>
 
       <div className={classes.playerCardSection}>

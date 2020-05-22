@@ -15,9 +15,13 @@ label {
 }
 
 .buttonSection {
-    /*margin: 20px;*/
+    margin: 20px;
 }
 
+.inputLabel{
+    color: #FFFFFF !important;
+    }
+    
 .playerSetupPage {
     width: 100vw;
     height: 100vh;
@@ -28,4 +32,9 @@ label {
     backdrop-filter: blur(20px);
     background-color: rgba(0, 0, 0, 0.667);
     font-family: Roboto, sans-serif;
+}
+
+
+.playerName{
+    color: #ffffff !important;
 }

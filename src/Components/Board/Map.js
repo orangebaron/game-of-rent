@@ -57,7 +57,7 @@ class Map extends React.Component {
   }
 }
 
-export default Map
+export default Map;
 
 /*
 function MyMap() {
