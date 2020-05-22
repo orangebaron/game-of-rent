@@ -1,0 +1,27 @@
+
+
+.welcomePage {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vw;
+    height: auto;
+    font-family: Roboto, sans-serif;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.667);
+}
+
+
+.backgroundImage {
+    background-image: url("../../GOR-logo.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.title {
+    margin: 0px
+}

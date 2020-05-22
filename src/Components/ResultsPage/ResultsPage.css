@@ -1,0 +1,75 @@
+
+.backgroundImage {
+    background-image: url("../../GOR-logo.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+
+.resultsPage {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vw;
+    height: auto;
+    font-family: Roboto, sans-serif;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.667);
+}
+
+/* .overlay {
+    background-color: rgba(0, 0, 0, 1);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 4vmin);
+    z-index: 300;
+}  */
+
+.ResultsPage-Title{
+    text-align: center;
+    font-family: Roboto;
+    top: 5%;
+    font-weight: bold;
+    font-size: 60px;
+    z-index: 2;
+    vertical-align: center;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+
+.boxed {
+    padding: 20px;
+    /* border: 1px solid green; */
+    width: 844px;
+    height: 522px;
+    /* background-color: rgb(219, 219, 219); */
+    opacity: 100%;
+    z-index: 4;
+    text-align: center;
+    font-weight: bold;
+}
+
+.scores{
+    color: #FFFFFF;
+    font-size: 35px;
+    z-index: 10;
+    font-family: Roboto, sans-serif;
+    opacity: 1.0;
+
+}
+
+.winner{
+    color: #FFFFFF;
+    font-size: 45px;
+    font-family: sans-serif;
+}
+
+
