@@ -74,9 +74,9 @@ function ConnectedGameBoard({playerList}) {
     <div className={classes.root}>
 
       <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
+
         <p onClick={() => closeFullscreenCard(sketchyRef.ref)} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer"}}>X</p>
-        <FlippingCard sketchyRef={sketchyRef} startSize={[0, 0]} startXY={[0, 0]} />
-      </div>
+        <FlippingCard sketchyRef={sketchyRef} startSize={[0, 0]} startXY={[0, 0]} />      </div>
 
       <div className={classes.playerCardSection}>
           {playerList.map(player => (

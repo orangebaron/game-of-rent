@@ -56,4 +56,34 @@
 
 }
 
+/* 
+.inputLabel{
+color: #FFFFFF !important;
+}
+
+.classes.formControl{
+    color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+
+}
+
+.form-1{
+    color: primary !important;
+    border-color: #FFFFFF !important;
+
+
+}
+
+.city-select{
+    color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+}
+
+select:active, select:hover {
+    outline: none
+  }
+.city-select:active, .classes.formControl:hover {
+    outline-color: red
+
+} */
 

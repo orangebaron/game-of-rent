@@ -1,24 +1,22 @@
 import React from 'react';
 import './ResultsPage.css';
-import Background from './img/croppedBoard.png';
 
 
-const sectionStyle = {
-    width: '100vw',
-    height: 'auto',
-    backgroundImage: `url(${Background})`,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+const headerStyle = {
+    height: '100vh',
+    width: 'auto',
+    color: '#ffffff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'baseline',
+    justifyContent: 'center',
   };
-
-  
 
 function ResultsPage(){
     return (
-        <div style={sectionStyle}>
-            <header className = "overlay">
-            <div classname = "ResultsPage">
+        <div className='backgroundImage'>
+            <div className = {'resultsPage'}>
+             <header className = {headerStyle}>
                 <header className = "ResultsPage-Title">
                 
                     <p className = "Title">
@@ -44,10 +42,12 @@ function ResultsPage(){
 
 
           
-            </div>
 
 
             </header>
+
+            </div>
+
         </div>
     )
 
