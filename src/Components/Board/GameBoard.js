@@ -42,14 +42,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function showCardFullscreen(ref, cardId) {
+function showCardFullscreen(ref, cardId, cardProps) {
   document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
-  ref.startForRightCard(document.getElementById(cardId));
+  ref.startForRightCard(document.getElementById(cardId), cardProps);
 }
 
-function showPlayerCardFullscreen(ref) {
+function showPlayerCardFullscreen(ref, buttonId, cardProps) {
   document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
-  ref.startForLeftCard();
+  ref.startForLeftCard(document.getElementById(buttonId), cardProps);
 }
 
 function closeFullscreenCard(ref) {
@@ -67,19 +67,19 @@ function GameBoard() {
         <FlippingCard sketchyRef={sketchyRef} startSize={[0, 0]} startXY={[0, 0]} />
       </div>
       <div className={classes.playerCardSection}>
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
-        <PlayerCard onClick={() => showPlayerCardFullscreen(sketchyRef.ref)} />
+        <PlayerCard btnId="info1" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info1", ["Person A", 111])} />
+        <PlayerCard btnId="info2" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info2", ["Person B", 222])} />
+        <PlayerCard btnId="info3" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info3", ["Person C", 333])} />
+        <PlayerCard btnId="info4" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info4", ["Person D", 444])} />
       </div>
       <div className={classes.map}>
         <Map />
       </div>
       <div className={classes.gameCardSection}>
-        <img style={{ height: '160px'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => showCardFullscreen(sketchyRef.ref, "occupationCardBack")} />
-        <img style={{ height: '160px'}} id="householdCardBack"    src={HouseholdCardBack}    className="card" alt="HouseholdCardBack"    onClick={() => showCardFullscreen(sketchyRef.ref, "householdCardBack")} />
-        <img style={{ height: '160px'}} id="lifeCardBack"         src={LifeCardBack}         className="card" alt="LifeCardBack"         onClick={() => showCardFullscreen(sketchyRef.ref, "lifeCardBack")} />
-        <img style={{ height: '160px'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(sketchyRef.ref, "neighborhoodCardBack")} />
+        <img style={{ height: '160px'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", "Retail worker", "Monthly Income:", "$65", "A", 1])} />
+        <img style={{ height: '160px'}} id="householdCardBack"    src={HouseholdCardBack}    className="card" alt="HouseholdCardBack"    onClick={() => showCardFullscreen(sketchyRef.ref, "householdCardBack",    ["Household", "Filler text A", "Lorem ipsum", "dolor sit amet", "B", 2])} />
+        <img style={{ height: '160px'}} id="lifeCardBack"         src={LifeCardBack}         className="card" alt="LifeCardBack"         onClick={() => showCardFullscreen(sketchyRef.ref, "lifeCardBack",         ["Life", "Filler text B", "Lorem ipsum", "dolor sit amet", "C", 3])} />
+        <img style={{ height: '160px'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(sketchyRef.ref, "neighborhoodCardBack", ["Neighborhood", "Filler text C", "Lorem ipsum", "dolor sit amet", "D", 4])} />
       </div>
 
     </div>
