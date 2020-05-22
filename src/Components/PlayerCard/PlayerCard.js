@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PlayerCard() {
+function PlayerCard(props) {
   const classes = useStyles();
   return (
     <Grid item className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography>John Doe</Typography>
-        <PlayerIcon num="0" className="PlayerCard-Avatar" alt="player avatar" />
-        <Button className={classes.infoButton} variant="outlined">
+        <Typography>{props.playerName}</Typography>
+        <PlayerIcon num={props.avatar} className="PlayerCard-Avatar" alt="player avatar" />
+        <Button className={classes.infoButton} variant="outlined" onClick={props.onClick}>
           INFO
         </Button>
       </Paper>

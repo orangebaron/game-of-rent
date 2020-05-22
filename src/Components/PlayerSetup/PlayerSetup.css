@@ -34,7 +34,18 @@ label {
     font-family: Roboto, sans-serif;
 }
 
-
 .playerName{
     color: #ffffff !important;
+}
+
+.avatar-radio-buttons {
+    display: none !important;
+}
+
+.avatar-image {
+    cursor: pointer;
+}
+
+.avatar-radio-buttons:checked + label {
+    outline: 2px solid white;
 }

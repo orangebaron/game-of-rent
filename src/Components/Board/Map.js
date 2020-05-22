@@ -1,9 +1,6 @@
 import React from 'react';
-import L from 'leaflet';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import { makeStyles } from '@material-ui/core/styles';
-import Nash from './img/Nashville-map-cropped.jpg';
-import App from "../../App";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,30 +26,32 @@ const useStyles = makeStyles((theme) => ({
 class Map extends React.Component {
   render() {
     return (
-        <LeafletMap
-            center={[36.1627, -86.7816]}
-            zoom={13}
-            minZoom={13}
-            maxZoom={13}
-            attributionControl={true}
-            zoomControl={true}
-            doubleClickZoom={true}
-            scrollWheelZoom={true}
-            dragging={true}
-            animate={true}
-            easeLinearity={0.35}
-        >
-          <style className={useStyles.root}>
-          </style>
-          <TileLayer
-              url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-          />
-          <Marker position={[36.1627, -86.7816] }>
-            <Popup>
-              Popup for any custom information.
-            </Popup>
-          </Marker>
-        </LeafletMap>
+        <div className='leaflet-container'>
+          <LeafletMap
+              center={[36.1627, -86.7816]}
+              zoom={13}
+              minZoom={13}
+              maxZoom={13}
+              attributionControl={true}
+              zoomControl={false}
+              doubleClickZoom={true}
+              scrollWheelZoom={true}
+              dragging={false}
+              animate={true}
+              easeLinearity={0.35}
+          >
+            <style className={useStyles.root}>
+            </style>
+            <TileLayer
+                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            />
+            <Marker position={[36.1627, -86.7816] }>
+              <Popup>
+                These will be used for house/job locations
+              </Popup>
+            </Marker>
+          </LeafletMap>
+        </div>
     );
   }
 }
