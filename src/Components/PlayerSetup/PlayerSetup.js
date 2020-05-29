@@ -9,7 +9,8 @@ import { addPlayer } from '../../actions/index';
 import {
     withStyles,
  } from '@material-ui/core/styles';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'; //todo might get rid of this
+import { withRouter } from 'react-router-dom';
 import store from '../../store/index';
 
 
@@ -51,7 +52,7 @@ const styles = {
     },
     avatarSection: {
 
-        width: '50vw',
+        width: '100vw',
         display: 'flex',
         justifyContent: 'space-evenly',
         flexDirection: 'column',
@@ -61,8 +62,8 @@ const styles = {
     },
     avatarIcons: {
 
-        width: '40vw',
-        maxWidth: '650px',
+        width: '60vw',
+        maxWidth: '1150px',
         display: 'flex',
         justifyContent: 'space-between',
         marginTop: '2vh',
@@ -83,7 +84,14 @@ const styles = {
     },
     root: {
         color: 'white'
-    }
+    },
+    button: {
+        color: '#ffffff',
+        fontWeight: 700,
+        border: '2px solid #ffffff',
+        margin: 20,
+
+    },
 };
 const state = store.getState;
 
@@ -94,7 +102,7 @@ const CssTextField = withStyles({
       '& label.MuiFormLabel-root': {
         color: 'white',
       },
-    
+
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
           borderColor: 'white',
@@ -130,11 +138,25 @@ class ConnectedPlayerSetup extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // const { playerName } = this.state; todo i might not need these anymore
-        // const { avatarIndex } = this.state;
         this.props.addPlayer({ playerName: this.state.playerName, avatar: this.state.avatarIndex });
         this.setState({ playerName: '', avatarIndex: ''});
-        this.setState({setupCount: this.state.setupCount + 1})
+
+
+
+
+        //todo need to get rid of selected avatar here
+        for(let x = 0; x++; x <= 8){
+            console.log('hiiiiiii');
+            console.log(x);
+            document.getElementById(`option${x}`).checked = 0;
+        }
+
+
+        if(this.state.setupCount >= this.props.playerCount){
+            this.props.history.push('/board')
+        } else {
+            this.setState({setupCount: this.state.setupCount + 1})
+        }
     }
 
 
@@ -147,14 +169,12 @@ class ConnectedPlayerSetup extends React.Component {
         const { avatarIndex } = this.state;
 
         let button;
-        if (this.state.setupCount > this.props.playerCount){
-            button = <Link to='/board'>
-                <Button type='submit' variant="contained">
-                    Finish
-                </Button>
-            </Link>
+        if (this.state.setupCount >= this.props.playerCount){
+            button = <Button type='submit' variant="outlined">
+                Finish
+            </Button>
         } else {
-            button = <Button type='submit' variant="contained">
+            button = <Button type='submit' variant="outlined">
                 Next
             </Button>
         }
@@ -172,16 +192,6 @@ class ConnectedPlayerSetup extends React.Component {
 
                                     <label htmlFor="playerName">Enter a name for your player</label>
                                     <CssTextField
-
-                                    /*todo delete this later*/
-                                    /*<input*/
-                                    /*    type="text"*/
-                                    /*    id="playerName"*/
-
-                                    /*    onChange={this.handleChange}*/
-                                    /*    style={styles.textBox}*/
-                                    /*    required='true'*/
-                                    /*/>*/
 
                                         required
                                         id="playerName"
@@ -236,6 +246,15 @@ class ConnectedPlayerSetup extends React.Component {
                                                 <input className='avatar-radio-buttons' id='option5' onChange={this.handleChange} type='radio' value={5} name='avatarIndex'/>
                                                 <label className='avatar-image' htmlFor='option5'><PlayerIcon num={5}/></label>
 
+                                                <input className='avatar-radio-buttons' id='option6' onChange={this.handleChange} type='radio' value={6} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option6'><PlayerIcon num={6}/></label>
+
+                                                <input className='avatar-radio-buttons' id='option7' onChange={this.handleChange} type='radio' value={7} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option7'><PlayerIcon num={7}/></label>
+
+                                                <input className='avatar-radio-buttons' id='option8' onChange={this.handleChange} type='radio' value={8} name='avatarIndex'/>
+                                                <label className='avatar-image' htmlFor='option8'><PlayerIcon num={8}/></label>
+
 
                                         </div>
                                     </div>
@@ -279,4 +298,4 @@ const PlayerSetup = connect(
 )(ConnectedPlayerSetup);
 
 
-export default PlayerSetup;
+export default withRouter(PlayerSetup);
