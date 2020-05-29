@@ -39,7 +39,7 @@ function PlayerCard(props) {
       <Paper className={classes.paper}>
         <Typography>{props.playerName}</Typography>
         <PlayerIcon num={props.avatar} className="PlayerCard-Avatar" alt="player avatar" />
-        <Button className={classes.infoButton} variant="outlined" onClick={props.onClick}>
+        <Button className={classes.infoButton} variant="outlined" onClick={props.onClick} id={props.btnId}>
           INFO
         </Button>
       </Paper>
