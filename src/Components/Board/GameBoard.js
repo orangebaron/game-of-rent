@@ -4,12 +4,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Map from './Map';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import FlippingCard from '../FlippingCard/FlippingCard';
+import Dice from '../Dice/Dice'
 import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
 import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { useDispatch } from 'react-redux'
+import { updatePlayer } from '../../actions/index';
 
 
 const useStyles = makeStyles(() => ({
@@ -58,41 +61,70 @@ function closeFullscreenCard(ref) {
     ref.goFromCenter(() => document.getElementById("overlay").style.display = "none");
 }
 
-function ConnectedGameBoard({playerList, city}) {
 
+
+
+function ConnectedGameBoard({playerList, city, jobList}) {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const sketchyRef = {}; // passed as an argument to FlippingCard; FlippingCard sets sketchyRef.ref = this; then used in button click handlers
     // there must be a better way to do this
 
-    const [playerTurn, setPlayerTurn] = React.useState(1);
+    // player 1's turn is presented by a 0
+    const [playerTurn, setPlayerTurn] = React.useState(0);
     const [instructionLocation, setInstructionLocation] = React.useState(0);
     const nextInstruction = () => {
         setInstructionLocation(instructionLocation + 1);
     }
     const InstructionText = [
-        `Welcome to the Game of Rent! You will now take on the role of a person in ${city} searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character. Click on the yellow card to discover your occupation!`,
+        `Welcome to the Game of Rent! You will now take on the role of a person in ${city} searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character; click on the yellow card to discover your occupation!`,
         "Now that you have your occupation, it's time to determine your household! Click on the die to roll for the number of family members.",
         'That means you have X other family members in your household. Draw a household card and an occupation card if that family members is of working age.',
         'Everyone has unforseen circumstances arise in their lives. Draw a life card for each adult in your household including yourself!',
         'Your household is finally set! Now click on the calculator icon to find out your monthly housing allowance. This is how much you can afford to spending on housing each month.',
     ];
 
+    let job;
+    const handleCardDraw = (type) => {
+        if(type === 'occupation'){
 
+            //todo need to remove card from deck
+            //todo ask sam how to do this so that it can be closed
+            job = jobList[Math.floor(Math.random() * jobList.length)];
+            showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
+
+            if(instructionLocation === 0){
+                nextInstruction();
+                dispatch(updatePlayer({ playerId: playerTurn, job: job}));
+            }
+
+        } else if(type === 'household'){
+
+        } else if(type === 'life'){
+
+        } else {
+
+        }
+
+    }
 
     return (
         <div className={classes.root}>
 
-            <ReactCSSTransitionGroup
-                transitionName='example'
-                transitionAppear={true}
-                transitionAppearTimeout={10000}>
+            <div >
+                <ReactCSSTransitionGroup
+                    transitionName='example'
+                    transitionAppear={true}
+                    transitionAppearTimeout={10000}>
+                    <div className='instruction-section'>
+                        <p>{InstructionText[instructionLocation]}</p>
+                    </div>
+                </ReactCSSTransitionGroup>
+            </div>
 
-                <div className='instruction-section'>
-                    <p>{InstructionText[instructionLocation]}</p>
-                </div>
-
-            </ReactCSSTransitionGroup>
-
+            <div className='dice-section'>
+                <Dice/>
+            </div>
 
 
 
@@ -118,8 +150,18 @@ function ConnectedGameBoard({playerList, city}) {
                 <Map />
             </div>
 
+
+
+            {/*for a card draw: store has list of jobs, locations, life, and family info*/}
+            {/*on a card click, it will generate a random # and take that index's info*/}
+            {/*making sure to remove that entry from the list*/}
+            {/*the card will be rendered with the appropriate information*/}
+            {/*and the player will be updated with the info as well*/}
+
             <div className={classes.gameCardSection}>
-                <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => {showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", "Retail worker", "Monthly Income:", "$65", "A", 1]); nextInstruction()}} />
+                <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => handleCardDraw('occupation')} />
+
+                {/*<img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", "Retail worker", "Monthly Income:", "$65", "A", 1]) } />*/}
                 <img style={{ height: '20vh'}} id="householdCardBack"    src={HouseholdCardBack}    className="card" alt="HouseholdCardBack"    onClick={() => showCardFullscreen(sketchyRef.ref, "householdCardBack",    ["Household", "Filler text A", "Lorem ipsum", "dolor sit amet", "B", 2])} />
                 <img style={{ height: '20vh'}} id="lifeCardBack"         src={LifeCardBack}         className="card" alt="LifeCardBack"         onClick={() => showCardFullscreen(sketchyRef.ref, "lifeCardBack",         ["Life", "Filler text B", "Lorem ipsum", "dolor sit amet", "C", 3])} />
                 <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(sketchyRef.ref, "neighborhoodCardBack", ["Neighborhood", "Filler text C", "Lorem ipsum", "dolor sit amet", "D", 4])} />
@@ -133,7 +175,8 @@ function ConnectedGameBoard({playerList, city}) {
 const mapStateToProps= state => {
     return {
         playerList: state.players,
-        city: state.city
+        city: state.city,
+        jobList: state.jobs
     }
 }
 
