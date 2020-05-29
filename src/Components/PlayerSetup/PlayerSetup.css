@@ -5,6 +5,47 @@
 
 .avatars {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
+}
+
+/*todo go back and fix this*/
+label {
+    font-size: 1.5rem;
+}
+
+.buttonSection {
+    margin: 20px;
+}
+
+.inputLabel{
+    color: #FFFFFF !important;
+    }
+    
+.playerSetupPage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.667);
+    font-family: Roboto, sans-serif;
+}
+
+.playerName{
+    color: #ffffff !important;
+}
+
+.avatar-radio-buttons {
+    display: none !important;
+}
+
+.avatar-image {
+    cursor: pointer;
+}
+
+.avatar-radio-buttons:checked + label {
+    outline: 2px solid white;
 }
