@@ -11,30 +11,23 @@ export default class Dice extends React.Component {
     };
   }
 
-  //   rollDoneCallback(num) {
-  //     // this.setState(() => ({
-  //     //   numberRolled: num,
-  //     // }));
-  //     // console.log(`You rolled a ${num}`);
-  //   }
+  rollDoneCallback(num) {
+   console.log("rolled a " + num);
+   // NOTE: this is where more dice roll logic can be done
+   this.setState({
+     numberRolled: num,
+   });
+  }
 
   render() {
     const { numberRolled } = this.state;
     return (
-      <div style={{ border: '1px black solid' }}>
-        <h1>Hello from Dice</h1>
-        <h1>
-          You rolled:
-          {' '}
-          {numberRolled}
-        </h1>
         <ReactDice
           numDice={1}
           faceColor="#ffffff"
           dotColor="#000000"
-          rollDone={this.rollDoneCallback}
+          rollDone={num => this.rollDoneCallback(num)}
         />
-      </div>
     );
   }
 }
