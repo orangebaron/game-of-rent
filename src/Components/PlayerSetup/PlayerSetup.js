@@ -62,9 +62,11 @@ const styles = {
     avatarIcons: {
 
         width: '40vw',
+        maxWidth: '650px',
         display: 'flex',
         justifyContent: 'space-between',
         marginTop: '2vh',
+
 
     },
     cssLabel: {

@@ -25,7 +25,7 @@ import { useDispatch } from 'react-redux' //todo JADEN, this is awesome, use it!
 
 const theme = createMuiTheme({
     overrides: {
-      
+
         // this is used to make the outline of the selects white
         MuiOutlinedInput: {
             root:{
@@ -40,22 +40,22 @@ const theme = createMuiTheme({
                 borderColor: '#ffffff',
             },
         },
-       
-        
+
+
       },
 
     palette: {
-    
+
         primary: {
             main: '#ffffff',
         }
-    ,   
+    ,
 
     },
   });
 
 const useStyles = makeStyles((theme) => ({
-   
+
     button: {
         color: '#ffffff',
         fontWeight: 700,
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         color: '#FFFFFF',
 
-        
+
     }
 }));
 
@@ -125,17 +125,17 @@ function GameSetupPage(){
                     <div className = "Question-1">
                         <p className = "Question-1-text">How many people are playing?</p>
                         <div style={{borderColor: '1 px solid white'}}>
-                        <FormControl  
+                        <FormControl
                         variant={'outlined'}
                          className={classes.formControl}
-                         
+
                         >
-                            
-                            
+
+
 
                             <InputLabel id="num-player-select"
                             className="inputLabel"># Players</InputLabel>
-                          
+
                             <Select
                                 id="num-player-select"
                                 value={numPlayers}
@@ -156,6 +156,7 @@ function GameSetupPage(){
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
+                                <MenuItem value={0}>0 (dev)</MenuItem>
                                 <MenuItem value={1}>1</MenuItem>
                                 <MenuItem value={2}>2</MenuItem>
                                 <MenuItem value={3}>3</MenuItem>
@@ -204,7 +205,7 @@ function GameSetupPage(){
                                         <MenuItem value = "New York"> New York</MenuItem>
                                         <MenuItem value = "Atlanta"> Atlanta</MenuItem>
                                         <MenuItem value = "Los Angeles"> Los Angeles</MenuItem>
-                                        <MenuItem value = "San Franciso"> San Francisco</MenuItem>
+                                        <MenuItem value = "San Francisco"> San Francisco</MenuItem>
                                         <MenuItem value = "Philadelphia"> Philadelphia</MenuItem>
                                         <MenuItem value = "Brooklyn"> Brooklyn</MenuItem>
                                         <MenuItem value = "Denver"> Denver</MenuItem>

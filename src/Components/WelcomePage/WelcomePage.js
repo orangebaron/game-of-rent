@@ -4,22 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import './WelcomePage.css'
 import {Link} from 'react-router-dom'
-
-const sectionStyle = {
-  // display: 'flex',
-  // flexDirection: 'row',
-  // alignItems: 'baseline',
-  // justifyContent: 'center',
-  // minHeight: '100vh',
-  // width: '100vw',
-  // height: 'auto',
-  // backgroundImage: `url(${Background})`,
-  // backgroundPosition: 'center',
-  // backgroundRepeat: 'no-repeat',
-  // backgroundSize: 'cover',
-  // fontFamily: '"Roboto", sans-serif',
-};
-
+import logo from './changeplusplus.png'
 
 const headerStyle = {
   height: '100vh',
@@ -57,28 +42,6 @@ const buttonStyle = {
 }
 
 
-// .WelcomePage-introText{
-//   position: absolute;
-//   font-family: Roboto;
-//   top: 35%;
-//   font-size: calc(5px + 2vmin);
-//   display: flex;
-//   left: 35%;
-//   right: 35%;
-//   z-index: 3;
-// }
-
-// .WelcomePage-button{
-//   position: relative;
-//   font-family: Roboto;
-//   bottom: 15%;
-//   border-radius: 12px;
-//   background-color: white;
-//   padding: 1% 3%;
-//   z-index: 3;
-//   cursor: pointer;
-// }
-
 function WelcomePage() {
   return (
 
@@ -86,24 +49,35 @@ function WelcomePage() {
         <div className={'welcomePage'}>
           <header style={headerStyle}>
             <div style={textGrid}>
-              <div className='title'>
-                <h1> Welcome to the Game of Rent! </h1>
-              </div>
+                <div className='title'>
+                  <h1> Welcome to the Game of Rent! </h1>
+                </div>
 
-              <p className="WelcomePage-introText">
-                More and more American families and individuals are finding
-                it increasingly difficult to live
-                somewhere they can afford. In the Game of Rent, each player
-                will have to make the most of what
-                they’ve given and find an apartment you can afford to rent
-                as close to your job as possible.
-              </p>
-              <Link to='/setup'>
-                <Button variant="outlined" style={buttonStyle} >
-                  Start
-                </Button>
-              </Link>
+                <p className="WelcomePage-introText">
+                  More and more American families and individuals are finding
+                  it increasingly difficult to live
+                  somewhere they can afford. In the Game of Rent, each player
+                  will have to make the most of what
+                  they’ve given and find an apartment you can afford to rent
+                  as close to your job as possible.
+                </p>
+
+                <Link to='/setup'>
+                  <Button variant="outlined" style={buttonStyle} >
+                    Start
+                  </Button>
+                </Link>
+
+                <div className='club-logo'>
+                    {/*todo make this label look better*/}
+                    <label htmlFor='logo'>Developed by</label>
+                    <img className='club-logo-image' id='logo' src={logo}/>
+                </div>
+
             </div>
+
+
+
           </header>
         </div>
       </div>
