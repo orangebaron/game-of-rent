@@ -4,7 +4,6 @@ import './GameSetupPage.css';
 import React from 'react';
 import {
     ThemeProvider,
-    withStyles,
     makeStyles,
 createMuiTheme } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
