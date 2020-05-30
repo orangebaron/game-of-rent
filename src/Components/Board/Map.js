@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { makeStyles } from '@material-ui/core/styles';
 import Dice from '../Dice/Dice.js';
 
@@ -25,18 +25,75 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+//variables – center of city
+const centerLat =
+// 39.953;
+// 34.052;
+// 47.606;
+36.1627;
+// 37.775;
+const centerLong = 
+// -75.165;
+// -118.244;
+// -122.332;
+-86.7816;
+// -122.419;
+
+
+//calculates increments of spots on grid by longitutde/latitude
+var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
+var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
+var incrementLong = diamLong / 14;
+var incrementLat = diamLat / 14;
+
+//left-most position
+var leftLong = centerLong - (diamLong / 2);
+var movingLong = leftLong;
+
+//top-most position on grid
+var topLat = centerLat - (diamLat / 2);
+
+
+//creates 2-dimensional array of Circle objects
+//0-based indexing
+//top and left-most spot is arr[0][0]
+//bottom and right-most spot is arr[14][14]
+
+
+      var arr = [];
+      for (var i = 0; i < 15; ++i){
+            arr[i]=[];
+            for (var j = 0; j < 15; ++j){
+              arr[i].push(<Circle center={{lat: topLat, lng: movingLong}}
+                            radius = {12}
+                            color="black"
+                            fillOpacity="0.5"
+                            opacity="0.5"
+                            interactive="true"/>);
+              movingLong = movingLong + incrementLong;
+            }
+            topLat = topLat + incrementLat;
+            movingLong = leftLong;
+      }
+
+
+
+
+
 class Map extends React.Component {
   render() {
     return (
         <div className='leaflet-container'>
           <LeafletMap
-              center={[36.1627, -86.7816]}
+              center={[centerLat, centerLong]}
               zoom={13}
               minZoom={13}
               maxZoom={13}
               attributionControl={true}
               zoomControl={false}
-              doubleClickZoom={true}
+              doubleClickZoom={false}
               scrollWheelZoom={true}
               dragging={false}
               animate={true}
@@ -51,7 +108,14 @@ class Map extends React.Component {
               <Popup>
                 These will be used for house/job locations
               </Popup>
+           
             </Marker>
+            
+            {/* renders the array object */}
+            {arr}
+      
+
+
           </LeafletMap>
         </div>
     );
