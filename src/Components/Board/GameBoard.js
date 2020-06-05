@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Map from './Map';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import FlippingCard from '../FlippingCard/FlippingCard';
-import Dice from '../Dice/Dice'
+import ReactDice from 'react-dice-complete';
+import 'react-dice-complete/dist/react-dice-complete.css';
 import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
 import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
@@ -12,8 +13,7 @@ import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { useDispatch } from 'react-redux'
-import { updatePlayer } from '../../actions/index';
-
+import { updatePlayer, removeJob } from '../../actions/index';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -61,50 +61,71 @@ function closeFullscreenCard(ref) {
 }
 
 
-
-
 function ConnectedGameBoard({playerList, city, jobList}) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const sketchyRef = {}; // passed as an argument to FlippingCard; FlippingCard sets sketchyRef.ref = this; then used in button click handlers
     // there must be a better way to do this
 
-    // player 1's turn is presented by a 0
-    const [playerTurn, setPlayerTurn] = React.useState(0);
+    const [playerTurn, setPlayerTurn] = React.useState(0); // player 1's turn is presented by a 0
+
+    const [diceRoll, setDiceRoll] = React.useState(0);
+
     const [instructionLocation, setInstructionLocation] = React.useState(0);
     const nextInstruction = () => {
+        //todo can make next instruction have an optional parameter, and switch case to determine what message is output
         setInstructionLocation(instructionLocation + 1);
     }
     const InstructionText = [
         `Welcome to the Game of Rent! You will now take on the role of a person in ${city} searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character; click on the yellow card to discover your occupation!`,
-        "Now that you have your occupation, it's time to determine your household! Click on the die to roll for the number of family members.",
-        'That means you have X other family members in your household. Draw a household card and an occupation card if that family members is of working age.',
+        "Now that you have your occupation, it's time to determine your household! Click on the die to roll for the number of family members you'll have.",
+        `That means you have ${diceRoll} family members in your household, including yourself. Draw a household card and an occupation card if that family member is of working age.`,
         'Everyone has unforseen circumstances arise in their lives. Draw a life card for each adult in your household including yourself!',
         'Your household is finally set! Now click on the calculator icon to find out your monthly housing allowance. This is how much you can afford to spending on housing each month.',
     ];
 
-    let job;
-    const handleCardDraw = (type) => {
-        if(type === 'occupation'){
 
-            //todo need to remove card from deck
-            //todo ask sam how to do this so that it can be closed
-            job = jobList[Math.floor(Math.random() * jobList.length)];
-            showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
 
-            if(instructionLocation === 0){
-                nextInstruction();
-                dispatch(updatePlayer({ playerId: playerTurn, job: job}));
-            }
-
-        } else if(type === 'household'){
-
-        } else if(type === 'life'){
-
-        } else {
-
+    const removeCardFromDeck = (deck, id) => {
+        switch (deck) {
+            case 'occupation':
+                dispatch(removeJob({title: id}))
+                break;
         }
+    }
 
+    const handleDiceRoll = (num) => {
+        if(instructionLocation === 1){
+            setDiceRoll(num);
+            nextInstruction()
+            //need special text in case you are the only family member
+        }
+    }
+
+
+    //todo delete this later
+    //let job;
+    const handleCardDraw = (type) => {
+        switch (type) {
+            case 'occupation':
+                let job = jobList[Math.floor(Math.random() * jobList.length)];
+                // showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
+
+                if(instructionLocation === 0){
+                    nextInstruction();
+                    dispatch(updatePlayer({ playerId: playerTurn, job: job}));
+                }
+
+                // todo might not need to remove the card
+                removeCardFromDeck(type, job.title);
+                break;
+            case 'household':
+
+                break;
+            case 'life':
+
+                break;
+        }
     }
 
     return (
@@ -122,11 +143,14 @@ function ConnectedGameBoard({playerList, city, jobList}) {
             </div>
 
             <div className='dice-section'>
-                <Dice/>
+                <ReactDice
+                    numDice={1}
+                    faceColor="#ffffff"
+                    dotColor="#000000"
+                    rollDone={num => handleDiceRoll(num)}
+                    className='dice'
+                />
             </div>
-
-
-
 
 
             {/*todo need to eventually move this styling out of here*/}
@@ -136,13 +160,13 @@ function ConnectedGameBoard({playerList, city, jobList}) {
             </div>
 
             <div className={classes.playerCardSection}>
+                {/*todo will need to eventually go back and make these work for each individual player*/}
                 {/*<PlayerCard avatar={0} btnId="info1" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info1", ["Person A", 111])} />*/}
                 {/*<PlayerCard avatar={1} btnId="info2" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info2", ["Person B", 222])} />*/}
 
                 {playerList.map(player => (
                     <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info1")}/>
                 ))}
-
             </div>
 
             <div className={classes.map}>
@@ -150,12 +174,6 @@ function ConnectedGameBoard({playerList, city, jobList}) {
             </div>
 
 
-
-            {/*for a card draw: store has list of jobs, locations, life, and family info*/}
-            {/*on a card click, it will generate a random # and take that index's info*/}
-            {/*making sure to remove that entry from the list*/}
-            {/*the card will be rendered with the appropriate information*/}
-            {/*and the player will be updated with the info as well*/}
 
             <div className={classes.gameCardSection}>
                 <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => handleCardDraw('occupation')} />

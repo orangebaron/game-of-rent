@@ -107,7 +107,6 @@ function GameSetupPage(){
     };
 
     const handleSubmit = () => {
-        console.log('hit');
         dispatch(updateCityAndCount({ playerCount: numPlayers, city: cityLocation}));
     }
 

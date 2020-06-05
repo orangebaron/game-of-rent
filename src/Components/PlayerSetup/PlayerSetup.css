@@ -21,7 +21,7 @@ label {
 .inputLabel{
     color: #FFFFFF !important;
     }
-    
+
 .playerSetupPage {
     width: 100vw;
     height: 100vh;
@@ -44,8 +44,11 @@ label {
 
 .avatar-image {
     cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .avatar-radio-buttons:checked + label {
-    outline: 2px solid white;
+    outline: 4px solid white;
 }

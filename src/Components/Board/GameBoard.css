@@ -57,10 +57,13 @@
     border-radius: 10px;
     height: 105px;
     width: 110px;
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dice {
+    cursor: pointer;
 }
 
 .card {
@@ -78,5 +81,5 @@
 .example-appear.example-appear-active {
     opacity: 1;
     transition: opacity 1s ease;
-    transition-delay: .5s;
+    transition-delay: 1s;
 }

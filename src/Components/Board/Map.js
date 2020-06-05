@@ -1,8 +1,6 @@
 import React from 'react';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import { makeStyles } from '@material-ui/core/styles';
-import Dice from '../Dice/Dice.js';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,12 +14,6 @@ const useStyles = makeStyles((theme) => ({
   map: {
     maxHeight: '50%',
     maxWidth: '50%',
-  },
-  numbers: {
-
-  },
-  letters: {
-
   },
 }));
 

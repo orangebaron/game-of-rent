@@ -139,18 +139,8 @@ class ConnectedPlayerSetup extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         this.props.addPlayer({ playerName: this.state.playerName, avatar: this.state.avatarIndex });
+        document.getElementById(`option${this.state.avatarIndex}`).checked = 0;
         this.setState({ playerName: '', avatarIndex: ''});
-
-
-
-
-        //todo need to get rid of selected avatar here
-        for(let x = 0; x++; x <= 8){
-            console.log('hiiiiiii');
-            console.log(x);
-            document.getElementById(`option${x}`).checked = 0;
-        }
-
 
         if(this.state.setupCount >= this.props.playerCount){
             this.props.history.push('/board')
