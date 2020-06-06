@@ -10,6 +10,26 @@
     backdrop-filter: blur(20px);
     background-color: rgba(0, 0, 0, 0.667);
     font-family: Roboto, sans-serif;
+    
+   
+}
+
+/*transition between*/
+.pageTitle,.Questions,.buttonSection{
+     /*transition*/
+     opacity: 1;
+     animation-name: fadeInOpacity;
+     animation-iteration-count: 1;
+     animation-timing-function: ease-in;
+     animation-duration: 1s;
+}
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 .pageTitle{
@@ -21,6 +41,10 @@
     vertical-align: center;
     line-height: 100%;
     color: #FFFFFF;
+
+
+    
+    
 }
 
 
@@ -56,34 +80,4 @@
 
 }
 
-/* 
-.inputLabel{
-color: #FFFFFF !important;
-}
-
-.classes.formControl{
-    color: #FFFFFF !important;
-    border-color: #FFFFFF !important;
-
-}
-
-.form-1{
-    color: primary !important;
-    border-color: #FFFFFF !important;
-
-
-}
-
-.city-select{
-    color: #FFFFFF !important;
-    border-color: #FFFFFF !important;
-}
-
-select:active, select:hover {
-    outline: none
-  }
-.city-select:active, .classes.formControl:hover {
-    outline-color: red
-
-} */
 
