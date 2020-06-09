@@ -3,6 +3,7 @@ import './GameBoard.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Map from './Map';
 import PlayerCard from '../PlayerCard/PlayerCard';
+import PlayerPopup from '../PlayerCard/PlayerPopup';
 import FlippingCard from '../FlippingCard/FlippingCard';
 import Dice from '../Dice/Dice'
 import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
@@ -66,8 +67,7 @@ function closeFullscreenCard(ref) {
 function ConnectedGameBoard({playerList, city, jobList}) {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const sketchyRef = {}; // passed as an argument to FlippingCard; FlippingCard sets sketchyRef.ref = this; then used in button click handlers
-    // there must be a better way to do this
+    const flippingCardRef = React.createRef();
 
     // player 1's turn is presented by a 0
     const [playerTurn, setPlayerTurn] = React.useState(0);
@@ -82,6 +82,7 @@ function ConnectedGameBoard({playerList, city, jobList}) {
         'Everyone has unforseen circumstances arise in their lives. Draw a life card for each adult in your household including yourself!',
         'Your household is finally set! Now click on the calculator icon to find out your monthly housing allowance. This is how much you can afford to spending on housing each month.',
     ];
+    const xFunction = () => flippingCardRef.current.goFromCenter(() => document.getElementById("overlay").style.display = "none");
 
     let job;
     const handleCardDraw = (type) => {
@@ -90,7 +91,7 @@ function ConnectedGameBoard({playerList, city, jobList}) {
             //todo need to remove card from deck
             //todo ask sam how to do this so that it can be closed
             job = jobList[Math.floor(Math.random() * jobList.length)];
-            showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
+            showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
 
             if(instructionLocation === 0){
                 nextInstruction();
@@ -109,7 +110,6 @@ function ConnectedGameBoard({playerList, city, jobList}) {
 
     return (
         <div className={classes.root}>
-
             <div >
                 <ReactCSSTransitionGroup
                     transitionName='example'
@@ -131,16 +131,16 @@ function ConnectedGameBoard({playerList, city, jobList}) {
 
             {/*todo need to eventually move this styling out of here*/}
             <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
-                <p onClick={() => closeFullscreenCard(sketchyRef.ref)} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer"}}>X</p>
-                <FlippingCard sketchyRef={sketchyRef} startSize={[0, 0]} startXY={[0, 0]} />
+                <p onClick={xFunction} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
+                <FlippingCard ref={flippingCardRef} startSize={[0, 0]} startXY={[0, 0]} />
             </div>
 
             <div className={classes.playerCardSection}>
-                {/*<PlayerCard avatar={0} btnId="info1" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info1", ["Person A", 111])} />*/}
-                {/*<PlayerCard avatar={1} btnId="info2" onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info2", ["Person B", 222])} />*/}
+                {/*<PlayerCard avatar={0} btnId="info1" onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])} />*/}
+                {/*<PlayerCard avatar={1} btnId="info2" onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info2", [1, "Person B", 222, "card1", "card2", "card3", "card4", "card5"])} />*/}
 
                 {playerList.map(player => (
-                    <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(sketchyRef.ref, "info1")}/>
+                    <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>
                 ))}
 
             </div>
@@ -160,14 +160,13 @@ function ConnectedGameBoard({playerList, city, jobList}) {
             <div className={classes.gameCardSection}>
                 <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => handleCardDraw('occupation')} />
 
-                {/*<img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => showCardFullscreen(sketchyRef.ref, "occupationCardBack",   ["Occupation", "Retail worker", "Monthly Income:", "$65", "A", 1]) } />*/}
-                <img style={{ height: '20vh'}} id="householdCardBack"    src={HouseholdCardBack}    className="card" alt="HouseholdCardBack"    onClick={() => showCardFullscreen(sketchyRef.ref, "householdCardBack",    ["Household", "Filler text A", "Lorem ipsum", "dolor sit amet", "B", 2])} />
-                <img style={{ height: '20vh'}} id="lifeCardBack"         src={LifeCardBack}         className="card" alt="LifeCardBack"         onClick={() => showCardFullscreen(sketchyRef.ref, "lifeCardBack",         ["Life", "Filler text B", "Lorem ipsum", "dolor sit amet", "C", 3])} />
-                <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(sketchyRef.ref, "neighborhoodCardBack", ["Neighborhood", "Filler text C", "Lorem ipsum", "dolor sit amet", "D", 4])} />
+                {/*<img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", "Retail worker", "Monthly Income:", "$65", "A", 1]) } />*/}
+                <img style={{ height: '20vh'}} id="householdCardBack"    src={HouseholdCardBack}    className="card" alt="HouseholdCardBack"    onClick={() => showCardFullscreen(flippingCardRef.current, "householdCardBack",    ["Household", "Filler text A", "Lorem ipsum", "dolor sit amet", "B", 2])} />
+                <img style={{ height: '20vh'}} id="lifeCardBack"         src={LifeCardBack}         className="card" alt="LifeCardBack"         onClick={() => showCardFullscreen(flippingCardRef.current, "lifeCardBack",         ["Life", "Filler text B", "Lorem ipsum", "dolor sit amet", "C", 3])} />
+                <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(flippingCardRef.current, "neighborhoodCardBack", ["Neighborhood", "Filler text C", "Lorem ipsum", "dolor sit amet", "D", 4])} />
             </div>
 
         </div>
-
     );
 }
 

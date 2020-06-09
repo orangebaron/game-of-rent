@@ -7,7 +7,6 @@ import PlayerPopup from '../PlayerCard/PlayerPopup.js';
 class FlippingCard extends React.Component {
   constructor(props) {
     super(props);
-    props.sketchyRef.ref = this;
     this.state = this.getStartStateFor(props);
   }
 
