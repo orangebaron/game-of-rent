@@ -38,16 +38,49 @@ const buttonStyle = {
   fontWeight: 700,
   border: '2px solid #ffffff',
   margin: 20,
-  width: 100,
 }
 
 
+// const useStyles = makeStyles((theme) => ({
+
+//   button: {
+//       color: '#ffffff',
+//       fontWeight: 700,
+//       border: '2px solid #ffffff',
+//       margin: 20,
+
+//   },
+//   formControl: {
+//       margin: theme.spacing(1),
+//       minWidth: 120,
+
+//   },
+//   selectEmpty: {
+//       marginTop: theme.spacing(2),
+//   },
+//   outlined: {
+//       width: 200,
+//       textAlign: 'center',
+
+//   },
+//   icon: {
+//       fill: 'white',
+//   },
+//   root: {
+//       color: '#FFFFFF',
+
+
+//   }
+// }));
+
 function WelcomePage() {
+  // const classes = useStyles();
+
   return (
 
       <div className='backgroundImage'>
         <div className={'welcomePage'}>
-          <header style={headerStyle}>
+          <header className='fade-in' style={headerStyle}>
             <div style={textGrid}>
                 <div className='title'>
                   <h1> Welcome to the Game of Rent! </h1>
@@ -62,8 +95,11 @@ function WelcomePage() {
                   as close to your job as possible.
                 </p>
 
-                <Link to='/setup'>
-                  <Button variant="outlined" style={buttonStyle} >
+                <Link to='/setup' 
+                style={{textDecoration: 'none'}}>
+                  <Button variant="outlined" style={buttonStyle}
+                  // classes={{outlined: classes.button}}
+                   >
                     Start
                   </Button>
                 </Link>

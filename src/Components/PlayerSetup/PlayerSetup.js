@@ -7,13 +7,34 @@ import PlayerIcon from '../PlayerIcon/PlayerIcon';
 import { connect } from 'react-redux';
 import { addPlayer } from '../../actions/index';
 import {
-    withStyles,
+    withStyles, ThemeProvider,
  } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom'; //todo might get rid of this
 import { withRouter } from 'react-router-dom';
 import store from '../../store/index';
+import {createMuiTheme } from '@material-ui/core/styles';
 
 
+
+
+const theme = createMuiTheme({
+
+        palette: {
+
+            primary: {
+                main: '#ffffff',
+            }
+        ,
+    
+        },
+  });
+  const buttonStyle = {
+    color: '#ffffff',
+    fontWeight: 700,
+    border: '2px solid #ffffff',
+    margin: 20,
+  }
+  
 //todo need to figure out how to appropriately style the Mui textbox
 const styles = {
     playerSetup: {
@@ -160,20 +181,21 @@ class ConnectedPlayerSetup extends React.Component {
 
         let button;
         if (this.state.setupCount >= this.props.playerCount){
-            button = <Button type='submit' variant="outlined">
+            button = <Button type='submit' variant="outlined" color="primary" style={buttonStyle}>
                 Finish
             </Button>
         } else {
-            button = <Button type='submit' variant="outlined">
+            button = <Button type='submit' variant="outlined" color="primary" style={buttonStyle}>
                 Next
             </Button>
         }
+   
 
         return (
             <div className='backgroundImage'>
 
                 <div className='playerSetupPage'>
-                    <div style={styles.playerSetup}>
+                    <div className = "fade-in" style={styles.playerSetup}>
 
                         <div style={styles.textGrid}>
                             <h1>Player {this.state.setupCount}</h1>
@@ -249,9 +271,11 @@ class ConnectedPlayerSetup extends React.Component {
                                         </div>
                                     </div>
 
+                                    <ThemeProvider theme={theme}>
                                     <div className={'buttonSection'}>
                                         {button}
                                     </div>
+                                    </ThemeProvider>
 
 
                                 </div>

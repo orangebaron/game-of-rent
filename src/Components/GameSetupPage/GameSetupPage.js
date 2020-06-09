@@ -4,7 +4,6 @@ import './GameSetupPage.css';
 import React from 'react';
 import {
     ThemeProvider,
-    withStyles,
     makeStyles,
 createMuiTheme } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -115,6 +114,8 @@ function GameSetupPage(){
         <ThemeProvider theme={theme}
         >
         <div className='backgroundImage'>
+
+            
             <div className = "GameSetupPage">
 
                 <p className={'pageTitle'}>Game Setup</p>
@@ -218,7 +219,8 @@ function GameSetupPage(){
                 </div>
 
                 <div className={'buttonSection'}>
-                    <Link to='/players'>
+                    <Link to='/players' 
+                        style={{textDecoration: 'none'}}>
                         <Button onClick={handleSubmit} variant="outlined" classes={{outlined: classes.button}} >
                             Next
                         </Button>
