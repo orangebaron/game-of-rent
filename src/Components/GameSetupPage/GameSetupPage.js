@@ -93,7 +93,27 @@ const GET_CITY_TEST = gql`
     query GetCity{
         city(query: { Nickname: "ATLANTA" }){
             lat
+        }
+    }
+`;
+
+const GET_CITY_TEST2 = gql`
+    {
+        cities {
+            Nickname
+            lat
             long
+        }
+    }
+`;
+
+
+const movieTest = gql`
+    {
+        movies{
+            runtime
+            title
+            _id
         }
     }
 `;
@@ -108,15 +128,12 @@ function GameSetupPage(){
     const [numPlayers, setNumPlayers] = React.useState('');
     const [cityLocation, setCityLocation] = React.useState('');
 
-    // const { loading, error, data } = useQuery(GET_CITY, {
-    //     variables: { query:  {nickname: cityLocation} }
-    // });
+    const { loading, error, data } = useQuery(GET_CITY_TEST2);
 
-    const { loading, error, data } = useQuery(GET_CITY_TEST);
+    // if(!loading) console.log(JSON.stringify(data))
+    // console.log(error);
+    console.log(data)
 
-    // console.log('error: ' + error);
-    // console.dir('data: ' + data);
-    console.log(JSON.stringify(data))
 
     const changePlayerNum = (event) => {
         setNumPlayers(event.target.value);
