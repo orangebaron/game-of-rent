@@ -25,7 +25,7 @@ const theme = createMuiTheme({
                 main: '#ffffff',
             }
         ,
-    
+
         },
   });
   const buttonStyle = {
@@ -34,7 +34,7 @@ const theme = createMuiTheme({
     border: '2px solid #ffffff',
     margin: 20,
   }
-  
+
 //todo need to figure out how to appropriately style the Mui textbox
 const styles = {
     playerSetup: {
@@ -159,7 +159,7 @@ class ConnectedPlayerSetup extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.addPlayer({ playerName: this.state.playerName, avatar: this.state.avatarIndex });
+        this.props.addPlayer({ playerName: this.state.playerName, avatar: this.state.avatarIndex, family: []});
         document.getElementById(`option${this.state.avatarIndex}`).checked = 0;
         this.setState({ playerName: '', avatarIndex: ''});
 
@@ -189,7 +189,7 @@ class ConnectedPlayerSetup extends React.Component {
                 Next
             </Button>
         }
-   
+
 
         return (
             <div className='backgroundImage'>

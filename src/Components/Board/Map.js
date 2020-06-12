@@ -26,7 +26,7 @@ const centerLat =
 // 47.606;
 36.1627;
 // 37.775;
-const centerLong = 
+const centerLong =
 // -75.165;
 // -118.244;
 // -122.332;
@@ -100,12 +100,12 @@ class Map extends React.Component {
               <Popup>
                 These will be used for house/job locations
               </Popup>
-           
+
             </Marker>
-            
+
             {/* renders the array object */}
-            {arr}
-      
+            {/*{arr}*/}
+
 
 
           </LeafletMap>

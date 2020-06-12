@@ -8,6 +8,9 @@ import GameSetupPage from './Components/GameSetupPage/GameSetupPage';
 import ResultsPage from './Components/ResultsPage/ResultsPage';
 import { Provider } from 'react-redux'
 
+
+
+
 const App = ({store}) => (
     <Provider store={store}>
       <Router>
@@ -21,17 +24,17 @@ const App = ({store}) => (
 
          <Route path="/players">
            <PlayerSetupPage/>
-           </Route> 
+           </Route>
           <Route path="/board">
             <GameBoard />
           </Route>
-          
-          
+
+
           <Route path="/results">
             <ResultsPage />
           </Route>
       </Switch>
-       
+
       </Router>
     </Provider>
 );

@@ -50,7 +50,7 @@
 
 .dice-section {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     bottom: 5vh;
     right: 18vw;
     background-color: rgba(0,0,0, 0.75);

@@ -12,14 +12,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { updateCityAndCount } from '../../actions/index';
-import store from '../../store/index';
 import { useDispatch } from 'react-redux' //todo JADEN, this is awesome, use it!!
-
-
-
-
-
-
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 
 const theme = createMuiTheme({
@@ -85,7 +80,23 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const GET_CITY = gql`
+    query GetCity($query: String! = "NASHVILLE" ) {
+        city(query: $query) {
+            lat
+            long
+        }
+    }
+`;
 
+const GET_CITY_TEST = gql`
+    query GetCity{
+        city(query: { Nickname: "ATLANTA" }){
+            lat
+            long
+        }
+    }
+`;
 
 
 function GameSetupPage(){
@@ -96,6 +107,16 @@ function GameSetupPage(){
 
     const [numPlayers, setNumPlayers] = React.useState('');
     const [cityLocation, setCityLocation] = React.useState('');
+
+    // const { loading, error, data } = useQuery(GET_CITY, {
+    //     variables: { query:  {nickname: cityLocation} }
+    // });
+
+    const { loading, error, data } = useQuery(GET_CITY_TEST);
+
+    // console.log('error: ' + error);
+    // console.dir('data: ' + data);
+    console.log(JSON.stringify(data))
 
     const changePlayerNum = (event) => {
         setNumPlayers(event.target.value);
@@ -115,7 +136,7 @@ function GameSetupPage(){
         >
         <div className='backgroundImage'>
 
-            
+
             <div className = "GameSetupPage">
 
                 <p className={'pageTitle'}>Game Setup</p>
@@ -128,10 +149,7 @@ function GameSetupPage(){
                         <FormControl
                         variant={'outlined'}
                          className={classes.formControl}
-
                         >
-
-
 
                             <InputLabel id="num-player-select"
                             className="inputLabel"># Players</InputLabel>
@@ -163,6 +181,8 @@ function GameSetupPage(){
                                 <MenuItem value={4}>4</MenuItem>
                                 <MenuItem value={5}>5</MenuItem>
                                 <MenuItem value={6}>6</MenuItem>
+                                <MenuItem value={7}>7</MenuItem>
+                                <MenuItem value={8}>8</MenuItem>
                             </Select>
 
                         </FormControl>
@@ -199,9 +219,9 @@ function GameSetupPage(){
                                         <MenuItem value="">
                                             <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value = "Nashville"> Nashville</MenuItem>
-                                        <MenuItem value = "Chicago"> Chicago</MenuItem>
-                                        <MenuItem value = "Seattle"> Seattle</MenuItem>
+                                        <MenuItem value = "NASHVILLE"> Nashville</MenuItem>
+                                        <MenuItem value = "CHICAGO"> Chicago</MenuItem>
+                                        <MenuItem value = "SEATTLE"> Seattle</MenuItem>
                                         <MenuItem value = "New York"> New York</MenuItem>
                                         <MenuItem value = "Atlanta"> Atlanta</MenuItem>
                                         <MenuItem value = "Los Angeles"> Los Angeles</MenuItem>
@@ -219,7 +239,7 @@ function GameSetupPage(){
                 </div>
 
                 <div className={'buttonSection'}>
-                    <Link to='/players' 
+                    <Link to='/players'
                         style={{textDecoration: 'none'}}>
                         <Button onClick={handleSubmit} variant="outlined" classes={{outlined: classes.button}} >
                             Next
