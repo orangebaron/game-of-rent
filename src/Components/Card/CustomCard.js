@@ -21,69 +21,26 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-  coordOccupation: {
-    backgroundColor: '#ffa500',
-    height: '8vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#ffffff',
-  },
-  coordHousehold: {
-    backgroundColor: '#ff5555',
-    height: '8vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#ffffff',
-  },
-  coordLife: {
-    backgroundColor: '#00aa00',
-    height: '8vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#ffffff',
-  },
-  coordNeighborhood: {
-    backgroundColor: '#4CACE9',
-    height: '8vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#ffffff',
-  },
   container: {
     padding: 0,
   },
   divOccupation: {
-    color: '#ffffff',
     backgroundColor: '#ffa500',
-    height: '10vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 10,
   },
   divHousehold: {
-    color: '#ffffff',
     backgroundColor: '#ff5555',
-    height: '10vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 10,
   },
   divLife: {
-    color: '#ffffff',
     backgroundColor: '#00aa00',
-    height: '10vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 10,
   },
   divNeighborhood: {
-    color: '#ffffff',
     backgroundColor: '#4CACE9',
-    height: '10vh',
+    marginTop: 10,
+  },
+  centerText: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -94,7 +51,7 @@ export default function CustomCard(props) {
   const classes = useStyles();
 
   if (props.cardProps === undefined) return <div></div>;
-  const [typeText, bigText, littleText1, littleText2, coordX, coordY] = props.cardProps
+  const [typeText, bigText, littleText1, littleText2, littleText3, littleText4] = props.cardProps
 
   // Currency Formatting:
   /*
@@ -118,31 +75,32 @@ export default function CustomCard(props) {
         <>
           <CssBaseline />
           <Container className={classes.container}>
-            <Typography component="div" className={classes["div"+typeText]}>
-              <Typography variant="h5" component="h2"> {typeText} </Typography>
+            <Typography component="div" className={classes.centerText}>
+              <Typography variant="h4" component="h4"> {typeText} </Typography>
             </Typography>
           </Container>
         </>
       </CardActions>
 
       <CardContent>
-        <Typography variant="h4" component="h4" gutterBottom>
+        <Typography variant="h4" component="h4" gutterBottom className={classes.centerText}>
           {' '}
           {bigText}
           {' '}
         </Typography>
-        <Typography variant="h6" component="h5">
-        {littleText1}
+        <Typography variant="h6" component="h5" className={classes.centerText}>
+          {littleText1}
           {' '}
           <br />
           {littleText2}
+          {' '}
+          <br />
+          {littleText3}
+          {' '}
+          <br />
+          {littleText4}
         </Typography>
       </CardContent>
-      <CardActions className={classes["coord"+typeText]}>
-        <Typography variant="h5" component="h2">
-          {coordX + coordY}
-        </Typography>
-      </CardActions>
     </Card>
   );
 }
