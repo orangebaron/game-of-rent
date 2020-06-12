@@ -236,16 +236,34 @@ function GameSetupPage(){
                                         <MenuItem value="">
                                             <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value = "NASHVILLE"> Nashville</MenuItem>
-                                        <MenuItem value = "CHICAGO"> Chicago</MenuItem>
-                                        <MenuItem value = "SEATTLE"> Seattle</MenuItem>
-                                        <MenuItem value = "New York"> New York</MenuItem>
+                                        <MenuItem value = "Athens"> Athens</MenuItem>
                                         <MenuItem value = "Atlanta"> Atlanta</MenuItem>
+                                        <MenuItem value = "Austin"> Austin</MenuItem>
+                                        <MenuItem value = "Billings"> Billings</MenuItem>
+                                        <MenuItem value = "Birmingham"> Birmingham</MenuItem>
+                                        <MenuItem value = "Boston"> Boston</MenuItem>
+                                        <MenuItem value = "Chattanooga"> Chattanooga</MenuItem>
+                                        <MenuItem value = "Chicago"> Chicago</MenuItem>
+                                        <MenuItem value = "Clarksburg"> Clarksburg</MenuItem>
+                                        <MenuItem value = "Columbus"> Columbus</MenuItem>
+                                        <MenuItem value = "Durham-Chapel Hill"> Durham-Chapel Hill</MenuItem>
+                                        <MenuItem value = "Erie"> Erie</MenuItem>
+                                        <MenuItem value = "Knoxville"> Knoxville</MenuItem>
+                                        <MenuItem value = "Lehigh Valley"> Lehigh Valley</MenuItem>
                                         <MenuItem value = "Los Angeles"> Los Angeles</MenuItem>
-                                        <MenuItem value = "San Francisco"> San Francisco</MenuItem>
+                                        <MenuItem value = "Madison"> Madison</MenuItem>
+                                        <MenuItem value = "Memphis"> Memphis</MenuItem>
+                                        <MenuItem value = "Nashville"> Nashville</MenuItem>
+                                        <MenuItem value = "New York"> New York</MenuItem>
+                                        <MenuItem value = "Nottingham"> Nottingham</MenuItem>
                                         <MenuItem value = "Philadelphia"> Philadelphia</MenuItem>
-                                        <MenuItem value = "Brooklyn"> Brooklyn</MenuItem>
-                                        <MenuItem value = "Denver"> Denver</MenuItem>
+                                        <MenuItem value = "Phoenix"> Phoenix</MenuItem>
+                                        <MenuItem value = "Portland"> Portland</MenuItem>
+                                        <MenuItem value = "San Francisco"> San Francisco</MenuItem>
+                                        <MenuItem value = "Santa Fe"> Santa Fe</MenuItem>
+                                        <MenuItem value = "Seattle"> Seattle</MenuItem>
+                                        <MenuItem value = "Twin Cities"> Twin Cities</MenuItem>
+                                        <MenuItem value = "Washington DC"> Washington DC</MenuItem>
                                     </Select>
                                 </FormControl>
 
