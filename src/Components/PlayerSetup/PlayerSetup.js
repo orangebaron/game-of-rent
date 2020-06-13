@@ -9,10 +9,10 @@ import { addPlayer } from '../../actions/index';
 import {
     withStyles, ThemeProvider,
  } from '@material-ui/core/styles';
-import {Link} from 'react-router-dom'; //todo might get rid of this
 import { withRouter } from 'react-router-dom';
 import store from '../../store/index';
 import {createMuiTheme } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom'; //todo might get rid of this
 
 
 
@@ -28,14 +28,12 @@ const theme = createMuiTheme({
 
         },
   });
-  const buttonStyle = {
+const buttonStyle = {
     color: '#ffffff',
     fontWeight: 700,
     border: '2px solid #ffffff',
     margin: 20,
   }
-
-//todo need to figure out how to appropriately style the Mui textbox
 const styles = {
     playerSetup: {
         height: '100vh',
@@ -114,8 +112,6 @@ const styles = {
 
     },
 };
-const state = store.getState;
-
 //Creates TextField for player name with the appropriate css
 const CssTextField = withStyles({
     root: {
@@ -137,6 +133,7 @@ const CssTextField = withStyles({
       },
     },
   })(TextField);
+
 
 
 class ConnectedPlayerSetup extends React.Component {
@@ -169,8 +166,6 @@ class ConnectedPlayerSetup extends React.Component {
             this.setState({setupCount: this.state.setupCount + 1})
         }
     }
-
-
 
 
 

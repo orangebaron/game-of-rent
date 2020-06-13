@@ -15,6 +15,9 @@ import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { useDispatch } from 'react-redux'
 import { updatePlayer, removeJob, addFamily } from '../../actions/index';
+import gql from "graphql-tag"
+import { useQuery } from "@apollo/react-hooks";
+
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -60,6 +63,16 @@ function showPlayerCardFullscreen(ref, buttonId, cardProps) {
 function closeFullscreenCard(ref) {
     ref.goFromCenter(() => document.getElementById("overlay").style.display = "none");
 }
+
+const GET_CITY = gql`
+    query GetCity($name: String){
+        city(query: { Nickname: $name }){
+            lat
+            long
+            Nickname
+        }
+    }
+`;
 
 
 function ConnectedGameBoard({playerList, city, jobList, householdList}) {
@@ -192,6 +205,13 @@ function ConnectedGameBoard({playerList, city, jobList, householdList}) {
         }
     }
 
+    const { loading, error, data } = useQuery(GET_CITY, {
+        variables: { name: city }
+    });
+
+    // console.log('error: ' + error); todo delet later
+    console.log(data)
+
     return (
         <div className={classes.root}>
             <div >
@@ -235,7 +255,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList}) {
             </div>
 
             <div className={classes.map}>
-                <Map />
+                <Map lat={data && data.city.lat} long={data && data.city.long}/>
             </div>
 
 

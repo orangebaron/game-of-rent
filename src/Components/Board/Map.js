@@ -19,33 +19,83 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-//variables – center of city
-const centerLat =
-// 39.953;
-// 34.052;
-// 47.606;
-36.1627;
-// 37.775;
-const centerLong =
-// -75.165;
-// -118.244;
-// -122.332;
--86.7816;
-// -122.419;
 
 
-//calculates increments of spots on grid by longitutde/latitude
-var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
-var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
-var incrementLong = diamLong / 14;
-var incrementLat = diamLat / 14;
+//todo delete below
+
+// //calculates increments of spots on grid by longitutde/latitude
+// var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
+// var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
+// var incrementLong = diamLong / 14;
+// var incrementLat = diamLat / 14;
+//
+// //left-most position
+// var leftLong = centerLong - (diamLong / 2);
+// var movingLong = leftLong;
+//
+// //top-most position on grid
+// var topLat = centerLat - (diamLat / 2);
+//
+//
+// //creates 2-dimensional array of Circle objects
+// //0-based indexing
+// //top and left-most spot is arr[0][0]
+// //bottom and right-most spot is arr[14][14]
+//
+//
+//       var arr = [];
+//       for (var i = 0; i < 15; ++i){
+//             arr[i]=[];
+//             for (var j = 0; j < 15; ++j){
+//               arr[i].push(<Circle center={{lat: topLat, lng: movingLong}}
+//                             radius = {12}
+//                             color="black"
+//                             fillOpacity="0.5"
+//                             opacity="0.5"
+//                             interactive="true"/>);
+//               movingLong = movingLong + incrementLong;
+//             }
+//             topLat = topLat + incrementLat;
+//             movingLong = leftLong;
+//       }
+
+
+
+
+
+function Map (props) {
+
+    console.log('lat: ' + props.lat)
+    console.log('long: ' + props.long)
+
+
+    //variables – center of city todo need to delete these comments at some point
+    const centerLat = props.lat || 36.1627;
+    // 39.953;
+    // 34.052;
+    // 47.606;
+    // 36.1627;
+    // 37.775;
+    const centerLong = props.long || 86.7816;
+    // -75.165;
+    // -118.244;
+    // -122.332;
+    // -86.7816;
+    // -122.419;
+
+
+    //calculates increments of spots on grid by longitutde/latitude
+    var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
+    var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
+    var incrementLong = diamLong / 14;
+    var incrementLat = diamLat / 14;
 
 //left-most position
-var leftLong = centerLong - (diamLong / 2);
-var movingLong = leftLong;
+    var leftLong = centerLong - (diamLong / 2);
+    var movingLong = leftLong;
 
 //top-most position on grid
-var topLat = centerLat - (diamLat / 2);
+    var topLat = centerLat - (diamLat / 2);
 
 
 //creates 2-dimensional array of Circle objects
@@ -54,28 +104,23 @@ var topLat = centerLat - (diamLat / 2);
 //bottom and right-most spot is arr[14][14]
 
 
-      var arr = [];
-      for (var i = 0; i < 15; ++i){
-            arr[i]=[];
-            for (var j = 0; j < 15; ++j){
-              arr[i].push(<Circle center={{lat: topLat, lng: movingLong}}
-                            radius = {12}
-                            color="black"
-                            fillOpacity="0.5"
-                            opacity="0.5"
-                            interactive="true"/>);
-              movingLong = movingLong + incrementLong;
-            }
-            topLat = topLat + incrementLat;
-            movingLong = leftLong;
-      }
+    var arr = [];
+    for (var i = 0; i < 15; ++i){
+        arr[i]=[];
+        for (var j = 0; j < 15; ++j){
+            arr[i].push(<Circle center={{lat: topLat, lng: movingLong}}
+                                radius = {12}
+                                color="black"
+                                fillOpacity="0.5"
+                                opacity="0.5"
+                                interactive="true"/>);
+            movingLong = movingLong + incrementLong;
+        }
+        topLat = topLat + incrementLat;
+        movingLong = leftLong;
+    }
 
 
-
-
-
-class Map extends React.Component {
-  render() {
     return (
         <div className='leaflet-container'>
           <LeafletMap
@@ -111,7 +156,6 @@ class Map extends React.Component {
           </LeafletMap>
         </div>
     );
-  }
 }
 
 export default Map;

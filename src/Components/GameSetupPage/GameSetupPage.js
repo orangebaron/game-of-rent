@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { updateCityAndCount } from '../../actions/index';
-import { useDispatch } from 'react-redux' //todo JADEN, this is awesome, use it!!
+import { useDispatch } from 'react-redux'
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
@@ -80,59 +80,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const GET_CITY = gql`
-    query GetCity($query: String! = "NASHVILLE" ) {
-        city(query: $query) {
-            lat
-            long
-        }
-    }
-`;
-
-const GET_CITY_TEST = gql`
-    query GetCity{
-        city(query: { Nickname: "ATLANTA" }){
-            lat
-        }
-    }
-`;
-
-const GET_CITY_TEST2 = gql`
-    {
-        cities {
-            Nickname
-            lat
-            long
-        }
-    }
-`;
-
-
-const movieTest = gql`
-    {
-        movies{
-            runtime
-            title
-            _id
-        }
-    }
-`;
-
 
 function GameSetupPage(){
     const classes = useStyles();
     const dispatch = useDispatch();
 
-
-
     const [numPlayers, setNumPlayers] = React.useState('');
-    const [cityLocation, setCityLocation] = React.useState('');
-
-    const { loading, error, data } = useQuery(GET_CITY_TEST2);
-
-    // if(!loading) console.log(JSON.stringify(data))
-    // console.log(error);
-    console.log(data)
+    const [cityLocation, setCityLocation] = React.useState('NASHVILLE');
 
 
     const changePlayerNum = (event) => {
@@ -141,12 +95,12 @@ function GameSetupPage(){
 
     const changeCityLocation = (event) => {
         setCityLocation(event.target.value);
+
     };
 
     const handleSubmit = () => {
         dispatch(updateCityAndCount({ playerCount: numPlayers, city: cityLocation}));
     }
-
 
     return (
         <ThemeProvider theme={theme}
@@ -236,34 +190,34 @@ function GameSetupPage(){
                                         <MenuItem value="">
                                             <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value = "Athens"> Athens</MenuItem>
-                                        <MenuItem value = "Atlanta"> Atlanta</MenuItem>
-                                        <MenuItem value = "Austin"> Austin</MenuItem>
-                                        <MenuItem value = "Billings"> Billings</MenuItem>
-                                        <MenuItem value = "Birmingham"> Birmingham</MenuItem>
-                                        <MenuItem value = "Boston"> Boston</MenuItem>
-                                        <MenuItem value = "Chattanooga"> Chattanooga</MenuItem>
-                                        <MenuItem value = "Chicago"> Chicago</MenuItem>
-                                        <MenuItem value = "Clarksburg"> Clarksburg</MenuItem>
-                                        <MenuItem value = "Columbus"> Columbus</MenuItem>
-                                        <MenuItem value = "Durham-Chapel Hill"> Durham-Chapel Hill</MenuItem>
-                                        <MenuItem value = "Erie"> Erie</MenuItem>
-                                        <MenuItem value = "Knoxville"> Knoxville</MenuItem>
-                                        <MenuItem value = "Lehigh Valley"> Lehigh Valley</MenuItem>
-                                        <MenuItem value = "Los Angeles"> Los Angeles</MenuItem>
-                                        <MenuItem value = "Madison"> Madison</MenuItem>
-                                        <MenuItem value = "Memphis"> Memphis</MenuItem>
-                                        <MenuItem value = "Nashville"> Nashville</MenuItem>
-                                        <MenuItem value = "New York"> New York</MenuItem>
-                                        <MenuItem value = "Nottingham"> Nottingham</MenuItem>
-                                        <MenuItem value = "Philadelphia"> Philadelphia</MenuItem>
-                                        <MenuItem value = "Phoenix"> Phoenix</MenuItem>
-                                        <MenuItem value = "Portland"> Portland</MenuItem>
-                                        <MenuItem value = "San Francisco"> San Francisco</MenuItem>
-                                        <MenuItem value = "Santa Fe"> Santa Fe</MenuItem>
-                                        <MenuItem value = "Seattle"> Seattle</MenuItem>
-                                        <MenuItem value = "Twin Cities"> Twin Cities</MenuItem>
-                                        <MenuItem value = "Washington DC"> Washington DC</MenuItem>
+                                        {/*<MenuItem value = "Athens"> Athens</MenuItem>*/}
+                                        <MenuItem value = "ATLANTA"> Atlanta</MenuItem>
+                                        {/*<MenuItem value = "Austin"> Austin</MenuItem>*/}
+                                        <MenuItem value = "BILLINGS"> Billings</MenuItem>
+                                        {/*<MenuItem value = "BIRMINGHAM"> Birmingham</MenuItem>*/}
+                                        {/*<MenuItem value = "Boston"> Boston</MenuItem>*/}
+                                        {/*<MenuItem value = "Chattanooga"> Chattanooga</MenuItem>*/}
+                                        <MenuItem value = "CHICAGO"> Chicago</MenuItem>
+                                        {/*<MenuItem value = "Clarksburg"> Clarksburg</MenuItem>*/}
+                                        {/*<MenuItem value = "Columbus"> Columbus</MenuItem>*/}
+                                        {/*<MenuItem value = "Durham-Chapel Hill"> Durham-Chapel Hill</MenuItem>*/}
+                                        {/*<MenuItem value = "Erie"> Erie</MenuItem>*/}
+                                        {/*<MenuItem value = "Knoxville"> Knoxville</MenuItem>*/}
+                                        {/*<MenuItem value = "Lehigh Valley"> Lehigh Valley</MenuItem>*/}
+                                        {/*<MenuItem value = "Los Angeles"> Los Angeles</MenuItem>*/}
+                                        {/*<MenuItem value = "Madison"> Madison</MenuItem>*/}
+                                        {/*<MenuItem value = "Memphis"> Memphis</MenuItem>*/}
+                                        <MenuItem value = "NASHVILLE"> Nashville</MenuItem>
+                                        {/*<MenuItem value = "New York"> New York</MenuItem>*/}
+                                        {/*<MenuItem value = "Nottingham"> Nottingham</MenuItem>*/}
+                                        {/*<MenuItem value = "Philadelphia"> Philadelphia</MenuItem>*/}
+                                        {/*<MenuItem value = "Phoenix"> Phoenix</MenuItem>*/}
+                                        {/*<MenuItem value = "Portland"> Portland</MenuItem>*/}
+                                        {/*<MenuItem value = "San Francisco"> San Francisco</MenuItem>*/}
+                                        {/*<MenuItem value = "Santa Fe"> Santa Fe</MenuItem>*/}
+                                        {/*<MenuItem value = "Seattle"> Seattle</MenuItem>*/}
+                                        {/*<MenuItem value = "Twin Cities"> Twin Cities</MenuItem>*/}
+                                        {/*<MenuItem value = "Washington DC"> Washington DC</MenuItem>*/}
                                     </Select>
                                 </FormControl>
 
