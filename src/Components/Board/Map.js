@@ -70,13 +70,13 @@ function Map (props) {
 
 
     //variables – center of city todo need to delete these comments at some point
-    const centerLat = props.lat || 36.1627;
+    const centerLat = (props.lat ? props.lat : 36.1627); //board will default to nashville for dev purposes
     // 39.953;
     // 34.052;
     // 47.606;
     // 36.1627;
     // 37.775;
-    const centerLong = props.long || 86.7816;
+    const centerLong = (props.long ? props.long : -86.7816);
     // -75.165;
     // -118.244;
     // -122.332;

@@ -86,7 +86,7 @@ function GameSetupPage(){
     const dispatch = useDispatch();
 
     const [numPlayers, setNumPlayers] = React.useState('');
-    const [cityLocation, setCityLocation] = React.useState('NASHVILLE');
+    const [cityLocation, setCityLocation] = React.useState('');
 
 
     const changePlayerNum = (event) => {

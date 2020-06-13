@@ -255,7 +255,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList}) {
             </div>
 
             <div className={classes.map}>
-                <Map lat={data && data.city.lat} long={data && data.city.long}/>
+                <Map lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}/>
             </div>
 
 
