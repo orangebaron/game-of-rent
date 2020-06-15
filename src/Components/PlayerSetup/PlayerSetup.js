@@ -156,7 +156,7 @@ class ConnectedPlayerSetup extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.addPlayer({ playerName: this.state.playerName, avatar: this.state.avatarIndex, family: []});
+        this.props.addPlayer({ playerName: this.state.playerName, avatar: this.state.avatarIndex, family: [], life: []});
         document.getElementById(`option${this.state.avatarIndex}`).checked = 0;
         this.setState({ playerName: '', avatarIndex: ''});
 

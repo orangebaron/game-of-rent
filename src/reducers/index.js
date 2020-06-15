@@ -19,20 +19,24 @@ const initialState = {
     ],
     household: [
         {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' }, //todo should be 8
-//         {title: 'Adult, Full-time Caregiver', adult: true, description: 'If you have a child, do not deduct childcare expenses', wage: 0 }, // todo should be 4, add child functionality player
+        {title: 'Adult, Full-time Caregiver', adult: true, description: 'If you have a child, do not deduct childcare expenses', wage: 0 }, // todo should be 4, add child functionality player
         {title: 'Adult, Retired', adult: true, description: 'Collect $450 in monthly social security benefits', wage: 450 }, //todo should be 4
-//         {title: '17 year old child with part-time job', adult: false, description: 'Add $400 to monthly household income', wage: 400 }, //todo should be 4
-//         {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 }, //todo should be 8
-//         {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 }, //todo should be 8
-//         {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 }, //todo should be 8
+        {title: '17 year old child with part-time job', adult: false, description: 'Add $400 to monthly household income', wage: 400 }, //todo should be 4
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 }, //todo should be 8
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 }, //todo should be 8
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 }, //todo should be 8
     ],
     life: [
         {title: 'Eviction Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denis your application because of a past eviction record.'}, // should be 3
-        {title: 'CriminaL Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denis your application because of a past criminal record.'}, //should be 3
+        {title: 'Criminal Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denis your application because of a past criminal record.'}, //should be 3
         {title: 'Earn a Promotion', description: 'Get recognized for your hard work and receive a promotion. Increase your monthly salary by 5% before calculating your housing allowance'}, // 4
         {title: 'Student Loans', description: 'The avergae student loan debt in X was Y. Subtract a monthly payment of z from your monthly income '}, // 3
         {title: 'Pay Discrimination', description: 'African American women earn an average of 63 cents to the dollar that white males earn. Reduce your salary by 37% before calculating your housing allowance'}, //3
-        {}
+        {title: 'Support System', description: 'A strong support system of friends, family, and neighbors cancels out the effects of any mental health, chronic health, and transportation challenges. If you have children, reduce your childcare costs by half'}, // 6
+        {title: 'Freelance Job', description: 'Pick up a small freelance job and add $100 to your monthly hjousing income before calculating you housing allowance'}, // 3
+        {title: 'Chronic Health Issues', description: 'Unexpected medical expemnses can increase the risk of housing insecurity. Roll the die - if it\'s an odd number subtract $20 from your monthly housing income'}, //3
+        {title: 'Physical Disability', description: 'Less than 4% of housing units in America are suitable for people with mobility challenges. After drawing a neighborhood card, roll the dice. If the number is odd, the unit is not accessible and you are not able to rent it'}, //3
+        {title: 'Child Support', description: 'Fall behind on child support and have your wages garnished - subtract $200 from your monthly income'} // 3
     ]
 
 
