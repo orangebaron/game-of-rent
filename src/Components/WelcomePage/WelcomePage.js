@@ -81,7 +81,7 @@ function WelcomePage() {
       <div className='backgroundImage'>
         <div className={'welcomePage'}>
           <header className='fade-in' style={headerStyle}>
-            <div style={textGrid}>
+            <div className = 'text-grid' style={textGrid}>
                 <div className='title'>
                   <h1> Welcome to the Game of Rent! </h1>
                 </div>
