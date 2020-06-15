@@ -2,8 +2,8 @@
 
 .welcomePage {
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     min-height: 100vh;
     width: 100vw;
@@ -11,6 +11,17 @@
     font-family: Roboto, sans-serif;
     backdrop-filter: blur(20px);
     background-color: rgba(0, 0, 0, 0.667);
+
+    /* width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.667);
+    font-family: Roboto, sans-serif;  */
+    
 }
 
 
@@ -26,14 +37,14 @@
     margin: 0px
 }
 
-.example-appear {
+/* .example-appear {
     opacity: 0.01;
 }
 
 .example-appear.example-appear-active {
     opacity: 1;
     transition: opacity 1s ease-in;
-}
+} */
 
 .club-logo {
     display: flex;
@@ -53,8 +64,9 @@
 
 
 /*fade-in transition to this page*/
-.fade-in{
-    /*transition*/
+
+.text-grid{
+    
     opacity: 1;
     animation-name: fadeInOpacity;
     animation-iteration-count: 1;
