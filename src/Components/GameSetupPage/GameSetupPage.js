@@ -91,6 +91,7 @@ function GameSetupPage(){
 
     const changePlayerNum = (event) => {
         setNumPlayers(event.target.value);
+
     };
 
     const changeCityLocation = (event) => {
@@ -106,14 +107,10 @@ function GameSetupPage(){
         <ThemeProvider theme={theme}
         >
         <div className='backgroundImage'>
-
-
             <div className = "GameSetupPage">
 
                 <p className={'pageTitle'}>Game Setup</p>
-
                 <div className = "Questions">
-
                     <div className = "Question-1">
                         <p className = "Question-1-text">How many people are playing?</p>
                         <div style={{borderColor: '1 px solid white'}}>

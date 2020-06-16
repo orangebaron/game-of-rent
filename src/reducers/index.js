@@ -27,8 +27,8 @@ const initialState = {
         {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 }, //todo should be 8
     ],
     life: [
-        {title: 'Eviction Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denis your application because of a past eviction record.'}, // should be 3
-        {title: 'Criminal Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denis your application because of a past criminal record.'}, //should be 3
+        {title: 'Eviction Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denies your application because of a past eviction record.'}, // should be 3
+        {title: 'Criminal Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denies your application because of a past criminal record.'}, //should be 3
         {title: 'Earn a Promotion', description: 'Get recognized for your hard work and receive a promotion. Increase your monthly salary by 5% before calculating your housing allowance'}, // 4
         {title: 'Student Loans', description: 'The avergae student loan debt in X was Y. Subtract a monthly payment of z from your monthly income '}, // 3
         {title: 'Pay Discrimination', description: 'African American women earn an average of 63 cents to the dollar that white males earn. Reduce your salary by 37% before calculating your housing allowance'}, //3

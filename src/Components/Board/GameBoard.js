@@ -11,14 +11,13 @@ import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
 import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
+import MathBox from '../MathBox/MathBox'
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { useDispatch } from 'react-redux'
-import { updatePlayer, removeJob, addFamily } from '../../actions/index';
+import { updatePlayer, removeJob, addFamily } from '../../actions/index'; //todo delete
 import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks";
-import {Button} from '@material-ui/core'
-
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -50,21 +49,17 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-
 function showCardFullscreen(ref, cardId, cardProps) {
     document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
     ref.startForRightCard(document.getElementById(cardId), cardProps);
 }
-
 function showPlayerCardFullscreen(ref, buttonId, cardProps) {
     document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
     ref.startForLeftCard(document.getElementById(buttonId), cardProps);
 }
-
 function closeFullscreenCard(ref) {
     ref.goFromCenter(() => document.getElementById("overlay").style.display = "none");
 }
-
 const GET_CITY = gql`
     query GetCity($name: String){
         city(query: { Nickname: $name }){
@@ -75,15 +70,18 @@ const GET_CITY = gql`
     }
 `;
 
-
 function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}) {
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const flippingCardRef = React.createRef();
+    const dispatch = useDispatch(); //todo delete
+
+    // LOCAL STATE
     const [playerTurn, setPlayerTurn] = React.useState(0); // player 1's turn is presented by a 0
     const [diceRoll, setDiceRoll] = React.useState(0);
     const [lifeCount, setLifeCount] = React.useState(1);
     const [instructionLocation, setInstructionLocation] = React.useState(0);
+    const [temp, setTemp] = React.useState(false);
+
+    //INSTRUCTIONS
     const nextInstruction = (type) => {
         switch (type) {
             case 'solo':
@@ -103,6 +101,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 break;
             case 'done':
                 setInstructionLocation(8)
+                calcInfo();
                 break;
             default:
                 setInstructionLocation(instructionLocation + 1);
@@ -125,9 +124,11 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
     ];
 
+    //CARD FLIPPING
     const xFunction = () => flippingCardRef.current.goFromCenter(() => document.getElementById("overlay").style.display = "none");
+    const flippingCardRef = React.createRef();
 
-
+    //GAMEPLAY HANDLERS
     const handleDiceRoll = (num) => {
         if(instructionLocation === 1){
             setDiceRoll(num - 1);
@@ -138,8 +139,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             }
         }
     }
-
-     const handleCardDraw = (type) => {
+    const handleCardDraw = (type) => {
         switch (type) {
             case 'occupation':
 
@@ -155,7 +155,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                     const end = playerList[playerTurn].family.length - 1;
                     playerList[playerTurn].family[end].job = job;
 
-                    if(diceRoll === 0) {
+                    if(diceRoll <= 1) {
                         nextInstruction('familyDone')
                     } else {
                         nextInstruction('family')
@@ -173,9 +173,9 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
                     if(member.wage === 'draw'){
                         nextInstruction('working')
-                    } else if(diceRoll === 0) {
+                    } else if(diceRoll <= 1) {
                         nextInstruction('familyDone')
-                    } else if(diceRoll !== 0) {
+                    } else {
                         nextInstruction('family')
                     }
 
@@ -186,7 +186,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 break;
             case 'life':
                 if(instructionLocation === 5 || instructionLocation === 6 || instructionLocation === 7){
-                    // setLifeCount(lifeCount - 1);
+                    setLifeCount(lifeCount - 1);
 
                     const index = Math.floor(Math.random() * lifeList.length)
                     const life = lifeList.splice(index, 1)[0];
@@ -194,7 +194,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
                     playerList[playerTurn].life.push(life);
 
-                    if(lifeCount === 0){
+                    if(lifeCount === 1){
                         nextInstruction('done')
                     } else {
                         nextInstruction('life')
@@ -204,15 +204,43 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 break;
         }
     }
+    const handleCalculatorButton = () => {
+        if(instructionLocation === 8)
+        setTemp(true);
+    }
+    const calcInfo = () =>{
+        let householdMonthlyIncome = playerList[playerTurn].job.income;
+        let adultCount = 1
+        let kidCount = 0;
 
+        playerList[playerTurn].family.forEach((member) => {
+            if(member.adult){
+                adultCount++;
+            } else {
+                kidCount++;
+            }
+            if(member.job) {
+                householdMonthlyIncome += member.job.income
+            } else {
+                householdMonthlyIncome += member.wage;
+            }
+        })
 
+        //todo add life cards into effect
 
+        let minimumNumBedrooms = Math.ceil(adultCount/2) + Math.ceil(kidCount/3)
 
+        playerList[playerTurn].info = {
+            householdMonthlyIncome: householdMonthlyIncome,
+            monthlyHousingAllowance: householdMonthlyIncome * .3,
+            minimumNumBedrooms: minimumNumBedrooms
+        }
+    }
 
+    //DATABASE
     const { loading, error, data } = useQuery(GET_CITY, {
         variables: { name: city }
     });
-
 
     return (
         <div className={classes.root}>
@@ -236,6 +264,17 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                     className='dice'
                 />
             </div>
+
+            <div className='calculator-section' onClick={handleCalculatorButton}>
+
+            </div>
+
+            {temp &&
+            <div className='calculator-panel'>
+                <MathBox info={playerList[playerTurn].info}/>
+            </div>
+            }
+
 
 
             {/*todo need to eventually move this styling out of here*/}
@@ -264,13 +303,9 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
             <div className={classes.gameCardSection}>
                 <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}  className="card" alt="OccupationCardBack" onClick={() => handleCardDraw('occupation')} />
-                <img style={{ height: '20vh'}} id="householdCardBack"   src={HouseholdCardBack}  className="card" alt="HouseholdCardBack" onClick={() => handleCardDraw('household')} />
-                <img style={{ height: '20vh'}} id="lifeCardBack"  src={LifeCardBack}  className="card" alt="LifeCardBack" onClick={() => {setLifeCount(lifeCount - 1); handleCardDraw('life')} }/>
+                <img style={{ height: '20vh'}} id="householdCardBack"   src={HouseholdCardBack}  className="card" alt="HouseholdCardBack" onClick={() =>  handleCardDraw('household')} />
+                <img style={{ height: '20vh'}} id="lifeCardBack"  src={LifeCardBack}  className="card" alt="LifeCardBack" onClick={() => handleCardDraw('life')} />
 
-
-                {/*<img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}   className="card" alt="OccupationCardBack"   onClick={() => showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", "Retail worker", "Monthly Income:", "$65", "A", 1]) } />*/}
-                {/*<img style={{ height: '20vh'}} id="householdCardBack"    src={HouseholdCardBack}    className="card" alt="HouseholdCardBack"    onClick={() => showCardFullscreen(flippingCardRef.current, "householdCardBack",    ["Household", "Filler text A", "Lorem ipsum", "dolor sit amet", "B", 2])} />*/}
-                {/*<img style={{ height: '20vh'}} id="lifeCardBack"         src={LifeCardBack}         className="card" alt="LifeCardBack"         onClick={() => showCardFullscreen(flippingCardRef.current, "lifeCardBack",         ["Life", "Filler text B", "Lorem ipsum", "dolor sit amet", "C", 3])} />*/}
                 <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(flippingCardRef.current, "neighborhoodCardBack", ["Neighborhood", "Filler text C", "Lorem ipsum", "dolor sit amet", "D", 4])} />
             </div>
 
