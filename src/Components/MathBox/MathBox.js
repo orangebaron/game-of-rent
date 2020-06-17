@@ -26,11 +26,11 @@ function MathBox (props) {
                     <p>Minimum Number of Bedrooms: {props.info.minimumNumBedrooms}</p>
                 </div>
 
-                <h1>Scoring</h1>
-                <p>(Housing Allowance) - (Rent) / 100 =</p>
-                <p>Subtract Neighborhood Cards</p>
-                <p>Subtract Commute Distance </p>
-                <p>Total Score:</p>
+                {/*<h1>Scoring</h1>*/}
+                {/*<p>(Housing Allowance) - (Rent) / 100 =</p>*/}
+                {/*<p>Subtract Neighborhood Cards</p>*/}
+                {/*<p>Subtract Commute Distance </p>*/}
+                {/*<p>Total Score:</p>*/}
 
             </div>
         </div>

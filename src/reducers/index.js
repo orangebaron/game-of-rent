@@ -12,19 +12,55 @@ const initialState = {
         {title: 'Social Worker', income: 2835},
         {title: 'Lawyer', income: 10810},
         {title: 'Hotel Concierge', income: 2195},
-        {title: 'Socil Worker', income: 2835},
-        {title: 'Lawyr', income: 10810},
-        {title: 'Hote Concierge', income: 2195},
-        //todo eventually fix this
+        {title: 'Social Worker', income: 2835},
+        {title: 'Lawyer', income: 10810},
+        {title: 'Hotel Concierge', income: 2195},
     ],
     household: [
-        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' }, //todo should be 8
-        {title: 'Adult, Full-time Caregiver', adult: true, description: 'If you have a child, do not deduct childcare expenses', wage: 0 }, // todo should be 4, add child functionality player
-        {title: 'Adult, Retired', adult: true, description: 'Collect $450 in monthly social security benefits', wage: 450 }, //todo should be 4
-        {title: '17 year old child with part-time job', adult: false, description: 'Add $400 to monthly household income', wage: 400 }, //todo should be 4
-        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 }, //todo should be 8
-        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 }, //todo should be 8
-        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 }, //todo should be 8
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
+        {title: 'Adult, Full-time Caregiver', adult: true, description: 'If you have a child, do not deduct childcare expenses', wage: 0 }, ///todo add child functionality
+        {title: 'Adult, Full-time Caregiver', adult: true, description: 'If you have a child, do not deduct childcare expenses', wage: 0 },
+        {title: 'Adult, Full-time Caregiver', adult: true, description: 'If you have a child, do not deduct childcare expenses', wage: 0 },
+        {title: 'Adult, Full-time Caregiver', adult: true, description: 'If you have a child, do not deduct childcare expenses', wage: 0 },
+        {title: 'Adult, Retired', adult: true, description: 'Collect $450 in monthly social security benefits', wage: 450 },
+        {title: 'Adult, Retired', adult: true, description: 'Collect $450 in monthly social security benefits', wage: 450 },
+        {title: 'Adult, Retired', adult: true, description: 'Collect $450 in monthly social security benefits', wage: 450 },
+        {title: 'Adult, Retired', adult: true, description: 'Collect $450 in monthly social security benefits', wage: 450 },
+        {title: '17 year old child with part-time job', adult: false, description: 'Add $400 to monthly household income', wage: 400 },
+        {title: '17 year old child with part-time job', adult: false, description: 'Add $400 to monthly household income', wage: 400 },
+        {title: '17 year old child with part-time job', adult: false, description: 'Add $400 to monthly household income', wage: 400 },
+        {title: '17 year old child with part-time job', adult: false, description: 'Add $400 to monthly household income', wage: 400 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '7 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '5 year old child' , adult: false, description: 'Subtract $300 from monthly household income to pay for childcare', wage: -300 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
+        {title: '2 year old child' , adult: false, description: 'Subtract $400 from monthly household income to pay for childcare', wage: -400 },
     ],
     life: [
         {title: 'Eviction Record', description: 'For each neighborhood card you draw, roll the dice. If the number is odd, the landlord denies your application because of a past eviction record.'}, // should be 3

@@ -79,7 +79,10 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const [diceRoll, setDiceRoll] = React.useState(0);
     const [lifeCount, setLifeCount] = React.useState(1);
     const [instructionLocation, setInstructionLocation] = React.useState(0);
-    const [temp, setTemp] = React.useState(false);
+
+    const [showInstBox, setShowInstBox] = React.useState(true);
+    const [showMathBox, setShowMathBox] = React.useState(false);
+    const [showGameBox, setShowGameBox] = React.useState(false);
 
     //INSTRUCTIONS
     const nextInstruction = (type) => {
@@ -205,8 +208,15 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         }
     }
     const handleCalculatorButton = () => {
-        if(instructionLocation === 8)
-        setTemp(true);
+        if(instructionLocation === 8){
+            setShowInstBox(false)
+            setShowMathBox(true);
+        }
+    }
+    const closeMathBox = () => {
+        setShowMathBox(false);
+        // setShowGameBox(true);
+        nextPlayer();
     }
     const calcInfo = () =>{
         let householdMonthlyIncome = playerList[playerTurn].job.income;
@@ -237,6 +247,15 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         }
     }
 
+    const nextPlayer = () => {
+        setInstructionLocation(0)
+        setShowInstBox(true);
+        setPlayerTurn(playerTurn + 1);
+        setDiceRoll(0);
+        setLifeCount(0);
+
+    }
+
     //DATABASE
     const { loading, error, data } = useQuery(GET_CITY, {
         variables: { name: city }
@@ -244,16 +263,20 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
     return (
         <div className={classes.root}>
-            <div >
-                <ReactCSSTransitionGroup
-                    transitionName='example'
-                    transitionAppear={true}
-                    transitionAppearTimeout={10000}>
-                    <div className='instruction-section'>
-                        <p>{InstructionText[instructionLocation]}</p>
-                    </div>
-                </ReactCSSTransitionGroup>
-            </div>
+
+            {showInstBox &&
+                <div>
+                    <ReactCSSTransitionGroup
+                        transitionName='example'
+                        transitionAppear={true}
+                        transitionAppearTimeout={10000}>
+                        <div className='instruction-section'>
+                            <p>{InstructionText[instructionLocation]}</p>
+                        </div>
+                    </ReactCSSTransitionGroup>
+                </div>
+            }
+
 
             <div className='dice-section'>
                 <ReactDice
@@ -266,16 +289,14 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             </div>
 
             <div className='calculator-section' onClick={handleCalculatorButton}>
-
+                // todo image goes here
             </div>
 
-            {temp &&
-            <div className='calculator-panel'>
-                <MathBox info={playerList[playerTurn].info}/>
-            </div>
+            {showMathBox &&
+                <div className='calculator-panel' onClick={closeMathBox}>
+                    <MathBox info={playerList[playerTurn].info}/>
+                </div>
             }
-
-
 
             {/*todo need to eventually move this styling out of here*/}
             <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
@@ -284,22 +305,21 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             </div>
 
             <div className={classes.playerCardSection}>
-
                 {/*todo will need to eventually go back and make these work for each individual player*/}
                 {/*<PlayerCard avatar={0} btnId="info1" onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])} />*/}
                 {/*<PlayerCard avatar={1} btnId="info2" onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info2", [1, "Person B", 222, "card1", "card2", "card3", "card4", "card5"])} />*/}
 
+                {playerList.map((player, index) => (
+                    <div className={(playerTurn === index) ? 'current-player' : '' }>
+                        <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>
+                    </div>
 
-                {playerList.map(player => (
-                    <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>
                 ))}
             </div>
 
             <div className={classes.map}>
                 <Map lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}/>
             </div>
-
-
 
             <div className={classes.gameCardSection}>
                 <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}  className="card" alt="OccupationCardBack" onClick={() => handleCardDraw('occupation')} />

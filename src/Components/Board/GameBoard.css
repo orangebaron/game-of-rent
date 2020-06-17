@@ -101,11 +101,18 @@
 
 .calculator-panel {
     position: absolute;
-    z-index: 1;
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: rgba(0,0,0, 0.75);
     border-radius: 10px;
+}
 
+.calculator-panel-close {
+    position: relative;
+}
+
+.current-player {
+    border: solid 3px #ec392f;
 }
