@@ -10,100 +10,80 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles({
-  // card: {
-  //   // minWidth: 275,
-  //   // maxWidth: 350,
-  //   width: '15vw',
-  //   height: '40vw * 1.56',
-  // },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  container: {
-    padding: 0,
-  },
-  divOccupation: {
-    backgroundColor: '#fef200',
-    marginTop: 20,
-  },
-  divHousehold: {
-    backgroundColor: '#ed008c',
-    marginTop: 10,
-  },
-  divLife: {
-    backgroundColor: '#41ad48',
-    marginTop: 10,
-  },
-  divNeighborhood: {
-    backgroundColor: '#00adef',
-    marginTop: 10,
-  },
-  centerText: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    // card: {
+    //   // minWidth: 275,
+    //   // maxWidth: 350,
+    //   width: '15vw',
+    //   height: '40vw * 1.56',
+    // },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    pos: {
+        marginBottom: 12,
+    },
+    container: {
+        padding: 0,
+    },
 });
 
 export default function CustomCard(props) {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  if (props.cardProps === undefined) return <div></div>;
-  const [typeText, bigText, littleText1, littleText2, littleText3, littleText4] = props.cardProps
+    if (props.cardProps === undefined) return <div></div>;
+    const [typeText, cardInfo] = props.cardProps
 
-  // Currency Formatting:
-  /*
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-  });
 
-  // States for CustomCard:
-  const [occupation] = useState('Retail Salesperson');
-  const [income] = useState(2270);
-  const [coordX] = useState('J');
-  const [coordY] = useState(12);
-  */
+    console.log(props.cardProps)
+    // Currency Formatting:
+    /*
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
 
-  return (
-    <Card className='custom-card'>
+    // States for CustomCard:
+    const [occupation] = useState('Retail Salesperson');
+    const [income] = useState(2270);
+    const [coordX] = useState('J');
+    const [coordY] = useState(12);
+    */
+    let text;
+    if(typeText === 'Occupation'){
+        text = <div className='card-text'>
+            <h2>{cardInfo.title}</h2>
+            <p>Monthly Income: ${cardInfo.income}</p>
+        </div>
+    } else if( typeText === 'Household') {
+        text = <div className='card-text'>
+            <h2>{cardInfo.title}</h2>
+            <p>{cardInfo.description}</p>
+        </div>
+    } else if(typeText === 'Life'){
+        text = <div className='card-text'>
+            <h2>{cardInfo.title}</h2>
+            <p>{cardInfo.description}</p>
+        </div>
+    }
 
-      <CardActions className={classes["div"+typeText]}>
-        <>
-          <CssBaseline />
-          <Container className={classes.container}>
-            <Typography component="div" className={classes.centerText}>
-              <Typography variant="h4" component="h4"> {typeText} </Typography>
-            </Typography>
-          </Container>
-        </>
-      </CardActions>
+    return (
+        <div className='custom-card'>
+            <CardActions className={"div"+typeText}>
+                <h2>{typeText}</h2>
+            </CardActions>
 
-      <CardContent>
-        <Typography variant="h4" component="h4" gutterBottom className={classes.centerText}>
-          {' '}
-          {bigText}
-          {' '}
-        </Typography>
-        <Typography variant="h6" component="h5" className={classes.centerText}>
-          {littleText1}
-          {' '}
-          <br />
-          {littleText2}
-          {' '}
-          <br />
-          {littleText3}
-          {' '}
-          <br />
-          {littleText4}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
+
+                {text}
+                    {/*<p>{bigText}</p>*/}
+                    {/*<p>{littleText1}</p>*/}
+                    {/*<p>{littleText2}</p>*/}
+                    {/*<p>{littleText3}</p>*/}
+                    {/*<p>{littleText4}</p>*/}
+
+
+        </div>
+    );
 }

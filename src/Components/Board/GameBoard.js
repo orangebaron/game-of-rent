@@ -147,7 +147,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             case 'occupation':
                 const index = Math.floor(Math.random() * jobList.length)
                 const job = jobList.splice(index, 1)[0]; //todo get rid of these when done testing
-                showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
+                showCardFullscreen(flippingCardRef.current, "occupationCardBack",  ["Occupation", job] /*["Occupation", job.title, "Monthly Income:", job.income, "A", 1]*/);
                 if(instructionLocation === 0) {
 
                     // const job = jobList.splice(index, 1)[0];
@@ -176,7 +176,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
                     const index = Math.floor(Math.random() * householdList.length)
                     const member = householdList.splice(index, 1)[0];
-                    showCardFullscreen(flippingCardRef.current, "householdCardBack",   ["Household", member.title, member.description]);
+                    showCardFullscreen(flippingCardRef.current, "householdCardBack",   ["Household", member]);
 
                     if(member.wage === 'draw'){
                         nextInstruction('working')
@@ -197,7 +197,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
                     const index = Math.floor(Math.random() * lifeList.length)
                     const life = lifeList.splice(index, 1)[0];
-                    showCardFullscreen(flippingCardRef.current, "lifeCardBack",   ["Life", life.title, life.description]);
+                    showCardFullscreen(flippingCardRef.current, "lifeCardBack",   ["Life", life]);
 
                     playerList[playerTurn].life.push(life);
 
