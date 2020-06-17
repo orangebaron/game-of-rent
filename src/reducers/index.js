@@ -5,7 +5,14 @@ import {REMOVE_JOB} from '../actions/index';
 import {ADD_FAMILY} from '../actions/index';
 
 const initialState = {
-    players: [],
+    players: [
+        {
+            playerName: 'Test',
+            avatar: 0,
+            family: [],
+            life: [],
+        }
+    ],
     playerCount: 0,
     city: '',
     jobs: [
@@ -91,7 +98,7 @@ function rootReducer(state = initialState, action) {
                 city: (action.payload.city)
             });
             break;
-        case UPDATE_PLAYER: //todo rename to add job
+        case UPDATE_PLAYER: //todo evalute if i need these anymore
             return Object.assign({}, state, {
                 players: state.players.map((player, index) => index === action.payload.playerId ? {...player, job: action.payload.job} : player)
             });

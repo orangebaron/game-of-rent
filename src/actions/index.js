@@ -8,7 +8,7 @@ export function addPlayer(payload){
     return { type: ADD_PLAYER, payload }
 }
 
-// todo change this to update player job or find a way to dynamically change field
+// todo evaluate if i even need any of these anymore
 export function updatePlayer(payload){
     return { type: UPDATE_PLAYER, payload }
 }

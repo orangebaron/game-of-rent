@@ -145,20 +145,24 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const handleCardDraw = (type) => {
         switch (type) {
             case 'occupation':
-
                 const index = Math.floor(Math.random() * jobList.length)
-                const job = jobList.splice(index, 1)[0];
+                const job = jobList.splice(index, 1)[0]; //todo get rid of these when done testing
                 showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
+                if(instructionLocation === 0) {
 
-                if(instructionLocation === 0){
+                    // const job = jobList.splice(index, 1)[0];
+                    // showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
                     nextInstruction();
                     playerList[playerTurn].job = job;
 
-                } else if (instructionLocation === 4) {
+                } else if( instructionLocation === 4) {
+
+                    // const job = jobList.splice(index, 1)[0];
+                    // showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
                     const end = playerList[playerTurn].family.length - 1;
                     playerList[playerTurn].family[end].job = job;
 
-                    if(diceRoll <= 1) {
+                    if(diceRoll <= 0) {
                         nextInstruction('familyDone')
                     } else {
                         nextInstruction('family')
@@ -215,8 +219,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     }
     const closeMathBox = () => {
         setShowMathBox(false);
-        // setShowGameBox(true);
-        nextPlayer();
+        nextPlayerSetup();
     }
     const calcInfo = () =>{
         let householdMonthlyIncome = playerList[playerTurn].job.income;
@@ -246,14 +249,22 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             minimumNumBedrooms: minimumNumBedrooms
         }
     }
+    const nextPlayerSetup = () => {
+        if(playerTurn === playerList.length - 1){
+            setPlayerTurn(0);
+            setShowGameBox(true);
 
-    const nextPlayer = () => {
-        setInstructionLocation(0)
-        setShowInstBox(true);
-        setPlayerTurn(playerTurn + 1);
-        setDiceRoll(0);
-        setLifeCount(0);
+        } else {
+            setInstructionLocation(0)
+            setShowInstBox(true);
+            setPlayerTurn(playerTurn + 1);
+            setDiceRoll(null);
+            setLifeCount(1);
+        }
+    }
 
+    const nextPlayerGame = () => {
+        //todo stuff for game loop goes here
     }
 
     //DATABASE
@@ -267,11 +278,15 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             {showInstBox &&
                 <div>
                     <ReactCSSTransitionGroup
-                        transitionName='example'
+                        transitionName='fade'
                         transitionAppear={true}
-                        transitionAppearTimeout={10000}>
+                        transitionAppearTimeout={5000}>
+
                         <div className='instruction-section'>
-                            <p>{InstructionText[instructionLocation]}</p>
+                            <h3>{playerList[playerTurn].playerName}</h3>
+                            <div>
+                                <p>{InstructionText[instructionLocation]}</p>
+                            </div>
                         </div>
                     </ReactCSSTransitionGroup>
                 </div>

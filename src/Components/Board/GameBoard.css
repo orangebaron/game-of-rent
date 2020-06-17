@@ -35,7 +35,7 @@
     z-index: 1;
     width: 40vw;
     max-width: 1200px;
-    height: 25vh;
+    height: 30vh;
     background-color: rgba(0,0,0, 0.75);
     border-radius: 10px;
     display: flex;
@@ -74,14 +74,14 @@
     box-shadow: 1px 1px 3px;
 }
 
-.example-appear {
+.fade-appear {
     opacity: 0.00;
 }
 
-.example-appear.example-appear-active {
+.fade-appear.fade-appear-active {
     opacity: 1;
     transition: opacity 1s ease;
-    transition-delay: 1s;
+    transition-delay: .5s;
 }
 
 .calculator-section {

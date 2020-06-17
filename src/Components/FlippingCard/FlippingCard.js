@@ -14,11 +14,11 @@ class FlippingCard extends React.Component {
     this.setState(this.getStartStateFor(props));
   }
 
-  startForLeftCard(button, cardProps) { // ie, player card
-    const rect = button.getBoundingClientRect();
-    this.startWithNewProps({backImg: HouseholdCardBack, startSize: [160, 160*1.55], startXY: [rect.x, rect.y], isPlayerCard: true, cardProps: cardProps});
-    this.goToCenter(() => {});
-  }
+  // startForLeftCard(button, cardProps) { // ie, player card
+  //   const rect = button.getBoundingClientRect();
+  //   this.startWithNewProps({backImg: HouseholdCardBack, startSize: [160, 160*1.55], startXY: [rect.x, rect.y], isPlayerCard: true, cardProps: cardProps});
+  //   this.goToCenter(() => {});
+  // }
 
   startForRightCard(card, cardProps) {
     const rect = card.getBoundingClientRect();
@@ -80,7 +80,9 @@ class FlippingCard extends React.Component {
   }
 
   getEndSize() {
+    // const width = 10
     return [160, 160*1.55];
+
   }
 
   lerp(startPoint, endPoint, progress) { // linear interpolate
@@ -118,7 +120,7 @@ class FlippingCard extends React.Component {
       <div style={{position: "absolute", left: xy[0]+"px",top: xy[1]+"px", transform: "scale("+this.getWidthScale()+",1)"}}>
         <img src={this.state.backImg} style={{width:fullSize[0]+"px", display: this.getShowBackOrFront() ? "" : "none"}} />
         <div style={{top: 0, display: (!this.getShowBackOrFront() && !this.state.isPlayerCard) ? "" : "none"}}><CustomCard cardProps={this.state.cardProps} /></div>
-        <div style={{top: 0, display: (!this.getShowBackOrFront() && this.state.isPlayerCard) ? "" : "none"}}><PlayerPopup cardProps={this.state.cardProps} /></div>
+        {/*<div style={{top: 0, display: (!this.getShowBackOrFront() && this.state.isPlayerCard) ? "" : "none"}}><PlayerPopup cardProps={this.state.cardProps} /></div>*/}
       </div>
     );
   }
