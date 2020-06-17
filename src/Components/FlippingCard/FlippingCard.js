@@ -93,7 +93,8 @@ class FlippingCard extends React.Component {
     if (this.state.progress < 0.5)
       return this.lerp(this.state.startSize, this.getEndSize(), this.state.progress * 2);
     else if (this.state.isPlayerCard)
-      return [855,530];
+      // return [855,530];
+      return []
     else
       return [275,230];
   }
@@ -104,7 +105,7 @@ class FlippingCard extends React.Component {
   }
 
   getEndXY() {
-    return [window.screen.width/2, window.screen.height/2];
+    return [window.screen.width/2, window.screen.height/2.5];
   }
 
   getCurrentXY() {
@@ -117,7 +118,7 @@ class FlippingCard extends React.Component {
     const xy = this.getCurrentXY();
     const fullSize = this.getFullSize();
     return (
-      <div style={{position: "absolute", left: xy[0]+"px",top: xy[1]+"px", transform: "scale("+this.getWidthScale()+",1)"}}>
+      <div style={{position: "absolute", left: xy[0]+"px", top: xy[1]+"px", transform: "scale("+this.getWidthScale()+",1)"}}>
         <img src={this.state.backImg} style={{width:fullSize[0]+"px", display: this.getShowBackOrFront() ? "" : "none"}} />
         <div style={{top: 0, display: (!this.getShowBackOrFront() && !this.state.isPlayerCard) ? "" : "none"}}><CustomCard cardProps={this.state.cardProps} /></div>
         {/*<div style={{top: 0, display: (!this.getShowBackOrFront() && this.state.isPlayerCard) ? "" : "none"}}><PlayerPopup cardProps={this.state.cardProps} /></div>*/}
@@ -125,5 +126,10 @@ class FlippingCard extends React.Component {
     );
   }
 }
+
+// position: absolute;
+// top: 50%;
+// left: 50%;
+// transform: translate(-50%, -50%);
 
 export default FlippingCard;

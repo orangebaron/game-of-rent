@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../App.css';
+import './CustomCard.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -9,10 +10,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles({
-  card: {
-    minWidth: 275,
-    maxWidth: 350,
-  },
+  // card: {
+  //   // minWidth: 275,
+  //   // maxWidth: 350,
+  //   width: '15vw',
+  //   height: '40vw * 1.56',
+  // },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -25,19 +28,19 @@ const useStyles = makeStyles({
     padding: 0,
   },
   divOccupation: {
-    backgroundColor: '#ffa500',
-    marginTop: 10,
+    backgroundColor: '#fef200',
+    marginTop: 20,
   },
   divHousehold: {
-    backgroundColor: '#ff5555',
+    backgroundColor: '#ed008c',
     marginTop: 10,
   },
   divLife: {
-    backgroundColor: '#00aa00',
+    backgroundColor: '#41ad48',
     marginTop: 10,
   },
   divNeighborhood: {
-    backgroundColor: '#4CACE9',
+    backgroundColor: '#00adef',
     marginTop: 10,
   },
   centerText: {
@@ -69,7 +72,7 @@ export default function CustomCard(props) {
   */
 
   return (
-    <Card className={classes.card}>
+    <Card className='custom-card'>
 
       <CardActions className={classes["div"+typeText]}>
         <>
