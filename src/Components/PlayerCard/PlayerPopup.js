@@ -1,50 +1,61 @@
 import React from 'react';
 import Popup from './img/Popup.png';
 import PlayerIcon from '../PlayerIcon/PlayerIcon.js';
+import './PlayerPopup.css'
+import CustomCard from '../Card/CustomCard'
+import MiniCustomCard from '../Card/MiniCustomCard'
 
 function PlayerPopup(props) {
-  let iconImg = props.cardProps[0]
-  if (typeof iconImg != "number")
-    iconImg = 0
-  return (
-    <div style={{position:"absolute"}}>
-      <img src={Popup} />
-      <div style={{position:"absolute",left:10,top:10}}> <PlayerIcon num={iconImg} /> </div>
-      <p style={{position:"absolute",width:"100%",top:10,fontSize:20,fontWeight:"bold",textAlign:"center"}}>
-        Player Name: {props.cardProps[1]}
-        <br />
-        Total Monthly Income: ${props.cardProps[2]}
-      </p>
-      <p style={{position:"absolute",top:"50%",left:"5%",width:"16%",fontSize:20,fontWeight:"bold",textAlign:"center"}}>
-        {props.cardProps[3]}
-        <br />
-        more custom text can go here
-        <br />
-        idk how many lines u want
-      </p>
-      <p style={{position:"absolute",top:"50%",left:"23%",width:"16%",fontSize:20,fontWeight:"bold",textAlign:"center"}}>
-        {props.cardProps[4]}
-        <br />
-        more custom text can go here
-      </p>
-      <p style={{position:"absolute",top:"50%",left:"41%",width:"16%",fontSize:20,fontWeight:"bold",textAlign:"center"}}>
-        {props.cardProps[5]}
-        <br />
-        more custom text can go here
-      </p>
-      <p style={{position:"absolute",top:"50%",left:"59.5%",width:"16%",fontSize:20,fontWeight:"bold",textAlign:"center"}}>
-        {props.cardProps[6]}
-        <br />
-        more custom text can go here
-      </p>
-      <p style={{position:"absolute",top:"50%",left:"78%",width:"16%",fontSize:20,fontWeight:"bold",textAlign:"center"}}>
-        {props.cardProps[7]}
-        <br />
-        more custom text can go here
-      </p>
-      <p style={{position:"absolute",margin:0,top:0,right:10,color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
-    </div>
-  );
+    return (
+        <div className='player-popup-background'>
+
+            <div className={'player-popup-avatar'}>
+                <PlayerIcon width={'7vw'} num={props.player.avatar}/>
+            </div>
+
+            <div className='player-popup-text'>
+                <h2>{props.player.playerName}</h2>
+                {props.player.info &&
+                    <div>
+                        <p>Total Housing Monthly Income: ${props.player.info.householdMonthlyIncome}</p>
+                        <p>Monthly Housing Income: ${props.player.info.monthlyHousingAllowance}</p>
+                        <p>Minimum Number of Bedrooms: {props.player.info.minimumNumBedrooms}</p>
+                    </div>
+                }
+            </div>
+
+            <div className='player-popup-card-section'>
+
+                    {/*{props.player.family.map(member => (*/}
+                    {/*    <div className='player-popup-card'>*/}
+                    {/*        <CustomCard width={'100%'} height={'100%'} cardProps={["Household", member]} />*/}
+                    {/*    </div>*/}
+                    {/*))}*/}
+
+                {props.player.family.map(member => (
+                    <div className='player-popup-card'>
+                        <MiniCustomCard cardProps={["Household", member]} />
+                    </div>
+                ))}
+
+
+
+
+            </div>
+
+
+            <p onClick={props.onClick} style={{
+                position: "absolute",
+                margin: 0,
+                top: 0,
+                right: 10,
+                color: "white",
+                fontWeight: "bold",
+                cursor: "pointer",
+                fontSize: 40
+            }}>X</p>
+        </div>
+    );
 }
 
 export default PlayerPopup;

@@ -18,6 +18,7 @@ import { useDispatch } from 'react-redux'
 import { updatePlayer, removeJob, addFamily } from '../../actions/index'; //todo delete
 import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks";
+import PlayerIcon from '../PlayerIcon/PlayerIcon'
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -80,6 +81,9 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const [lifeCount, setLifeCount] = React.useState(1);
     const [instructionLocation, setInstructionLocation] = React.useState(0);
 
+    const [playerPopupLocation, setPlayerPopupLocation] = React.useState();
+
+    const [showPlayerPopup, setShowPlayerPopup] = React.useState(false)
     const [showInstBox, setShowInstBox] = React.useState(true);
     const [showMathBox, setShowMathBox] = React.useState(false);
     const [showGameBox, setShowGameBox] = React.useState(false);
@@ -130,6 +134,17 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     //CARD FLIPPING
     const xFunction = () => flippingCardRef.current.goFromCenter(() => document.getElementById("overlay").style.display = "none");
     const flippingCardRef = React.createRef();
+
+    const togglePlayerPopup = (playerIndex) => {
+        if(!showPlayerPopup){
+            document.getElementById("overlay").style.display = "block";
+            setPlayerPopupLocation(playerIndex);
+            setShowPlayerPopup(true);
+        } else {
+            document.getElementById("overlay").style.display = "none";
+            setShowPlayerPopup(false);
+        }
+    }
 
     //GAMEPLAY HANDLERS
     const handleDiceRoll = (num) => {
@@ -292,6 +307,13 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 </div>
             }
 
+            {showPlayerPopup &&
+                <div className='player-popup'>
+                    <PlayerPopup player={playerList[playerPopupLocation]} onClick={() => togglePlayerPopup()}/>
+                </div>
+
+            }
+
 
             <div className='dice-section'>
                 <ReactDice
@@ -315,18 +337,20 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
             {/*todo need to eventually move this styling out of here*/}
             <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
-                <p onClick={xFunction} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
+                {!showPlayerPopup &&
+                    <p onClick={xFunction} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
+                }
                 <FlippingCard ref={flippingCardRef} startSize={[0, 0]} startXY={[0, 0]} />
             </div>
 
             <div className={classes.playerCardSection}>
                 {/*todo will need to eventually go back and make these work for each individual player*/}
-                {/*<PlayerCard avatar={0} btnId="info1" onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])} />*/}
-                {/*<PlayerCard avatar={1} btnId="info2" onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info2", [1, "Person B", 222, "card1", "card2", "card3", "card4", "card5"])} />*/}
 
                 {playerList.map((player, index) => (
                     <div className={(playerTurn === index) ? 'current-player' : '' }>
-                        <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>
+                        {/*<PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>*/}
+                        <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => togglePlayerPopup(index)}/>
+
                     </div>
 
                 ))}

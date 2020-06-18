@@ -1,0 +1,47 @@
+.player-popup-background {
+    background-color: #c4c4c4;
+    width: 40vw;
+    height: 45vh;
+    display: block;
+    border: outset rgba(0,0,0,.1) 10px;
+    border-radius: 10px;
+}
+
+.player-popup-avatar {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+.player-popup-text {
+    background-color: #ec392f;
+    width: 70%;
+    height: 35%;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-popup-card-section {
+    position: absolute;
+    width: 95%;
+    height: 50%;
+    top: 45%;
+    left: 2.5%;
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
+    /*white-space: nowrap;*/
+}
+
+.player-popup-card{
+    margin-right: 5px;
+    height: 100%;
+    /*overflow: hidden;*/
+}

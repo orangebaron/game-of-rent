@@ -6,7 +6,6 @@ import CardActions from '@material-ui/core/CardActions';
 
 
 const useStyles = makeStyles({
-
     bullet: {
         display: 'inline-block',
         margin: '0 2px',

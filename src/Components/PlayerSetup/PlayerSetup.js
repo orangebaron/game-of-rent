@@ -82,7 +82,7 @@ const styles = {
     avatarIcons: {
 
         width: '60vw',
-        maxWidth: '1150px',
+        maxWidth: '1400px',
         display: 'flex',
         justifyContent: 'space-between',
         marginTop: '2vh',
@@ -235,31 +235,31 @@ class ConnectedPlayerSetup extends React.Component {
                                         <div style={styles.avatarIcons}>
 
                                                 <input className='avatar-radio-buttons' id='option0' onChange={this.handleChange} type='radio' value={0} name='avatarIndex' required/>
-                                                <label className='avatar-image' htmlFor='option0'><PlayerIcon num={0}/></label>
+                                                <label className='avatar-image' htmlFor='option0'><PlayerIcon width='5vw' num={0}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option1' onChange={this.handleChange} type='radio' value={1} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option1'><PlayerIcon num={1}/></label>
+                                                <label className='avatar-image' htmlFor='option1'><PlayerIcon width='5vw' num={1}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option2' onChange={this.handleChange} type='radio' value={2} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option2'><PlayerIcon num={2}/></label>
+                                                <label className='avatar-image' htmlFor='option2'><PlayerIcon width='5vw' num={2}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option3' onChange={this.handleChange} type='radio' value={3} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option3'><PlayerIcon num={3}/></label>
+                                                <label className='avatar-image' htmlFor='option3'><PlayerIcon  width='5vw'  num={3}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option4' onChange={this.handleChange} type='radio' value={4} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option4'><PlayerIcon num={4}/></label>
+                                                <label className='avatar-image' htmlFor='option4'><PlayerIcon  width='5vw'  num={4}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option5' onChange={this.handleChange} type='radio' value={5} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option5'><PlayerIcon num={5}/></label>
+                                                <label className='avatar-image' htmlFor='option5'><PlayerIcon  width='5vw' num={5}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option6' onChange={this.handleChange} type='radio' value={6} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option6'><PlayerIcon num={6}/></label>
+                                                <label className='avatar-image' htmlFor='option6'><PlayerIcon  width='5vw' num={6}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option7' onChange={this.handleChange} type='radio' value={7} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option7'><PlayerIcon num={7}/></label>
+                                                <label className='avatar-image' htmlFor='option7'><PlayerIcon  width='5vw' num={7}/></label>
 
                                                 <input className='avatar-radio-buttons' id='option8' onChange={this.handleChange} type='radio' value={8} name='avatarIndex'/>
-                                                <label className='avatar-image' htmlFor='option8'><PlayerIcon num={8}/></label>
+                                                <label className='avatar-image' htmlFor='option8'><PlayerIcon  width='5vw' num={8}/></label>
 
 
                                         </div>
