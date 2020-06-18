@@ -26,15 +26,36 @@ function PlayerPopup(props) {
 
             <div className='player-popup-card-section'>
 
+                {/*switched to using the mini cards here bc of different styling needs, may have to go back*/}
                     {/*{props.player.family.map(member => (*/}
                     {/*    <div className='player-popup-card'>*/}
                     {/*        <CustomCard width={'100%'} height={'100%'} cardProps={["Household", member]} />*/}
                     {/*    </div>*/}
                     {/*))}*/}
 
+                {props.player.job &&
+                <div className='player-popup-card'>
+                    <MiniCustomCard cardProps={["Occupation", props.player.job]}/>
+                </div>
+                }
+
+                {props.player.family.map(member => (
+                        <div className='player-popup-card'>
+                            <MiniCustomCard cardProps={["Household", member]} />
+                        </div>
+                ))}
+
                 {props.player.family.map(member => (
                     <div className='player-popup-card'>
-                        <MiniCustomCard cardProps={["Household", member]} />
+                        {member.job &&
+                        <MiniCustomCard cardProps={["Occupation", member.job]} />
+                        }
+                    </div>
+                ))}
+
+                {props.player.life.map(event => (
+                    <div className='player-popup-card'>
+                        <MiniCustomCard cardProps={["Life", event]} />
                     </div>
                 ))}
 

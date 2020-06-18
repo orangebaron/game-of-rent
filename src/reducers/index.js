@@ -9,15 +9,7 @@ const initialState = {
         {
             playerName: 'Test',
             avatar: 0,
-            family: [
-                {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
-                {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
-                {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
-                {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
-                {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
-                {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
-                {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
-            ],
+            family: [],
             life: [],
         }
     ],

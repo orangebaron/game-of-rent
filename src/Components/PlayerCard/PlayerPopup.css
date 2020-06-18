@@ -14,7 +14,6 @@
 }
 
 .player-popup-text {
-    background-color: #ec392f;
     width: 70%;
     height: 35%;
     position: absolute;
@@ -35,13 +34,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     padding: 0;
-    /*white-space: nowrap;*/
+
 }
 
 .player-popup-card{
     margin-right: 5px;
     height: 100%;
-    /*overflow: hidden;*/
+    width: 15vw;
 }
