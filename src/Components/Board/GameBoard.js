@@ -130,21 +130,15 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         'Your household is finally set! Now click on the calculator icon to find out your monthly housing allowance. This is how much you can afford to spending on housing each month.',
 
     ];
+    const GameLoopInstructionText = [
+
+    ]
 
     //CARD FLIPPING
     const xFunction = () => flippingCardRef.current.goFromCenter(() => document.getElementById("overlay").style.display = "none");
     const flippingCardRef = React.createRef();
 
-    const togglePlayerPopup = (playerIndex) => {
-        if(!showPlayerPopup){
-            document.getElementById("overlay").style.display = "block";
-            setPlayerPopupLocation(playerIndex);
-            setShowPlayerPopup(true);
-        } else {
-            document.getElementById("overlay").style.display = "none";
-            setShowPlayerPopup(false);
-        }
-    }
+
 
     //GAMEPLAY HANDLERS
     const handleDiceRoll = (num) => {
@@ -161,19 +155,17 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         switch (type) {
             case 'occupation':
                 const index = Math.floor(Math.random() * jobList.length)
-                const job = jobList.splice(index, 1)[0]; //todo get rid of these when done testing
-                showCardFullscreen(flippingCardRef.current, "occupationCardBack",  ["Occupation", job] /*["Occupation", job.title, "Monthly Income:", job.income, "A", 1]*/);
                 if(instructionLocation === 0) {
 
-                    // const job = jobList.splice(index, 1)[0];
-                    // showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
+                    const job = jobList.splice(index, 1)[0];
+                    showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job]);
                     nextInstruction();
                     playerList[playerTurn].job = job;
 
                 } else if( instructionLocation === 4) {
 
-                    // const job = jobList.splice(index, 1)[0];
-                    // showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job.title, "Monthly Income:", job.income, "A", 1]);
+                    const job = jobList.splice(index, 1)[0];
+                    showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job]);
                     const end = playerList[playerTurn].family.length - 1;
                     playerList[playerTurn].family[end].job = job;
 
@@ -268,13 +260,22 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         if(playerTurn === playerList.length - 1){
             setPlayerTurn(0);
             setShowGameBox(true);
-
         } else {
             setInstructionLocation(0)
             setShowInstBox(true);
             setPlayerTurn(playerTurn + 1);
             setDiceRoll(null);
             setLifeCount(1);
+        }
+    }
+    const togglePlayerPopup = (playerIndex) => {
+        if(!showPlayerPopup){
+            document.getElementById("overlay").style.display = "block";
+            setPlayerPopupLocation(playerIndex);
+            setShowPlayerPopup(true);
+        } else {
+            document.getElementById("overlay").style.display = "none";
+            setShowPlayerPopup(false);
         }
     }
 
@@ -296,7 +297,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                         transitionName='fade'
                         transitionAppear={true}
                         transitionAppearTimeout={5000}>
-
                         <div className='instruction-section'>
                             <h3>{playerList[playerTurn].playerName}</h3>
                             <div>
@@ -307,13 +307,30 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 </div>
             }
 
+            {showGameBox &&
+                <div>
+                    {/*//todo add transition here*/}
+                    <ReactCSSTransitionGroup
+                        transitionName='fade'
+                        transitionAppear={true}
+                        transitionAppearTimeout={5000}>
+                        <div className='gamebox-background'>
+                            <p>testing</p>
+                        </div>
+                    </ReactCSSTransitionGroup>
+                </div>
+            }
+
             {showPlayerPopup &&
+            <ReactCSSTransitionGroup
+                transitionName='fade-fast'
+                transitionAppear={true}
+                transitionAppearTimeout={2500}>
                 <div className='player-popup'>
                     <PlayerPopup player={playerList[playerPopupLocation]} onClick={() => togglePlayerPopup()}/>
                 </div>
-
+            </ReactCSSTransitionGroup>
             }
-
 
             <div className='dice-section'>
                 <ReactDice
@@ -330,11 +347,20 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             </div>
 
             {showMathBox &&
+            <ReactCSSTransitionGroup
+                transitionName='fade-fast'
+                transitionAppear={true}
+                transitionAppearTimeout={2500}>
                 <div className='calculator-panel' onClick={closeMathBox}>
                     <MathBox info={playerList[playerTurn].info}/>
                 </div>
+            </ReactCSSTransitionGroup>
             }
 
+            <ReactCSSTransitionGroup
+                transitionName='fade-fast'
+                transitionAppear={true}
+                transitionAppearTimeout={2500}>
             {/*todo need to eventually move this styling out of here*/}
             <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
                 {!showPlayerPopup &&
@@ -342,17 +368,15 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 }
                 <FlippingCard ref={flippingCardRef} startSize={[0, 0]} startXY={[0, 0]} />
             </div>
+            </ReactCSSTransitionGroup>
 
             <div className={classes.playerCardSection}>
-                {/*todo will need to eventually go back and make these work for each individual player*/}
-
                 {playerList.map((player, index) => (
                     <div className={(playerTurn === index) ? 'current-player' : '' }>
                         {/*<PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>*/}
                         <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => togglePlayerPopup(index)}/>
 
                     </div>
-
                 ))}
             </div>
 
@@ -367,7 +391,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
                 <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(flippingCardRef.current, "neighborhoodCardBack", ["Neighborhood", "Filler text C", "Lorem ipsum", "dolor sit amet", "D", 4])} />
             </div>
-
         </div>
     );
 }

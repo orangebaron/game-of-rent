@@ -36,7 +36,7 @@
     width: 40vw;
     max-width: 1200px;
     height: 30vh;
-    background-color: rgba(0,0,0, 0.75);
+    background-color: rgba(0,0,0, 0.8);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -53,7 +53,7 @@
     z-index: 1;
     bottom: 5vh;
     right: 18vw;
-    background-color: rgba(0,0,0, 0.75);
+    background-color: rgba(0,0,0, 0.8);
     border-radius: 10px;
     height: 105px;
     width: 110px;
@@ -84,12 +84,22 @@
     transition-delay: .5s;
 }
 
+.fade-fast-appear {
+    opacity: 0.00;
+}
+
+.fade-fast-appear.fade-fast-appear-active {
+    opacity: 1;
+    transition: opacity .75s ease;
+    /*transition-delay: .5s;*/
+}
+
 .calculator-section {
     position: absolute;
     z-index: 1;
     bottom: 5vh;
     right: 25vw;
-    background-color: rgba(0,0,0, 0.75);
+    background-color: rgba(0,0,0, 0.8);
     border-radius: 10px;
     height: 105px;
     width: 110px;
@@ -114,7 +124,15 @@
 }
 
 .current-player {
-    border: solid 3px #ec392f;
+    border: solid 3px #0000CD;
+}
+
+@keyframes blink {
+    50% {border-color: transparent}
+}
+
+.current-player {
+    animation: blink 1.25s step-end infinite alternate;
 }
 
 .player-popup {
@@ -123,4 +141,20 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.gamebox-background {
+    background-color: rgba(0,0,0, 0.8);
+    border-radius: 20px;
+    width: 15vw;
+    height: 20vh;
+    position: absolute;
+    bottom: 4vh;
+    left: 18vw;
+    z-index: 2;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+
 }
