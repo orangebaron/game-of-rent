@@ -55,4 +55,16 @@
     justify-content: space-evenly;
     height: 75%;
     text-align: center;
+    font-size: xx-small;
+    /* width: 7vw; */
+}
+
+/* created b/c of problems with life cards specifically - css only applies to lfie cards
+*/
+#life{
+   
+    font-size: 2.2mm;
+    width: 9vw;
+    overflow: hidden;
+
 }

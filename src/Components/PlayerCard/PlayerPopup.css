@@ -22,10 +22,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: small;
 }
 
 .player-popup-card-section {
-    position: absolute;
+    position: relative;
     width: 95%;
     height: 50%;
     top: 45%;
@@ -43,6 +44,10 @@
     margin-right: 5px;
     height: 100%;
     width: 15vw;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: row;
+    max-width: 150px;
 }
 
 .player-popup-card-x {
