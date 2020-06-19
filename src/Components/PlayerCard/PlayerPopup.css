@@ -44,3 +44,14 @@
     height: 100%;
     width: 15vw;
 }
+
+.player-popup-card-x {
+    position: absolute;
+    margin: 0;
+    top: 4%;
+    right: 4%;
+    color: black;
+    font-weight: bolder;
+    cursor: pointer;
+    font-size: 40px;
+}

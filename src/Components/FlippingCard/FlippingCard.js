@@ -14,11 +14,6 @@ class FlippingCard extends React.Component {
     this.setState(this.getStartStateFor(props));
   }
 
-  // startForLeftCard(button, cardProps) { // ie, player card
-  //   const rect = button.getBoundingClientRect();
-  //   this.startWithNewProps({backImg: HouseholdCardBack, startSize: [160, 160*1.55], startXY: [rect.x, rect.y], isPlayerCard: true, cardProps: cardProps});
-  //   this.goToCenter(() => {});
-  // }
 
   startForRightCard(card, cardProps) {
     const rect = card.getBoundingClientRect();
@@ -105,7 +100,7 @@ class FlippingCard extends React.Component {
   }
 
   getEndXY() {
-    return [window.screen.width/2, window.screen.height/2.5];
+    return [window.screen.width/2, window.screen.height/3];
   }
 
   getCurrentXY() {
@@ -118,18 +113,13 @@ class FlippingCard extends React.Component {
     const xy = this.getCurrentXY();
     const fullSize = this.getFullSize();
     return (
-      <div style={{position: "absolute", left: xy[0]+"px", top: xy[1]+"px", transform: "scale("+this.getWidthScale()+",1)"}}>
+      <div style={{position: "absolute", left: xy[0]+"px", top: xy[1]+"px", transform: "scale("+this.getWidthScale()+",1) "}}>
         <img src={this.state.backImg} style={{width:fullSize[0]+"px", display: this.getShowBackOrFront() ? "" : "none"}} />
         <div style={{top: 0, display: (!this.getShowBackOrFront() && !this.state.isPlayerCard) ? "" : "none"}}><CustomCard cardProps={this.state.cardProps} /></div>
-        {/*<div style={{top: 0, display: (!this.getShowBackOrFront() && this.state.isPlayerCard) ? "" : "none"}}><PlayerPopup cardProps={this.state.cardProps} /></div>*/}
       </div>
     );
   }
 }
 
-// position: absolute;
-// top: 50%;
-// left: 50%;
-// transform: translate(-50%, -50%);
 
 export default FlippingCard;

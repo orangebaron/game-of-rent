@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import './GameBoard.css';
-import { makeStyles } from '@material-ui/core/styles';
+import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import Map from './Map';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import PlayerPopup from '../PlayerCard/PlayerPopup';
@@ -12,6 +12,7 @@ import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
 import MathBox from '../MathBox/MathBox'
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { useDispatch } from 'react-redux'
@@ -50,13 +51,10 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+
 function showCardFullscreen(ref, cardId, cardProps) {
     document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
     ref.startForRightCard(document.getElementById(cardId), cardProps);
-}
-function showPlayerCardFullscreen(ref, buttonId, cardProps) {
-    document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
-    ref.startForLeftCard(document.getElementById(buttonId), cardProps);
 }
 function closeFullscreenCard(ref) {
     ref.goFromCenter(() => document.getElementById("overlay").style.display = "none");
@@ -80,7 +78,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const [diceRoll, setDiceRoll] = React.useState(0);
     const [lifeCount, setLifeCount] = React.useState(1);
     const [instructionLocation, setInstructionLocation] = React.useState(0);
-
     const [playerPopupLocation, setPlayerPopupLocation] = React.useState();
 
     const [showPlayerPopup, setShowPlayerPopup] = React.useState(false)
@@ -128,17 +125,15 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         'You\'re the only member of your household! Everyone has unforeseen circumstances arise in their lives. Draw a life card for yourself.',
         'Please draw another life card.',
         'Your household is finally set! Now click on the calculator icon to find out your monthly housing allowance. This is how much you can afford to spending on housing each month.',
-
+        ''
     ];
     const GameLoopInstructionText = [
-
+        'Draw a Neighborhood card to look for a location that suits you and your family!'
     ]
 
     //CARD FLIPPING
     const xFunction = () => flippingCardRef.current.goFromCenter(() => document.getElementById("overlay").style.display = "none");
     const flippingCardRef = React.createRef();
-
-
 
     //GAMEPLAY HANDLERS
     const handleDiceRoll = (num) => {
@@ -216,6 +211,17 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 }
 
                 break;
+            case 'neighborhood':
+                if(/*instructionLocation === 9*/ true){
+
+                    let index = Math.floor(Math.random() * neighborhoodList.length)
+                    const neighborhood = neighborhoodList.splice(index, 1)[0];
+                    showCardFullscreen(flippingCardRef.current, "neighborhoodCardBack",   ["Neighborhood", neighborhood]);
+
+
+                }
+
+                break;
         }
     }
     const handleCalculatorButton = () => {
@@ -259,6 +265,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const nextPlayerSetup = () => {
         if(playerTurn === playerList.length - 1){
             setPlayerTurn(0);
+            setInstructionLocation(9)
             setShowGameBox(true);
         } else {
             setInstructionLocation(0)
@@ -287,6 +294,20 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const { loading, error, data } = useQuery(GET_CITY, {
         variables: { name: city }
     });
+    const neighborhoodList = [
+        {neighborhood: 'SYLVAN PARK', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890},  location: 'K4'},
+        {neighborhood: 'THE GULCH', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'temp'},
+        {neighborhood: 'HERMITAGE', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
+        {neighborhood: 'ANTIOCH', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'temp'},
+        {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'temp'},
+        {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
+        {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'temp'},
+    ]
+
+
+
+
+
 
     return (
         <div className={classes.root}>
@@ -315,7 +336,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                         transitionAppear={true}
                         transitionAppearTimeout={5000}>
                         <div className='gamebox-background'>
-                            <p>testing</p>
+                            <p>{GameLoopInstructionText[0]}</p>
                         </div>
                     </ReactCSSTransitionGroup>
                 </div>
@@ -325,7 +346,9 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             <ReactCSSTransitionGroup
                 transitionName='fade-fast'
                 transitionAppear={true}
-                transitionAppearTimeout={2500}>
+                transitionAppearTimeout={2500}
+                // transitionLeave={true}
+                transitionLeaveTimeout={30000}>
                 <div className='player-popup'>
                     <PlayerPopup player={playerList[playerPopupLocation]} onClick={() => togglePlayerPopup()}/>
                 </div>
@@ -362,11 +385,19 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 transitionAppear={true}
                 transitionAppearTimeout={2500}>
             {/*todo need to eventually move this styling out of here*/}
-            <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:1, position:"fixed", display:"none"}}>
+            <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:2, position:"fixed", display:"none"}}>
                 {!showPlayerPopup &&
-                    <p onClick={xFunction} style={{position:"fixed",left:"90%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
+                    <p onClick={xFunction} style={{position:"fixed",left:"80%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
                 }
                 <FlippingCard ref={flippingCardRef} startSize={[0, 0]} startXY={[0, 0]} />
+                <div className='choice-section'>
+
+                {/*    if they cant live here display a message*/}
+                {/* need to get rid of x button when this card is up*/}
+                <Button variant='contained' className='choice-button' >Yes</Button>
+                <Button variant='contained' className='choice-button' >No</Button>
+
+                </div>
             </div>
             </ReactCSSTransitionGroup>
 
@@ -388,8 +419,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}  className="card" alt="OccupationCardBack" onClick={() => handleCardDraw('occupation')} />
                 <img style={{ height: '20vh'}} id="householdCardBack"   src={HouseholdCardBack}  className="card" alt="HouseholdCardBack" onClick={() =>  handleCardDraw('household')} />
                 <img style={{ height: '20vh'}} id="lifeCardBack"  src={LifeCardBack}  className="card" alt="LifeCardBack" onClick={() => handleCardDraw('life')} />
-
-                <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => showCardFullscreen(flippingCardRef.current, "neighborhoodCardBack", ["Neighborhood", "Filler text C", "Lorem ipsum", "dolor sit amet", "D", 4])} />
+                <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => handleCardDraw('neighborhood')} />
             </div>
         </div>
     );

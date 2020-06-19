@@ -24,6 +24,8 @@ function PlayerPopup(props) {
                 }
             </div>
 
+            <p onClick={props.onClick} className='player-popup-card-x'>X</p>
+
             <div className='player-popup-card-section'>
 
                 {/*switched to using the mini cards here bc of different styling needs, may have to go back*/}
@@ -59,22 +61,7 @@ function PlayerPopup(props) {
                     </div>
                 ))}
 
-
-
-
             </div>
-
-
-            <p onClick={props.onClick} style={{
-                position: "absolute",
-                margin: 0,
-                top: 0,
-                right: 10,
-                color: "white",
-                fontWeight: "bold",
-                cursor: "pointer",
-                fontSize: 40
-            }}>X</p>
         </div>
     );
 }
