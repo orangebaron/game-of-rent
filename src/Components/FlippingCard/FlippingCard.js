@@ -75,8 +75,8 @@ class FlippingCard extends React.Component {
   }
 
   getEndSize() {
-    // const width = 10
-    return [160, 160*1.55];
+    const vw = window.screen.width * .01;
+    return [13*vw, 13*vw*1.56];
 
   }
 
@@ -89,9 +89,9 @@ class FlippingCard extends React.Component {
       return this.lerp(this.state.startSize, this.getEndSize(), this.state.progress * 2);
     else if (this.state.isPlayerCard)
       // return [855,530];
-      return []
+      return [];
     else
-      return [275,230];
+      return this.getEndSize();
   }
 
   getSize() {

@@ -107,7 +107,8 @@
     position: absolute;
     z-index: 1;
     bottom: 5vh;
-    right: 25vw;
+    right: 20vw;
+    margin-right: 110px;
     background-color: rgba(0,0,0, 0.8);
     border-radius: 10px;
     height: 105px;
@@ -116,6 +117,10 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.calculator-image {
+    width: 70%;
 }
 
 .calculator-panel {

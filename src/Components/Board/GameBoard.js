@@ -11,6 +11,7 @@ import OccupationCardBack from '../Card/img/GameOfRent_OccupationBack.jpg';
 import LifeCardBack from '../Card/img/GameOfRent_LifeBack.jpg';
 import NeighborhoodCardBack from '../Card/img/GameOfRent_NeighborhoodBack.jpg';
 import HouseholdCardBack from '../Card/img/GameOfRent_HouseholdBack.jpg';
+import Calculator from './img/calculator.png';
 import MathBox from '../MathBox/MathBox'
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
@@ -366,7 +367,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             </div>
 
             <div className='calculator-section' onClick={handleCalculatorButton}>
-                // todo image goes here
+                <img class='calculator-image' src={Calculator}></img>
             </div>
 
             {showMathBox &&
