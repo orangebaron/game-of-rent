@@ -35,7 +35,7 @@
     z-index: 1;
     width: 40vw;
     max-width: 1200px;
-    height: 30vh;
+    height: 25vh;
     background-color: rgba(0,0,0, 0.8);
     border-radius: 30px;
     display: flex;
@@ -175,11 +175,11 @@
 }
 
 .choice-section {
-    background-color: #ec392f;
+    /*background-color: #ec392f;*/
     position: absolute;
     width: 15vw;
     height: 10vh;
-    top: 75%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;

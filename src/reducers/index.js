@@ -16,12 +16,14 @@ const initialState = {
     playerCount: 0,
     city: '',
     jobs: [
-        {title: 'Social Worker', income: 2835},
+//         {title: 'Social Worker', income: 2835},
         {title: 'Lawyer', income: 10810},
-        {title: 'Hotel Concierge', income: 2195},
-        {title: 'Social Worker', income: 2835},
         {title: 'Lawyer', income: 10810},
-        {title: 'Hotel Concierge', income: 2195},
+        {title: 'Lawyer', income: 10810},
+//         {title: 'Hotel Concierge', income: 2195},
+//         {title: 'Social Worker', income: 2835},
+        {title: 'Lawyer', income: 10810},
+//         {title: 'Hotel Concierge', income: 2195},
     ],
     household: [
         {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },

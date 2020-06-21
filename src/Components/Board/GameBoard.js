@@ -85,6 +85,8 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const [showInstBox, setShowInstBox] = React.useState(true);
     const [showMathBox, setShowMathBox] = React.useState(false);
     const [showGameBox, setShowGameBox] = React.useState(false);
+    const [showNeighborhoodChoice, setShowNeighborhoodChoice] = React.useState(false);
+    const [housing, setHousing] = React.useState('') //todo find a better way to do this is sloppy
 
     //INSTRUCTIONS
     const nextInstruction = (type) => {
@@ -135,6 +137,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     //CARD FLIPPING
     const xFunction = () => flippingCardRef.current.goFromCenter(() => document.getElementById("overlay").style.display = "none");
     const flippingCardRef = React.createRef();
+
 
     //GAMEPLAY HANDLERS
     const handleDiceRoll = (num) => {
@@ -213,13 +216,17 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
                 break;
             case 'neighborhood':
-                if(/*instructionLocation === 9*/ true){
+                if(instructionLocation === 9){
+                    setShowNeighborhoodChoice(false);
 
                     let index = Math.floor(Math.random() * neighborhoodList.length)
                     const neighborhood = neighborhoodList.splice(index, 1)[0];
+                    setHousing(neighborhood);
+
+                    if(livable(neighborhood)) setShowNeighborhoodChoice(true);
                     showCardFullscreen(flippingCardRef.current, "neighborhoodCardBack",   ["Neighborhood", neighborhood]);
 
-
+                    //todo might need to change players here
                 }
 
                 break;
@@ -231,10 +238,50 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             setShowMathBox(true);
         }
     }
+
+    const handleNeighborhoodChoice = (response) => {
+        switch(response) {
+            case 'no':
+                // todo also need ot increase draw count
+                nextPlayerGame()
+                document.getElementById("overlay").style.display = "none"
+                break;
+            case 'yes':
+                //todo gotta place the local on the map
+                playerList[playerTurn].housing = housing;
+                nextPlayerGame();
+                document.getElementById("overlay").style.display = "none"
+        }
+    }
+
     const closeMathBox = () => {
         setShowMathBox(false);
         nextPlayerSetup();
     }
+    const nextPlayerSetup = () => {
+        if(playerTurn === playerList.length - 1){
+            setPlayerTurn(0);
+            setInstructionLocation(9)
+            setShowGameBox(true);
+        } else {
+            setInstructionLocation(0)
+            setShowInstBox(true);
+            setPlayerTurn(playerTurn + 1);
+            setDiceRoll(null);
+            setLifeCount(1);
+        }
+    }
+    const togglePlayerPopup = (playerIndex) => {
+        if(!showPlayerPopup){
+            document.getElementById("overlay").style.display = "block";
+            setPlayerPopupLocation(playerIndex);
+            setShowPlayerPopup(true);
+        } else {
+            document.getElementById("overlay").style.display = "none";
+            setShowPlayerPopup(false);
+        }
+    }
+
     const calcInfo = () =>{
         let householdMonthlyIncome = playerList[playerTurn].job.income;
         let adultCount = 1
@@ -263,32 +310,40 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             minimumNumBedrooms: minimumNumBedrooms
         }
     }
-    const nextPlayerSetup = () => {
-        if(playerTurn === playerList.length - 1){
-            setPlayerTurn(0);
-            setInstructionLocation(9)
-            setShowGameBox(true);
-        } else {
-            setInstructionLocation(0)
-            setShowInstBox(true);
-            setPlayerTurn(playerTurn + 1);
-            setDiceRoll(null);
-            setLifeCount(1);
+    const livable = (neighborhood) => {
+        const minNumBed = playerList[playerTurn].info.minimumNumBedrooms;
+        const {monthlyHousingAllowance} = playerList[playerTurn].info
+        let res = false;
+
+        for(let [key, value] of Object.entries(neighborhood)){
+            if(key !== 'neighborhood' && key !== 'location'){
+                const numRooms = convertTypeHousing(value.type);
+                if(numRooms >= minNumBed && value.cost <=  monthlyHousingAllowance) {
+                    res = true;
+                }
+            }
         }
+
+        return res;
     }
-    const togglePlayerPopup = (playerIndex) => {
-        if(!showPlayerPopup){
-            document.getElementById("overlay").style.display = "block";
-            setPlayerPopupLocation(playerIndex);
-            setShowPlayerPopup(true);
-        } else {
-            document.getElementById("overlay").style.display = "none";
-            setShowPlayerPopup(false);
+    const convertTypeHousing = (type) =>{
+        switch (type) {
+            case 'STUDIO':
+                return 1;
+            case '1BR':
+                return 1;
+            case '2BR':
+                return 2;
+            case '3BR':
+                return 3;
+            case '4BR':
+                return 4;
         }
     }
 
     const nextPlayerGame = () => {
         //todo stuff for game loop goes here
+        //basically just end condition stuff
     }
 
     //DATABASE
@@ -304,10 +359,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
         {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'temp'},
     ]
-
-
-
-
 
 
     return (
@@ -387,18 +438,25 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 transitionAppearTimeout={2500}>
             {/*todo need to eventually move this styling out of here*/}
             <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:2, position:"fixed", display:"none"}}>
-                {!showPlayerPopup &&
+                {/*(*/!showPlayerPopup /*|| !showNeighborhoodChoice)*/ &&
                     <p onClick={xFunction} style={{position:"fixed",left:"80%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
                 }
                 <FlippingCard ref={flippingCardRef} startSize={[0, 0]} startXY={[0, 0]} />
-                <div className='choice-section'>
 
-                {/*    if they cant live here display a message*/}
-                {/* need to get rid of x button when this card is up*/}
-                <Button variant='contained' className='choice-button' >Yes</Button>
-                <Button variant='contained' className='choice-button' >No</Button>
+                {(instructionLocation === 9 && showNeighborhoodChoice) &&
+                    // todo need ot add text explaining about would you like to live here / you cant live here
+                    <div className='choice-section'>
+                        <Button variant='contained' className='choice-button' onClick={() =>{handleNeighborhoodChoice('yes')}}>Yes</Button>
+                        <Button variant='contained' className='choice-button' onClick={() => {handleNeighborhoodChoice('no')}}>No</Button>
+                    </div>
+                }
 
-                </div>
+                {(instructionLocation === 9 && !showNeighborhoodChoice) &&
+                    <div className='choice-section'>
+                        <p style={{color:'white'}}>You can't live here</p>
+                    </div>
+                }
+
             </div>
             </ReactCSSTransitionGroup>
 
