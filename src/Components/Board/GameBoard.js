@@ -32,24 +32,7 @@ const useStyles = makeStyles(() => ({
         width: '100vw',
         height: '100vh',
     },
-    playerCardSection: {
-        width: '15vw',
-        height: '100vh',
-        overflow: 'scroll',
-    },
-    map: {
-        width: '70vw',
-        height: '100vh',
-    },
-    gameCardSection: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignContent: 'center',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        width: '15vw',
-        height: '100vh',
-    },
+
 }));
 
 
@@ -362,7 +345,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
 
     return (
-        <div className={classes.root}>
+        <div className='root '>
 
             {showInstBox &&
                 <div>
@@ -460,21 +443,24 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             </div>
             </ReactCSSTransitionGroup>
 
-            <div className={classes.playerCardSection}>
-                {playerList.map((player, index) => (
-                    <div className={(playerTurn === index) ? 'current-player' : '' }>
-                        {/*<PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>*/}
-                        <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => togglePlayerPopup(index)}/>
 
-                    </div>
-                ))}
-            </div>
+                <div className='playercard-section'>
+                    {playerList.map((player, index) => (
+                        <div className={(playerTurn === index) ? 'current-player' : '' }>
+                            {/*<PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>*/}
+                            <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => togglePlayerPopup(index)}/>
 
-            <div className={classes.map}>
+                        </div>
+                    ))}
+                </div>
+
+
+
+            <div className='map'>
                 <Map lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}/>
             </div>
 
-            <div className={classes.gameCardSection}>
+            <div className='gamecard-section '>
                 <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}  className="card" alt="OccupationCardBack" onClick={() => handleCardDraw('occupation')} />
                 <img style={{ height: '20vh'}} id="householdCardBack"   src={HouseholdCardBack}  className="card" alt="HouseholdCardBack" onClick={() =>  handleCardDraw('household')} />
                 <img style={{ height: '20vh'}} id="lifeCardBack"  src={LifeCardBack}  className="card" alt="LifeCardBack" onClick={() => handleCardDraw('life')} />
