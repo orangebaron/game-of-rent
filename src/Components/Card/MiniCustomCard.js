@@ -39,7 +39,7 @@ export default function MiniCustomCard(props) {
             <p>{cardInfo.description}</p>
         </div>
     } else if(typeText === 'Life'){
-        text = <div className='mini-card-text'>
+        text = <div className='mini-card-text' id="life">
             <h2>{cardInfo.title}</h2>
             <p>{cardInfo.description}</p>
         </div>
