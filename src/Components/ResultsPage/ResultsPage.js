@@ -12,13 +12,14 @@ const headerStyle = {
     justifyContent: 'center',
   };
 
+//todo add fade in
 function ResultsPage(){
     return (
-        <div className='backgroundImage'>
-            <div className = {'resultsPage'}>
+        <div className='backgroundImage '>
+            <div className = 'resultsPage'>
              <header className = {headerStyle}>
                 <header className = "ResultsPage-Title">
-                
+
                     <p className = "Title">
                             Final Results
                     </p>
@@ -41,7 +42,7 @@ function ResultsPage(){
 
 
 
-          
+
 
 
             </header>

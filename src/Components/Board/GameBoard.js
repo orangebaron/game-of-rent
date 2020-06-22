@@ -17,6 +17,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { useDispatch } from 'react-redux'
+import { useHistory } from "react-router"
 import { updatePlayer, removeJob, addFamily } from '../../actions/index'; //todo delete
 import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks";
@@ -312,6 +313,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         }
     }
 
+    const history = useHistory();
     const nextPlayerGame = () => {
         if(playerTurn === playerList.length - 1){
             setPlayerTurn(0);
@@ -329,6 +331,9 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 
         if(done) {
             alert('game is done');
+            history.push({
+                pathname: '/results'
+            })
         } else {
             let newTurn = playerTurn;
             while(playerList[newTurn].housing){
@@ -350,7 +355,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         {neighborhood: 'THE GULCH', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'temp'},
         {neighborhood: 'HERMITAGE', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
         {neighborhood: 'ANTIOCH', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'temp'},
-        {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'temp'},
+        {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 100}, location: 'temp'},
         {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
         {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 100}, location: 'temp'},
     ]
