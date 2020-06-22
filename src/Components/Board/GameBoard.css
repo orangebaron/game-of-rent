@@ -16,10 +16,6 @@
     z-index: 1;
     background-color: #4cace9;
     background-image: url('./img/black-paper.png');
-    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-
-
-
 }
 
 .gamecard-section {
@@ -34,7 +30,6 @@
     z-index: 1;
     background-color: #4cace9;
     background-image: url('./img/black-paper.png');
-    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
 .instruction-section{
@@ -148,7 +143,8 @@
 }
 
 .current-player {
-    border: solid 3px #0000CD;
+    /*border: solid 3px #0000CD; todo which ever looks better*/
+    border: solid 3px #ffffff;
 }
 
 @keyframes blink {
@@ -185,17 +181,27 @@
 }
 
 .choice-section {
-    /*background-color: #ec392f;*/
-    position: absolute;
     width: 15vw;
     height: 10vh;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+}
+
+.choice {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*background-color: #41ad48;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+    width: 25vw;
+    /*justify-content: space-evenly;*/
 }
 
 .choice-button {
@@ -213,7 +219,6 @@
 
 .root {
     flex-grow: 1;
-    /*background-color: #4CACE9;*/
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

@@ -22,18 +22,7 @@ import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks";
 import PlayerIcon from '../PlayerIcon/PlayerIcon'
 
-const useStyles = makeStyles(() => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: '#4CACE9',
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        width: '100vw',
-        height: '100vh',
-    },
 
-}));
 
 
 function showCardFullscreen(ref, cardId, cardProps) {
@@ -54,7 +43,7 @@ const GET_CITY = gql`
 `;
 
 function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}) {
-    const classes = useStyles();
+    // const classes = useStyles();
     const dispatch = useDispatch(); //todo delete
 
     // LOCAL STATE
@@ -183,6 +172,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             case 'life':
                 if(instructionLocation === 5 || instructionLocation === 6 || instructionLocation === 7){
                     setLifeCount(lifeCount - 1);
+                    // todo also need ot increase draw count
 
                     const index = Math.floor(Math.random() * lifeList.length)
                     const life = lifeList.splice(index, 1)[0];
@@ -225,15 +215,13 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const handleNeighborhoodChoice = (response) => {
         switch(response) {
             case 'no':
-                // todo also need ot increase draw count
                 nextPlayerGame()
-                document.getElementById("overlay").style.display = "none"
                 break;
             case 'yes':
                 //todo gotta place the local on the map
                 playerList[playerTurn].housing = housing;
                 nextPlayerGame();
-                document.getElementById("overlay").style.display = "none"
+                break;
         }
     }
 
@@ -325,8 +313,32 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     }
 
     const nextPlayerGame = () => {
-        //todo stuff for game loop goes here
-        //basically just end condition stuff
+        if(playerTurn === playerList.length - 1){
+            setPlayerTurn(0);
+            console.log('looping over!');
+        } else {
+            setPlayerTurn(playerTurn + 1);
+        }
+
+
+
+        let done = true;
+        for(let x = 0; x < playerList.length; ++x) {
+            if(!playerList[x].housing) done = false;
+        }
+
+        if(done) {
+            alert('game is done');
+        } else {
+            let newTurn = playerTurn;
+            while(playerList[newTurn].housing){
+                newTurn++;
+                if(newTurn >= playerList.length) newTurn = 0;
+            }
+            setPlayerTurn(newTurn);
+        }
+
+
     }
 
     //DATABASE
@@ -340,7 +352,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         {neighborhood: 'ANTIOCH', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'temp'},
         {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'temp'},
         {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
-        {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'temp'},
+        {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 100}, location: 'temp'},
     ]
 
 
@@ -420,41 +432,42 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 transitionAppear={true}
                 transitionAppearTimeout={2500}>
             {/*todo need to eventually move this styling out of here*/}
-            <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.5)", zIndex:2, position:"fixed", display:"none"}}>
-                {/*(*/!showPlayerPopup /*|| !showNeighborhoodChoice)*/ &&
+            <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.7)", zIndex:2, position:"fixed", display:"none"}}>
+                {(!showPlayerPopup && (instructionLocation !== 9)) &&
                     <p onClick={xFunction} style={{position:"fixed",left:"80%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
                 }
                 <FlippingCard ref={flippingCardRef} startSize={[0, 0]} startXY={[0, 0]} />
 
                 {(instructionLocation === 9 && showNeighborhoodChoice) &&
-                    // todo need ot add text explaining about would you like to live here / you cant live here
-                    <div className='choice-section'>
-                        <Button variant='contained' className='choice-button' onClick={() =>{handleNeighborhoodChoice('yes')}}>Yes</Button>
-                        <Button variant='contained' className='choice-button' onClick={() => {handleNeighborhoodChoice('no')}}>No</Button>
+                    <div className='choice'>
+                        {/*// todo maybe add player name here*/}
+                        <h2>This location meets the requirements for your family and is within your monthly housing allowance. Would you like to live here?</h2>
+                        <div className='choice-section'>
+                            <Button variant='contained' className='choice-button' onClick={() =>{xFunction(); handleNeighborhoodChoice('yes')}}>Yes</Button>
+                            <Button variant='contained' className='choice-button' onClick={() => {xFunction(); handleNeighborhoodChoice('no')}}>No</Button>
+                        </div>
                     </div>
                 }
 
                 {(instructionLocation === 9 && !showNeighborhoodChoice) &&
-                    <div className='choice-section'>
-                        <p style={{color:'white'}}>You can't live here</p>
+                    <div className='choice'>
+                        <h2 style={{color:'white', textAlign: 'center'}}>This location does not meet the requirements for your family.</h2>
+                        <div className='choice-section'>
+                            <Button variant='contained' className='choice-button' onClick={() => {xFunction(); handleNeighborhoodChoice('no')}}>Ok</Button>
+                        </div>
                     </div>
                 }
 
             </div>
             </ReactCSSTransitionGroup>
 
-
-                <div className='playercard-section'>
+            <div className='playercard-section'>
                     {playerList.map((player, index) => (
                         <div className={(playerTurn === index) ? 'current-player' : '' }>
-                            {/*<PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => showPlayerCardFullscreen(flippingCardRef.current, "info1", [0, "Person A", 111, "card1", "card2", "card3", "card4", "card5"])}/>*/}
                             <PlayerCard btnId="info1" playerName={player.playerName} avatar={player.avatar} onClick={() => togglePlayerPopup(index)}/>
-
                         </div>
                     ))}
                 </div>
-
-
 
             <div className='map'>
                 <Map lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}/>

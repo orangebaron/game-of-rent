@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Map (props) {
 
-    console.log('lat: ' + props.lat)
-    console.log('long: ' + props.long)
+    // console.log('lat: ' + props.lat)
+    // console.log('long: ' + props.long)
 
 
     //variables – center of city todo need to delete these comments at some point
