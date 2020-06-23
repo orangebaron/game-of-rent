@@ -30,7 +30,7 @@ export default function MiniCustomCard(props) {
     let text;
     if(typeText === 'Occupation'){
         text = <div className='mini-card-text'>
-            <h2>{cardInfo.title}</h2>
+            <h2 >{cardInfo.title}</h2>
             <p>Monthly Income: ${cardInfo.income}</p>
         </div>
     } else if( typeText === 'Household') {
@@ -40,7 +40,7 @@ export default function MiniCustomCard(props) {
         </div>
     } else if(typeText === 'Life'){
         text = <div className='mini-card-text' id="life">
-            <h2>{cardInfo.title}</h2>
+            <h2 >{cardInfo.title}</h2>
             <p>{cardInfo.description}</p>
         </div>
     } else {
@@ -50,7 +50,7 @@ export default function MiniCustomCard(props) {
     return (
         <div className='mini-custom-card'>
             <CardActions className={"mini-div"+typeText}>
-                <h2>{typeText}</h2>
+                <h2 className = "card-header">{typeText}</h2>
             </CardActions>
             {text}
 
