@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map as LeafletMap, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { makeStyles } from '@material-ui/core/styles';
+import {marker} from 'leaflet/dist/leaflet-src.esm'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,9 +65,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Map (props) {
+    const [markers, setMarkers] = React.useState([]);
 
-    // console.log('lat: ' + props.lat)
-    // console.log('long: ' + props.long)
+    const addMarker = (location) => {
+        const newMarkers = markers
+        newMarkers.push(location)
+        setMarkers(newMarkers);
+    }
+
+
 
 
     //variables – center of city todo need to delete these comments at some point
@@ -141,12 +148,14 @@ function Map (props) {
             <TileLayer
                 url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
             />
-            <Marker position={[36.1627, -86.7816] }>
-              <Popup>
-                These will be used for house/job locations
-              </Popup>
 
-            </Marker>
+              {props.markers.map(marker => (
+                  <Marker position={marker.position}>
+                      <Popup>
+                          <span>{marker.description}</span>
+                      </Popup>
+                  </Marker>
+              ))}
 
             {/* renders the array object */}
             {/*{arr}*/}

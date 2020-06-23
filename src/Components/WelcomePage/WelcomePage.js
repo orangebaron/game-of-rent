@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import './WelcomePage.css'
 import {Link} from 'react-router-dom'
+
 import logo from './changeplusplus.png'
 
 const headerStyle = {
@@ -41,38 +42,6 @@ const buttonStyle = {
 }
 
 
-// const useStyles = makeStyles((theme) => ({
-
-//   button: {
-//       color: '#ffffff',
-//       fontWeight: 700,
-//       border: '2px solid #ffffff',
-//       margin: 20,
-
-//   },
-//   formControl: {
-//       margin: theme.spacing(1),
-//       minWidth: 120,
-
-//   },
-//   selectEmpty: {
-//       marginTop: theme.spacing(2),
-//   },
-//   outlined: {
-//       width: 200,
-//       textAlign: 'center',
-
-//   },
-//   icon: {
-//       fill: 'white',
-//   },
-//   root: {
-//       color: '#FFFFFF',
-
-
-//   }
-// }));
-
 function WelcomePage() {
   // const classes = useStyles();
 
@@ -95,7 +64,7 @@ function WelcomePage() {
                   as close to your job as possible.
                 </p>
 
-                <Link to='/setup' 
+                <Link to='/setup'
                 style={{textDecoration: 'none'}}>
                   <Button variant="outlined" style={buttonStyle}
                   // classes={{outlined: classes.button}}
@@ -107,7 +76,9 @@ function WelcomePage() {
                 <div className='club-logo'>
                     {/*todo make this label look better*/}
                     <label htmlFor='logo'>Developed by</label>
-                    <img className='club-logo-image' id='logo' src={logo}/>
+                    <a href='http://changeplusplus.org/'>
+                        <img className='club-logo-image' id='logo' src={logo} />
+                    </a>
                 </div>
 
             </div>

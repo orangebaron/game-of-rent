@@ -219,8 +219,12 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 nextPlayerGame()
                 break;
             case 'yes':
-                //todo gotta place the local on the map
                 playerList[playerTurn].housing = housing;
+                const location ={
+                    position: [36.1627, -86.7816],
+                    description: `${playerList[playerTurn].playerName}'s residence`
+                }
+                addMarker(location)
                 nextPlayerGame();
                 break;
         }
@@ -322,8 +326,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             setPlayerTurn(playerTurn + 1);
         }
 
-
-
         let done = true;
         for(let x = 0; x < playerList.length; ++x) {
             if(!playerList[x].housing) done = false;
@@ -343,7 +345,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             setPlayerTurn(newTurn);
         }
 
-
     }
 
     //DATABASE
@@ -352,13 +353,21 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     });
     const neighborhoodList = [
         {neighborhood: 'SYLVAN PARK', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890},  location: 'K4'},
-        {neighborhood: 'THE GULCH', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'temp'},
-        {neighborhood: 'HERMITAGE', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
-        {neighborhood: 'ANTIOCH', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'temp'},
-        {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 100}, location: 'temp'},
-        {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'temp'},
-        {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 100}, location: 'temp'},
+        {neighborhood: 'THE GULCH', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'K5'},
+        {neighborhood: 'HERMITAGE', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'K6'},
+        {neighborhood: 'ANTIOCH', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'K3'},
+        {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 100}, location: 'K7'},
+        {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'K8'},
+        {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 100}, location: 'K1'},
     ]
+
+    const [markers, setMarkers] = React.useState([]);
+    const addMarker = (location) => {
+        const newMarkers = markers
+        newMarkers.push(location)
+        setMarkers(newMarkers);
+        // [36.1627, -86.7816]
+    }
 
 
     return (
@@ -475,7 +484,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 </div>
 
             <div className='map'>
-                <Map lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}/>
+                <Map markers={markers} lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}/>
             </div>
 
             <div className='gamecard-section '>
