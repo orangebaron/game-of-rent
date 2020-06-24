@@ -33,15 +33,15 @@ function showCardFullscreen(ref, cardId, cardProps) {
 function closeFullscreenCard(ref) {
     ref.goFromCenter(() => document.getElementById("overlay").style.display = "none");
 }
-const GET_CITY = gql`
-    query GetCity($name: String){
-        city(query: { Nickname: $name }){
-            lat
-            long
-            Nickname
-        }
-    }
-`;
+// const GET_CITY = gql`
+//     query GetCity($name: String){
+//         city(query: { Nickname: $name }){
+//             lat
+//             long
+//             Nickname
+//         }
+//     }
+// `;
 
 function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}) {
     // const classes = useStyles();
@@ -348,9 +348,9 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     }
 
     //DATABASE
-    const { loading, error, data } = useQuery(GET_CITY, {
-        variables: { name: city }
-    });
+    // const { loading, error, data } = useQuery(GET_CITY, {
+    //     variables: { name: city }
+    // });
     const neighborhoodList = [
         {neighborhood: 'SYLVAN PARK', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890},  location: 'K4'},
         {neighborhood: 'THE GULCH', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'K5'},
@@ -484,7 +484,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 </div>
 
             <div className='map'>
-                <Map markers={markers} lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}/>
+                <Map markers={markers} /*lat={data && data.city &&  data.city.lat} long={data && data.city && data.city.long}*//>
             </div>
 
             <div className='gamecard-section '>
