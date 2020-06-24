@@ -24,45 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 //todo delete below
 
-// //calculates increments of spots on grid by longitutde/latitude
-// var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
-// var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
-// var incrementLong = diamLong / 14;
-// var incrementLat = diamLat / 14;
-//
-// //left-most position
-// var leftLong = centerLong - (diamLong / 2);
-// var movingLong = leftLong;
-//
-// //top-most position on grid
-// var topLat = centerLat - (diamLat / 2);
-//
-//
-// //creates 2-dimensional array of Circle objects
-// //0-based indexing
-// //top and left-most spot is arr[0][0]
-// //bottom and right-most spot is arr[14][14]
-//
-//
-//       var arr = [];
-//       for (var i = 0; i < 15; ++i){
-//             arr[i]=[];
-//             for (var j = 0; j < 15; ++j){
-//               arr[i].push(<Circle center={{lat: topLat, lng: movingLong}}
-//                             radius = {12}
-//                             color="black"
-//                             fillOpacity="0.5"
-//                             opacity="0.5"
-//                             interactive="true"/>);
-//               movingLong = movingLong + incrementLong;
-//             }
-//             topLat = topLat + incrementLat;
-//             movingLong = leftLong;
-//       }
-
-
-
-
 
 function Map (props) {
     const [markers, setMarkers] = React.useState([]);
