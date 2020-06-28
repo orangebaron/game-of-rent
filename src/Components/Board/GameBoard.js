@@ -230,9 +230,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 //top-most position on grid
     var topLat = centerLat - (diamLat / 2);
 
-    function prevCharacter(c) { 
-        return String.fromCharCode(c.charCodeAt(0) - 1); 
-    } 
+  
 
 
     const handleNeighborhoodChoice = (response) => {
@@ -242,24 +240,24 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 break;
             case 'yes':
                 playerList[playerTurn].housing = housing;
-
+                console.log(housing);
                 //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it - 
                 //the code right now is as if the object housing = 'K4'
-                var letter = housing.charCodeAt(0);
-                var number = housing.charCodeAt(1);
+                var letter = housing.location.toString().charAt(0);
+                var number = housing.location.toString().charAt(1);
 
 
 
                 //determine latitude based on letter (C,K,etc.)
                 while (letter != 'A'){
-                    letter = prevCharacter(letter);
+                    letter = String.fromCharCode(letter.charCodeAt(0) - 1);
                     topLat += incrementLat;
                 }
                 //topLat now at appropriate lat
 
                 //determine longitutde based on number
                 while (number != '1'){
-                    number = prevCharacter(number);
+                    number = String.fromCharCode(number.charCodeAt(0) - 1);
                     movingLong += incrementLong;
                 }
 
