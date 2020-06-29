@@ -19,9 +19,11 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { useDispatch } from 'react-redux'
 import { useHistory } from "react-router"
 import { updatePlayer, removeJob, addFamily } from '../../actions/index'; //todo delete
+import { fillJobs, fillNeighborhoods } from '../../actions/index'
 import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks";
 import PlayerIcon from '../PlayerIcon/PlayerIcon'
+import {updateCityAndCount} from '../../actions'
 
 
 
@@ -39,14 +41,45 @@ const GET_CITY = gql`
             lat
             long
             Nickname
+            State
+            jobs {
+                title
+                income
+            }
+            housing {
+                neighborhood
+                rent1
+                rent2
+                rent3
+                rent4
+                location
+            }
         }
     }
 `;
 
-function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}) {
-    // const classes = useStyles();
+function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList, neighborhoodList}) {
+    // HOOKS
     const dispatch = useDispatch(); //todo delete
     const history = useHistory();
+
+    //DATABASE
+    const { loading, error, data } = useQuery(GET_CITY, {
+        variables: { name: city }
+    });
+
+    console.log(data);
+    if(!loading){
+        if(data.city){
+            // for(let job in data.city.jobs){
+            //     job.income = Number(job.income.replace(/[^0-9.-]+/g,""));
+            // }
+            // todo add in a way to change the income string to a int
+            // dispatch(fillJobs({jobs: data.city.jobs}));
+            // dispatch(fillNeighborhoods({neighborhoods: data.city.housing})); todo uncomment this when fix neighborhoods
+        }
+    }
+
 
     // LOCAL STATE
     const [playerTurn, setPlayerTurn] = React.useState(0); // player 1's turn is presented by a 0
@@ -54,13 +87,14 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const [lifeCount, setLifeCount] = React.useState(1);
     const [instructionLocation, setInstructionLocation] = React.useState(0);
     const [playerPopupLocation, setPlayerPopupLocation] = React.useState();
+    const [markers, setMarkers] = React.useState([]);
+    const [housing, setHousing] = React.useState('') //todo find a better way to do this is sloppy
 
     const [showPlayerPopup, setShowPlayerPopup] = React.useState(false)
     const [showInstBox, setShowInstBox] = React.useState(true);
     const [showMathBox, setShowMathBox] = React.useState(false);
     const [showGameBox, setShowGameBox] = React.useState(false);
     const [showNeighborhoodChoice, setShowNeighborhoodChoice] = React.useState(false);
-    const [housing, setHousing] = React.useState('') //todo find a better way to do this is sloppy
 
 
     const centerLat = 36.1627;
@@ -122,13 +156,13 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         ''
     ];
     const GameLoopInstructionText = [
-        'Draw a Neighborhood card to look for a location that suits you and your family!'
+        'Draw a Neighborhood card to look for a location that suits you and your family!',
+        //todo add more types of text
     ]
 
     //CARD FLIPPING
     const xFunction = () => flippingCardRef.current.goFromCenter(() => document.getElementById("overlay").style.display = "none");
     const flippingCardRef = React.createRef();
-
 
     //GAMEPLAY HANDLERS
     const handleDiceRoll = (num) => {
@@ -264,11 +298,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 break;
         }
     }
-
-    const closeMathBox = () => {
-        setShowMathBox(false);
-        nextPlayerSetup();
-    }
     const nextPlayerSetup = () => {
         if(playerTurn === playerList.length - 1){
             setPlayerTurn(0);
@@ -282,15 +311,38 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             setLifeCount(1);
         }
     }
-    const togglePlayerPopup = (playerIndex) => {
-        if(!showPlayerPopup){
-            document.getElementById("overlay").style.display = "block";
-            setPlayerPopupLocation(playerIndex);
-            setShowPlayerPopup(true);
+    const nextPlayerGame = () => {
+        if(playerTurn === playerList.length - 1){
+            setPlayerTurn(0);
+            console.log('looping over!');
         } else {
-            document.getElementById("overlay").style.display = "none";
-            setShowPlayerPopup(false);
+            setPlayerTurn(playerTurn + 1);
         }
+
+        let done = true;
+        for(let x = 0; x < playerList.length; ++x) {
+            if(!playerList[x].housing) done = false;
+        }
+
+        if(done) {
+            history.push({
+                pathname: '/results'
+            })
+        } else {
+            let newTurn = playerTurn;
+            while(playerList[newTurn].housing){
+                newTurn++;
+                if(newTurn >= playerList.length) newTurn = 0;
+            }
+            setPlayerTurn(newTurn);
+        }
+
+    }
+    const addMarker = (location) => {
+        const newMarkers = markers
+        newMarkers.push(location)
+        setMarkers(newMarkers);
+        // [36.1627, -86.7816]
     }
 
     const calcInfo = () =>{
@@ -352,58 +404,22 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         }
     }
 
-
-    const nextPlayerGame = () => {
-        if(playerTurn === playerList.length - 1){
-            setPlayerTurn(0);
-            console.log('looping over!');
+    const closeMathBox = () => {
+        setShowMathBox(false);
+        nextPlayerSetup();
+    }
+    const togglePlayerPopup = (playerIndex) => {
+        if(!showPlayerPopup){
+            document.getElementById("overlay").style.display = "block";
+            setPlayerPopupLocation(playerIndex);
+            setShowPlayerPopup(true);
         } else {
-            setPlayerTurn(playerTurn + 1);
+            document.getElementById("overlay").style.display = "none";
+            setShowPlayerPopup(false);
         }
-
-        let done = true;
-        for(let x = 0; x < playerList.length; ++x) {
-            if(!playerList[x].housing) done = false;
-        }
-
-        if(done) {
-            history.push({
-                pathname: '/results'
-            })
-        } else {
-            let newTurn = playerTurn;
-            while(playerList[newTurn].housing){
-                newTurn++;
-                if(newTurn >= playerList.length) newTurn = 0;
-            }
-            setPlayerTurn(newTurn);
-        }
-
     }
 
-    //DATABASE
-    const { loading, error, data } = useQuery(GET_CITY, {
-        variables: { name: city }
-    });
-    const neighborhoodList = [
-        {neighborhood: 'SYLVAN PARK', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890},  location: 'K4'},
-        {neighborhood: 'THE GULCH', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'K5'},
-        {neighborhood: 'HERMITAGE', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'K6'},
-        {neighborhood: 'ANTIOCH', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'K3'},
-        {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 100}, location: 'K7'},
-        {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'K8'},
-        {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 100}, location: 'K1'},
-    ]
 
-
-    const [markers, setMarkers] = React.useState([]);
-    const addMarker = (location) => {
-
-        const newMarkers = markers
-        newMarkers.push(location)
-        setMarkers(newMarkers);
-        // [36.1627, -86.7816]
-    }
 
 
     return (
@@ -433,6 +449,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                         transitionAppear={true}
                         transitionAppearTimeout={5000}>
                         <div className='gamebox-background'>
+                            <h3>{playerList[playerTurn].playerName}</h3>
                             <p>{GameLoopInstructionText[0]}</p>
                         </div>
                     </ReactCSSTransitionGroup>
@@ -473,6 +490,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 transitionAppearTimeout={2500}>
                 <div className='calculator-panel' onClick={closeMathBox}>
                     <MathBox info={playerList[playerTurn].info}/>
+
                 </div>
             </ReactCSSTransitionGroup>
             }
@@ -539,7 +557,8 @@ const mapStateToProps= state => {
         city: state.city,
         jobList: state.jobs,
         householdList: state.household,
-        lifeList: state.life
+        lifeList: state.life,
+        neighborhoodList: state.neighborhoods
     }
 }
 

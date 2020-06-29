@@ -3,6 +3,9 @@ import {UPDATE_CITY_AND_PLAYER_COUNT} from '../actions/index';
 import {UPDATE_PLAYER} from '../actions/index';
 import {REMOVE_JOB} from '../actions/index';
 import {ADD_FAMILY} from '../actions/index';
+import {FILL_JOBS} from '../actions/index';
+import {FILL_NEIGHBORHOODS} from '../actions/index';
+
 
 const initialState = {
     players: [
@@ -20,7 +23,7 @@ const initialState = {
         },
     ],
     playerCount: 0,
-    city: '',
+    city: 'NASHVILLE', //todo get rid of this defualt for prod
     jobs: [
         {title: 'Social Worker', income: 2835},
         {title: 'Lawyer', income: 10810},
@@ -29,8 +32,16 @@ const initialState = {
         {title: 'Hotel Concierge', income: 2195},
         {title: 'Social Worker', income: 2835},
         {title: 'Lawyer', income: 10810},
-
         {title: 'Hotel Concierge', income: 2195},
+    ],
+    neighborhoods: [
+        {neighborhood: 'SYLVAN PARK', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890},  location: 'K4'},
+        {neighborhood: 'THE GULCH', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 1726}, location: 'K5'},
+        {neighborhood: 'HERMITAGE', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'K6'},
+        {neighborhood: 'ANTIOCH', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 2890}, location: 'K3'},
+        {neighborhood: 'EDGEHILL', rent1: {type: 'STUDIO', cost: 980}, rent2: {type: '1BR', cost: 1120}, rent3: {type: '2BR', cost: 1460}, rent4: {type: '3BR', cost: 100}, location: 'K7'},
+        {neighborhood: 'FIVE POINTS', rent1: {type: 'STUDIO', cost: 1402}, rent2: {type: '1BR', cost: 1476}, rent3: {type: '2BR', cost: 1726}, location: 'K8'},
+        {neighborhood: 'GREEN HILLS', rent1: {type: '2BR', cost: 1995}, rent2: {type: '3BR', cost: 100}, location: 'K1'},
     ],
     household: [
         {title: 'Adult, Employed full-time', adult: true, description: 'Draw one occupation card', wage: 'draw' },
@@ -120,6 +131,16 @@ function rootReducer(state = initialState, action) {
          case ADD_FAMILY:
             return Object.assign({}, state, {
                 players: state.players.map((player, index) => index === action.payload.playerId ? {...player, family: player.family.concat(action.payload.member)} : player)
+            });
+            break;
+        case FILL_JOBS:
+            return Object.assign({}, state, {
+                jobs: (action.payload.jobs)
+            });
+            break;
+        case FILL_NEIGHBORHOODS:
+            return Object.assign({}, state, {
+                neighborhoods: (action.payload.neighborhoods)
             });
             break;
     }

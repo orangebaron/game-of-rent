@@ -24,14 +24,8 @@ function MathBox (props) {
                     <p>Total Household Monthly Income: ${props.info.householdMonthlyIncome}</p>
                     <p>Monthly Housing Allowance: ${props.info.monthlyHousingAllowance}</p>
                     <p>Minimum Number of Bedrooms: {props.info.minimumNumBedrooms}</p>
+                    <p>(click to close)</p>
                 </div>
-
-                {/*<h1>Scoring</h1>*/}
-                {/*<p>(Housing Allowance) - (Rent) / 100 =</p>*/}
-                {/*<p>Subtract Neighborhood Cards</p>*/}
-                {/*<p>Subtract Commute Distance </p>*/}
-                {/*<p>Total Score:</p>*/}
-
             </div>
         </div>
     );
