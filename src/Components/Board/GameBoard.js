@@ -230,7 +230,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
 //top-most position on grid
     var topLat = centerLat - (diamLat / 2);
 
-  
+
 
 
     const handleNeighborhoodChoice = (response) => {
@@ -241,10 +241,11 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             case 'yes':
                 playerList[playerTurn].housing = housing;
                 console.log(housing);
-                //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it - 
+                //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it -
                 //the code right now is as if the object housing = 'K4'
                 var letter = housing.location.toString().charAt(0);
                 var number = housing.location.toString().charAt(1);
+
 
 
 
@@ -262,7 +263,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 }
 
 
-                
+
 
                 const location ={
                     position: [topLat, movingLong],
