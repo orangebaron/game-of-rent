@@ -270,6 +270,28 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             setShowMathBox(true);
         }
     }
+<<<<<<< HEAD
+=======
+
+
+    const centerLat = 36.1627;
+    const centerLong = -86.7816;
+
+    //used to determine position
+    var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
+    var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
+    var incrementLong = diamLong / 14;
+    var incrementLat = diamLat / 14;
+
+//left-most position
+    var leftLong = centerLong - (diamLong / 2);
+    var topLat = centerLat - (diamLat / 2);
+
+
+  
+
+
+>>>>>>> fixing logical error with location on gameboard
     const handleNeighborhoodChoice = (response) => {
         switch(response) {
             case 'no':
@@ -277,8 +299,18 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                 break;
             case 'yes':
                 playerList[playerTurn].housing = housing;
+<<<<<<< HEAD
 
                 //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it -
+=======
+                console.log(housing);
+
+
+                var movingLong = leftLong;
+                var movingLat = topLat;
+                //top-most position on grid
+                //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it - 
+>>>>>>> fixing logical error with location on gameboard
                 //the code right now is as if the object housing = 'K4'
                 var letter = housing.location.toString().charAt(0);
                 var number = housing.location.toString().charAt(1);
@@ -286,7 +318,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                 //determine latitude based on letter (C,K,etc.)
                 while (letter != 'A'){
                     letter = String.fromCharCode(letter.charCodeAt(0) - 1);
-                    topLat += incrementLat;
+                    movingLat += incrementLat;
                 }
                 //topLat now at appropriate lat
 
@@ -297,7 +329,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                 }
 
                 const location ={
-                    position: [topLat, movingLong],
+                    position: [movingLat, movingLong],
                     description: `${playerList[playerTurn].playerName}'s residence`
                 }
                 addMarker(location)
