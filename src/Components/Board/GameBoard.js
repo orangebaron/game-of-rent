@@ -41,19 +41,30 @@ const GET_CITY = gql`
             lat
             long
             Nickname
-            State
             jobs {
                 title
                 income
             }
-            housing {
+            neighborhoods {
                 neighborhood
-                rent1
-                rent2
-                rent3
-                rent4
                 location
-            }
+                rent1 {
+                   type
+                   cost
+               }
+               rent2 {
+                   type
+                   cost
+               }
+               rent3 {
+                   type
+                   cost
+               }
+               rent4 {
+                   type
+                   cost
+               }
+           }
         }
     }
 `;
@@ -71,12 +82,8 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
     console.log(data);
     if(!loading){
         if(data.city){
-            // for(let job in data.city.jobs){
-            //     job.income = Number(job.income.replace(/[^0-9.-]+/g,""));
-            // }
-            // todo add in a way to change the income string to a int
-            // dispatch(fillJobs({jobs: data.city.jobs}));
-            // dispatch(fillNeighborhoods({neighborhoods: data.city.housing})); todo uncomment this when fix neighborhoods
+            dispatch(fillJobs({jobs: data.city.jobs}));
+            dispatch(fillNeighborhoods({neighborhoods: data.city.neighborhoods}));
         }
     }
 
@@ -325,11 +332,12 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
         }
 
         if(done) {
-            history.push({
-                pathname: '/results'
-            })
+            // history.push({
+            //     pathname: '/results'
+            // })
         } else {
-            let newTurn = playerTurn;
+            let newTurn = playerTurn + 1;
+            if(newTurn >= playerList.length) newTurn = 0;
             while(playerList[newTurn].housing){
                 newTurn++;
                 if(newTurn >= playerList.length) newTurn = 0;
@@ -379,7 +387,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
         let res = false;
 
         for(let [key, value] of Object.entries(neighborhood)){
-            if(key !== 'neighborhood' && key !== 'location'){
+            if(key !== 'neighborhood' && key !== 'location' && value){
                 const numRooms = convertTypeHousing(value.type);
                 if(numRooms >= minNumBed && value.cost <=  monthlyHousingAllowance) {
                     res = true;
