@@ -46,6 +46,7 @@ const GET_CITY = gql`
 function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}) {
     // const classes = useStyles();
     const dispatch = useDispatch(); //todo delete
+    const history = useHistory();
 
     // LOCAL STATE
     const [playerTurn, setPlayerTurn] = React.useState(0); // player 1's turn is presented by a 0
@@ -60,6 +61,23 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
     const [showGameBox, setShowGameBox] = React.useState(false);
     const [showNeighborhoodChoice, setShowNeighborhoodChoice] = React.useState(false);
     const [housing, setHousing] = React.useState('') //todo find a better way to do this is sloppy
+
+
+    const centerLat = 36.1627;
+    const centerLong = -86.7816;
+
+    //used to determine position
+    var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
+    var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
+    var incrementLong = diamLong / 14;
+    var incrementLat = diamLat / 14;
+
+    //left-most position
+    var leftLong = centerLong - (diamLong / 2);
+    var movingLong = leftLong;
+
+    //top-most position on grid
+    var topLat = centerLat - (diamLat / 2);
 
     //INSTRUCTIONS
     const nextInstruction = (type) => {
@@ -200,7 +218,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                     if(livable(neighborhood)) setShowNeighborhoodChoice(true);
                     showCardFullscreen(flippingCardRef.current, "neighborhoodCardBack",   ["Neighborhood", neighborhood]);
 
-                    //todo might need to change players here
                 }
 
                 break;
@@ -212,27 +229,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
             setShowMathBox(true);
         }
     }
-
-
-    const centerLat = 36.1627;
-    const centerLong = -86.7816;
-
-    //used to determine position
-    var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
-    var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
-    var incrementLong = diamLong / 14;
-    var incrementLat = diamLat / 14;
-
-//left-most position
-    var leftLong = centerLong - (diamLong / 2);
-    var movingLong = leftLong;
-
-//top-most position on grid
-    var topLat = centerLat - (diamLat / 2);
-
-
-
-
     const handleNeighborhoodChoice = (response) => {
         switch(response) {
             case 'no':
@@ -240,14 +236,11 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                 break;
             case 'yes':
                 playerList[playerTurn].housing = housing;
-                console.log(housing);
+
                 //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it -
                 //the code right now is as if the object housing = 'K4'
                 var letter = housing.location.toString().charAt(0);
                 var number = housing.location.toString().charAt(1);
-
-
-
 
                 //determine latitude based on letter (C,K,etc.)
                 while (letter != 'A'){
@@ -261,9 +254,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
                     number = String.fromCharCode(number.charCodeAt(0) - 1);
                     movingLong += incrementLong;
                 }
-
-
-
 
                 const location ={
                     position: [topLat, movingLong],
@@ -362,7 +352,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         }
     }
 
-    const history = useHistory();
+
     const nextPlayerGame = () => {
         if(playerTurn === playerList.length - 1){
             setPlayerTurn(0);
@@ -377,7 +367,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList}
         }
 
         if(done) {
-            alert('game is done');
             history.push({
                 pathname: '/results'
             })
