@@ -33,7 +33,7 @@ function showCardFullscreen(ref, cardId, cardProps) {
     ref.startForRightCard(document.getElementById(cardId), cardProps);
 }
 function closeFullscreenCard(ref) {
-    ref.goFromCenter(() => document.getElementById("overlay").style.display = "none");
+    ref.goFromCenter(() => document.getElementById("overlay").style.display = "none"); //todo delete
 }
 const GET_CITY = gql`
     query GetCity($name: String){
@@ -78,8 +78,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
     const { loading, error, data } = useQuery(GET_CITY, {
         variables: { name: city }
     });
-
-    console.log(data);
     if(!loading){
         if(data.city){
             dispatch(fillJobs({jobs: data.city.jobs}));
@@ -108,17 +106,17 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
     const centerLong = -86.7816;
 
     //used to determine position
-    var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
-    var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
-    var incrementLong = diamLong / 14;
-    var incrementLat = diamLat / 14;
+    let diamLong = 0.1713 //calculated by hand right now – should always be same if resolution/zoom doesn't change
+    let diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
+    let incrementLong = diamLong / 14;
+    let incrementLat = diamLat / 14;
 
     //left-most position
-    var leftLong = centerLong - (diamLong / 2);
-    var movingLong = leftLong;
+    let leftLong = centerLong - (diamLong / 2);
+    // var movingLong = leftLong;
 
     //top-most position on grid
-    var topLat = centerLat - (diamLat / 2);
+    let topLat = centerLat - (diamLat / 2);
 
     //INSTRUCTIONS
     const nextInstruction = (type) => {
@@ -145,10 +143,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             default:
                 setInstructionLocation(instructionLocation + 1);
         }
-
-
-        //todo can make next instruction have an optional parameter, and switch case to determine what message is output
-
     }
     const InstructionText = [
         `Welcome to the Game of Rent! You will now take on the role of a person in ${city} searching for affordable housing. It is your job to find the best housing for you and your family considering all your circumstances. Let's find out more about your character; click on the yellow card to discover your occupation!`,
@@ -164,6 +158,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
     ];
     const GameLoopInstructionText = [
         'Draw a Neighborhood card to look for a location that suits you and your family!',
+        'All players have successfully found housing! Please click here to proceed to the result page and calculate scores.'
         //todo add more types of text
     ]
 
@@ -232,7 +227,6 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             case 'life':
                 if(instructionLocation === 5 || instructionLocation === 6 || instructionLocation === 7){
                     setLifeCount(lifeCount - 1);
-                    // todo also need ot increase draw count
 
                     const index = Math.floor(Math.random() * lifeList.length)
                     const life = lifeList.splice(index, 1)[0];
@@ -251,6 +245,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             case 'neighborhood':
                 if(instructionLocation === 9){
                     setShowNeighborhoodChoice(false);
+                    playerList[playerTurn].numCards++; // todo also need ot increase draw count
 
                     let index = Math.floor(Math.random() * neighborhoodList.length)
                     const neighborhood = neighborhoodList.splice(index, 1)[0];
@@ -270,28 +265,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             setShowMathBox(true);
         }
     }
-<<<<<<< HEAD
-=======
 
-
-    const centerLat = 36.1627;
-    const centerLong = -86.7816;
-
-    //used to determine position
-    var diamLong = 0.1713; //calculated by hand right now – should always be same if resolution/zoom doesn't change
-    var diamLat = -0.1077;//calculated by hand right now – should always be same if resolution/zoom doesn't change
-    var incrementLong = diamLong / 14;
-    var incrementLat = diamLat / 14;
-
-//left-most position
-    var leftLong = centerLong - (diamLong / 2);
-    var topLat = centerLat - (diamLat / 2);
-
-
-  
-
-
->>>>>>> fixing logical error with location on gameboard
     const handleNeighborhoodChoice = (response) => {
         switch(response) {
             case 'no':
@@ -299,31 +273,27 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                 break;
             case 'yes':
                 playerList[playerTurn].housing = housing;
-<<<<<<< HEAD
 
-                //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it -
-=======
                 console.log(housing);
 
-
-                var movingLong = leftLong;
-                var movingLat = topLat;
+                let movingLong = leftLong;
+                let movingLat = topLat;
                 //top-most position on grid
-                //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it - 
->>>>>>> fixing logical error with location on gameboard
+                //assuming housing itself is a string w/ 'K4' (wasn't sure if it was housing or a field within it -
+
                 //the code right now is as if the object housing = 'K4'
-                var letter = housing.location.toString().charAt(0);
-                var number = housing.location.toString().charAt(1);
+                let letter = housing.location.toString().charAt(0);
+                let number = housing.location.toString().charAt(1);
 
                 //determine latitude based on letter (C,K,etc.)
-                while (letter != 'A'){
+                while (letter !== 'A'){
                     letter = String.fromCharCode(letter.charCodeAt(0) - 1);
                     movingLat += incrementLat;
                 }
                 //topLat now at appropriate lat
 
                 //determine longitutde based on number
-                while (number != '1'){
+                while (number !== '1'){
                     number = String.fromCharCode(number.charCodeAt(0) - 1);
                     movingLong += incrementLong;
                 }
@@ -332,6 +302,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                     position: [movingLat, movingLong],
                     description: `${playerList[playerTurn].playerName}'s residence`
                 }
+
                 addMarker(location)
                 nextPlayerGame();
                 break;
@@ -453,6 +424,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             document.getElementById("overlay").style.display = "block";
             setPlayerPopupLocation(playerIndex);
             setShowPlayerPopup(true);
+            setShowNeighborhoodChoice(false); //todo this might not be correct
         } else {
             document.getElementById("overlay").style.display = "none";
             setShowPlayerPopup(false);
@@ -582,10 +554,10 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             </div>
 
             <div className='gamecard-section '>
-                <img style={{ height: '20vh'}} id="occupationCardBack"   src={OccupationCardBack}  className="card" alt="OccupationCardBack" onClick={() => handleCardDraw('occupation')} />
-                <img style={{ height: '20vh'}} id="householdCardBack"   src={HouseholdCardBack}  className="card" alt="HouseholdCardBack" onClick={() =>  handleCardDraw('household')} />
-                <img style={{ height: '20vh'}} id="lifeCardBack"  src={LifeCardBack}  className="card" alt="LifeCardBack" onClick={() => handleCardDraw('life')} />
-                <img style={{ height: '20vh'}} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => handleCardDraw('neighborhood')} />
+                <img style={{ height: '20vh', borderRadius: '10px' }} id="occupationCardBack"   src={OccupationCardBack}  className="card" alt="OccupationCardBack" onClick={() => handleCardDraw('occupation')} />
+                <img style={{ height: '20vh', borderRadius: '10px' }} id="householdCardBack"   src={HouseholdCardBack}  className="card" alt="HouseholdCardBack" onClick={() =>  handleCardDraw('household')} />
+                <img style={{ height: '20vh', borderRadius: '10px' }} id="lifeCardBack"  src={LifeCardBack}  className="card" alt="LifeCardBack" onClick={() => handleCardDraw('life')} />
+                <img style={{ height: '20vh', borderRadius: '10px' }} id="neighborhoodCardBack" src={NeighborhoodCardBack} className="card" alt="NeighborhoodCardBack" onClick={() => handleCardDraw('neighborhood')} />
             </div>
         </div>
     );

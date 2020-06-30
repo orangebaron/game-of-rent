@@ -15,12 +15,12 @@ const initialState = {
             family: [],
             life: [],
         },
-        {
-            playerName: 'Test 2',
-            avatar: 3,
-            family: [],
-            life: [],
-        },
+//         {
+//             playerName: 'Test 2',
+//             avatar: 3,
+//             family: [],
+//             life: [],
+//         },
     ],
     playerCount: 0,
     city: 'NASHVILLE', //todo get rid of this defualt for prod

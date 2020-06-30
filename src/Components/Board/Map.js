@@ -93,9 +93,9 @@ function Map (props) {
         <div className='leaflet-container'>
           <LeafletMap
               center={[centerLat, centerLong]}
-              zoom={13}
-              minZoom={13}
-              maxZoom={13}
+              zoom={12}
+              minZoom={12}
+              maxZoom={12}
               attributionControl={true}
               zoomControl={false}
               doubleClickZoom={false}
