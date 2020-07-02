@@ -14,6 +14,7 @@ const initialState = {
             avatar: 0,
             family: [],
             life: [],
+            numCards: 0
         },
 //         {
 //             playerName: 'Test 2',

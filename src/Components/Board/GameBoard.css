@@ -15,7 +15,7 @@
     box-shadow: 1px 0 25px #282828 ;
     z-index: 1;
     /*background-color: #4cace9;*/
-    background-color: gray;
+    background-color: rgba(45,45,45, .9);
     background-image: url('./img/black-paper.png');
 }
 
@@ -29,7 +29,7 @@
     height: 100vh;
     box-shadow: -1px 0 25px #282828 ;
     z-index: 1;
-    background-color: gray;
+    background-color: rgba(45,45,45, .9);
     background-image: url('./img/black-paper.png');
 }
 
@@ -182,6 +182,7 @@
     padding: 20px;
     flex-direction: column;
     font-size: 1.5vh;
+    overflow: scroll;
 }
 
 .choice-section {
@@ -229,3 +230,5 @@
     width: 100vw;
     height: 100vh;
 }
+
+

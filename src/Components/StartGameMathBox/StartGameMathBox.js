@@ -1,7 +1,7 @@
 import React from 'react';
 
 const sumList = l => l.reduce((a, b) => a+b, 0)
-const makePricesIntoString = l => " " + (l.map(a => "$" + a).join(" + ") || "$0")
+
 
 class StartGameMathBox extends React.Component {
   constructor(props) {

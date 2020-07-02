@@ -18,15 +18,12 @@ import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { useDispatch } from 'react-redux'
 import { useHistory } from "react-router"
-import { updatePlayer, removeJob, addFamily } from '../../actions/index'; //todo delete
+import {Link} from 'react-router-dom'
 import { fillJobs, fillNeighborhoods } from '../../actions/index'
 import gql from "graphql-tag"
 import { useQuery } from "@apollo/react-hooks";
 import PlayerIcon from '../PlayerIcon/PlayerIcon'
 import {updateCityAndCount} from '../../actions'
-
-
-
 
 function showCardFullscreen(ref, cardId, cardProps) {
     document.getElementById("overlay").style.display = "block"; // TODO getting by id is probably bad
@@ -41,6 +38,13 @@ const GET_CITY = gql`
             lat
             long
             Nickname
+            FMR {
+                STUDIO
+                ONE
+                TWO
+                THREE
+                FOUR
+            }
             jobs {
                 title
                 income
@@ -69,6 +73,14 @@ const GET_CITY = gql`
     }
 `;
 
+const buttonStyle = {
+    color: '#ffffff',
+    fontWeight: 700,
+    border: '2px solid #ffffff',
+    margin: 0,
+    height: '1vh',
+}
+
 function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList, neighborhoodList}) {
     // HOOKS
     const dispatch = useDispatch(); //todo delete
@@ -84,13 +96,16 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
             dispatch(fillNeighborhoods({neighborhoods: data.city.neighborhoods}));
         }
     }
+    // console.log(data)
 
+    const makePricesIntoString = l => " " + (l.map(a => "$" + a).join(" + ") || "$0") //todo this might be useful
 
     // LOCAL STATE
     const [playerTurn, setPlayerTurn] = React.useState(0); // player 1's turn is presented by a 0
     const [diceRoll, setDiceRoll] = React.useState(0);
     const [lifeCount, setLifeCount] = React.useState(1);
-    const [instructionLocation, setInstructionLocation] = React.useState(0);
+    const [instructionStep, setInstructionStep] = React.useState(0);
+    const [gameInstructionStep, setGameInstructionStep] = React.useState(0)
     const [playerPopupLocation, setPlayerPopupLocation] = React.useState();
     const [markers, setMarkers] = React.useState([]);
     const [housing, setHousing] = React.useState('') //todo find a better way to do this is sloppy
@@ -122,26 +137,26 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
     const nextInstruction = (type) => {
         switch (type) {
             case 'solo':
-                setInstructionLocation(6);
+                setInstructionStep(6);
                 break;
             case 'working':
-                setInstructionLocation(4)
+                setInstructionStep(4)
                 break;
             case 'familyDone':
-                setInstructionLocation(5)
+                setInstructionStep(5)
                 break;
             case 'family':
-                setInstructionLocation(3)
+                setInstructionStep(3)
                 break;
             case 'life':
-                setInstructionLocation(7)
+                setInstructionStep(7)
                 break;
             case 'done':
-                setInstructionLocation(8)
+                setInstructionStep(8)
                 calcInfo();
                 break;
             default:
-                setInstructionLocation(instructionLocation + 1);
+                setInstructionStep(instructionStep + 1);
         }
     }
     const InstructionText = [
@@ -168,7 +183,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
 
     //GAMEPLAY HANDLERS
     const handleDiceRoll = (num) => {
-        if(instructionLocation === 1){
+        if(instructionStep === 1){
             setDiceRoll(num - 1);
             if(num === 1){
                 nextInstruction('solo')
@@ -181,14 +196,14 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
         switch (type) {
             case 'occupation':
                 const index = Math.floor(Math.random() * jobList.length)
-                if(instructionLocation === 0) {
+                if(instructionStep === 0) {
 
                     const job = jobList.splice(index, 1)[0];
                     showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job]);
                     nextInstruction();
                     playerList[playerTurn].job = job;
 
-                } else if( instructionLocation === 4) {
+                } else if( instructionStep === 4) {
 
                     const job = jobList.splice(index, 1)[0];
                     showCardFullscreen(flippingCardRef.current, "occupationCardBack",   ["Occupation", job]);
@@ -204,7 +219,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
 
                 break;
             case 'household':
-                if(instructionLocation === 2 || instructionLocation === 3){
+                if(instructionStep === 2 || instructionStep === 3){
                     setDiceRoll(diceRoll - 1);
 
                     const index = Math.floor(Math.random() * householdList.length)
@@ -225,7 +240,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
 
                 break;
             case 'life':
-                if(instructionLocation === 5 || instructionLocation === 6 || instructionLocation === 7){
+                if(instructionStep === 5 || instructionStep === 6 || instructionStep === 7){
                     setLifeCount(lifeCount - 1);
 
                     const index = Math.floor(Math.random() * lifeList.length)
@@ -243,7 +258,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
 
                 break;
             case 'neighborhood':
-                if(instructionLocation === 9){
+                if(instructionStep === 9){
                     setShowNeighborhoodChoice(false);
                     playerList[playerTurn].numCards++; // todo also need ot increase draw count
 
@@ -260,7 +275,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
         }
     }
     const handleCalculatorButton = () => {
-        if(instructionLocation === 8){
+        if(instructionStep === 8){
             setShowInstBox(false)
             setShowMathBox(true);
         }
@@ -311,10 +326,10 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
     const nextPlayerSetup = () => {
         if(playerTurn === playerList.length - 1){
             setPlayerTurn(0);
-            setInstructionLocation(9)
+            setInstructionStep(9)
             setShowGameBox(true);
         } else {
-            setInstructionLocation(0)
+            setInstructionStep(0)
             setShowInstBox(true);
             setPlayerTurn(playerTurn + 1);
             setDiceRoll(null);
@@ -335,6 +350,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
         }
 
         if(done) {
+            setGameInstructionStep(gameInstructionStep + 1);
             // history.push({
             //     pathname: '/results'
             // })
@@ -376,12 +392,15 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
 
         //todo add life cards into effect
 
+        const annualIncome = householdMonthlyIncome * 12;
+        const incomeBracket = playerList[playerTurn].family.length
         let minimumNumBedrooms = Math.ceil(adultCount/2) + Math.ceil(kidCount/3)
 
         playerList[playerTurn].info = {
             householdMonthlyIncome: householdMonthlyIncome,
             monthlyHousingAllowance: householdMonthlyIncome * .3,
-            minimumNumBedrooms: minimumNumBedrooms
+            minimumNumBedrooms: minimumNumBedrooms,
+            housingAssistance: (annualIncome < sampleIncomeLimit[incomeBracket])
         }
     }
     const livable = (neighborhood) => {
@@ -431,7 +450,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
         }
     }
 
-
+    const sampleIncomeLimit = [31500, 36000, 41560, 50200, 58840, 67480]
 
 
     return (
@@ -446,7 +465,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                         <div className='instruction-section'>
                             <h3>{playerList[playerTurn].playerName}</h3>
                             <div>
-                                <p>{InstructionText[instructionLocation]}</p>
+                                <p>{InstructionText[instructionStep]}</p>
                             </div>
                         </div>
                     </ReactCSSTransitionGroup>
@@ -455,18 +474,23 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
 
             {showGameBox &&
                 <div>
-                    {/*//todo add transition here*/}
                     <ReactCSSTransitionGroup
                         transitionName='fade'
                         transitionAppear={true}
                         transitionAppearTimeout={5000}>
                         <div className='gamebox-background'>
                             <h3>{playerList[playerTurn].playerName}</h3>
-                            <p>{GameLoopInstructionText[0]}</p>
+                            <p>{GameLoopInstructionText[gameInstructionStep]}</p>
+                            {(gameInstructionStep === 1) &&
+                                <Link to='/results'>
+                                    <Button variant='outlined' style={buttonStyle} >Next</Button>
+                                </Link>
+                            }
                         </div>
                     </ReactCSSTransitionGroup>
                 </div>
             }
+
 
             {showPlayerPopup &&
             <ReactCSSTransitionGroup
@@ -513,12 +537,12 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                 transitionAppearTimeout={2500}>
             {/*todo need to eventually move this styling out of here*/}
             <div id="overlay" style={{height:"100%", width:"100%", backgroundColor:"rgba(0,0,0, 0.7)", zIndex:2, position:"fixed", display:"none"}}>
-                {(!showPlayerPopup && (instructionLocation !== 9)) &&
+                {(!showPlayerPopup && (instructionStep !== 9)) &&
                     <p onClick={xFunction} style={{position:"fixed",left:"80%",color:"white",fontWeight:"bold",cursor:"pointer",fontSize:40}}>X</p>
                 }
                 <FlippingCard ref={flippingCardRef} startSize={[0, 0]} startXY={[0, 0]} />
 
-                {(instructionLocation === 9 && showNeighborhoodChoice) &&
+                {(instructionStep === 9 && showNeighborhoodChoice) &&
                     <div className='choice'>
                         {/*// todo maybe add player name here*/}
                         <h2>This location meets the requirements for your family and is within your monthly housing allowance. Would you like to live here?</h2>
@@ -529,7 +553,7 @@ function ConnectedGameBoard({playerList, city, jobList, householdList, lifeList,
                     </div>
                 }
 
-                {(instructionLocation === 9 && !showNeighborhoodChoice) &&
+                {(instructionStep === 9 && !showNeighborhoodChoice) &&
                     <div className='choice'>
                         <h2 style={{color:'white', textAlign: 'center'}}>This location does not meet the requirements for your family.</h2>
                         <div className='choice-section'>

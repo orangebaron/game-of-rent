@@ -26,7 +26,7 @@ const authorizationHeaderLink = setContext(async (_, { headers }) => {
   }
 
   const { accessToken } = app.currentUser;
-  console.log("currentUser", accessToken, app.currentUser);
+//   console.log("currentUser", accessToken, app.currentUser);
 
   // Set the Authorization header, preserving any other headers
   return {

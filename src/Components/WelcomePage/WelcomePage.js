@@ -66,9 +66,7 @@ function WelcomePage() {
 
                 <Link to='/setup'
                 style={{textDecoration: 'none'}}>
-                  <Button variant="outlined" style={buttonStyle}
-                  // classes={{outlined: classes.button}}
-                   >
+                  <Button variant="outlined" style={buttonStyle}>
                     Start
                   </Button>
                 </Link>
